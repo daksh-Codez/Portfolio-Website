@@ -1,138 +1,153 @@
 import React from 'react';
 import { focusItems } from '../../data/education';
+import { Sparkles, ArrowRight } from 'lucide-react';
 
 export const CurrentFocus: React.FC = () => {
   return (
     <section
       id="focus"
       style={{
-        paddingTop: 'clamp(72px, 12vh, 140px)',
-        paddingBottom: 'clamp(72px, 12vh, 140px)',
+        paddingTop: 'clamp(80px, 12vw, 150px)',
+        paddingBottom: 'clamp(80px, 12vw, 150px)',
         position: 'relative',
         zIndex: 2,
+        backgroundColor: 'rgba(24, 24, 32, 0.45)',
       }}
     >
-      <div className="page-container">
-        {/* Section Header */}
-        <div className="editorial-section-header">
-          <span>05 / TRAJECTORY</span>
-          <span style={{ color: 'var(--text-muted)' }}>&mdash; CURRENT PURSUITS</span>
-        </div>
+      <div className="editorial-container">
+        {/* Section Label */}
+        <div className="section-label">05 / TRAJECTORY</div>
 
         <div
           style={{
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
-            alignItems: 'baseline',
+            alignItems: 'flex-end',
             gap: '24px',
             marginBottom: 'clamp(40px, 6vw, 64px)',
           }}
         >
-          <h2
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2.4rem, 4.5vw, 4rem)',
-              fontWeight: 400,
-              lineHeight: '1.1',
-              letterSpacing: '-0.02em',
-              color: 'var(--text-primary)',
-              margin: 0,
-            }}
-          >
-            Currently{' '}
-            <span style={{ fontStyle: 'italic', color: 'var(--accent-ink)' }}>
-              exploring.
-            </span>
-          </h2>
-
-          <p
-            className="editorial-body"
-            style={{ maxWidth: '440px', fontSize: '0.92rem', margin: 0 }}
-          >
-            Active learning directions, algorithmic practice, and technical milestones currently shaping my development.
-          </p>
+          <div>
+            <h2 className="section-hero-heading">
+              Currently{' '}
+              <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--accent-violet-light)' }}>
+                exploring.
+              </span>
+            </h2>
+          </div>
+          <div style={{ maxWidth: '440px' }}>
+            <p className="body-editorial" style={{ fontSize: '0.94rem' }}>
+              An active commitment to continuous growth, algorithmic depth, real-world utility, and industry readiness.
+            </p>
+          </div>
         </div>
 
-        {/* Editorial Pursuits List */}
+        {/* Editorial Trajectory Grid */}
         <div
           style={{
-            borderTop: '1px solid var(--border-rule)',
-            display: 'flex',
-            flexDirection: 'column',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+            gap: '24px',
           }}
         >
           {focusItems.map((item) => (
             <div
               key={item.number}
               style={{
-                borderBottom: '1px solid var(--border-rule)',
-                paddingTop: '24px',
-                paddingBottom: '24px',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(12, 1fr)',
-                gap: '20px',
-                alignItems: 'baseline',
-                transition: 'background-color 0.2s ease',
+                padding: '32px',
+                backgroundColor: 'rgba(28, 28, 38, 0.72)',
+                border: '1px solid var(--border-hairline)',
+                borderRadius: '4px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                minHeight: '200px',
+                transition: 'all 0.3s var(--ease-editorial)',
+                position: 'relative',
               }}
-              className="focus-journal-row"
+              className="focus-card"
             >
-              {/* Number and Status */}
-              <div
-                style={{
-                  gridColumn: 'span 12',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                }}
-                className="focus-num-col"
-              >
-                <span
+              <div>
+                <div
                   style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.82rem',
-                    color: 'var(--accent-iris)',
-                    fontWeight: 600,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: '20px',
                   }}
                 >
-                  [{item.number}]
-                </span>
-                <span className="editorial-index-tag" style={{ color: 'var(--text-muted)' }}>
-                  {item.status}
-                </span>
-              </div>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.86rem',
+                      fontWeight: 700,
+                      color: 'var(--accent-violet-light)',
+                      letterSpacing: '0.04em',
+                    }}
+                  >
+                    FOCUS // {item.number}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.76rem',
+                      fontWeight: 600,
+                      letterSpacing: '0.04em',
+                      textTransform: 'uppercase',
+                      padding: '5px 12px',
+                      backgroundColor: 'rgba(155, 123, 238, 0.12)',
+                      color: 'var(--accent-violet-light)',
+                      border: '1px solid rgba(155, 123, 238, 0.28)',
+                      borderRadius: '12px',
+                    }}
+                  >
+                    {item.status}
+                  </span>
+                </div>
 
-              {/* Title */}
-              <div
-                style={{
-                  gridColumn: 'span 12',
-                }}
-                className="focus-title-col"
-              >
                 <h3
                   style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '1.1rem',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '1.2rem',
                     fontWeight: 600,
-                    color: 'var(--text-primary)',
-                    margin: 0,
                     letterSpacing: '-0.01em',
+                    color: 'var(--text-primary)',
+                    marginBottom: '12px',
+                    lineHeight: '1.3',
                   }}
                 >
                   {item.title}
                 </h3>
-              </div>
 
-              {/* Description */}
-              <div
-                style={{
-                  gridColumn: 'span 12',
-                }}
-                className="focus-desc-col"
-              >
-                <p className="editorial-body" style={{ fontSize: '0.92rem', margin: 0 }}>
+                <p
+                  className="body-editorial"
+                  style={{
+                    fontSize: '0.94rem',
+                    lineHeight: '1.65',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
                   {item.description}
                 </p>
+              </div>
+
+              <div
+                style={{
+                  marginTop: '24px',
+                  paddingTop: '16px',
+                  borderTop: '1px solid var(--border-hairline)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  color: 'var(--text-secondary)',
+                  fontSize: '0.82rem',
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 600,
+                }}
+              >
+                <span>ACTIVE PROGRESSION</span>
+                <ArrowRight size={14} style={{ color: 'var(--accent-violet-light)' }} />
               </div>
             </div>
           ))}
@@ -140,19 +155,10 @@ export const CurrentFocus: React.FC = () => {
       </div>
 
       <style>{`
-        @media (min-width: 860px) {
-          .focus-num-col {
-            grid-column: span 3 !important;
-          }
-          .focus-title-col {
-            grid-column: span 4 !important;
-          }
-          .focus-desc-col {
-            grid-column: span 5 !important;
-          }
-        }
-        .focus-journal-row:hover {
-          background-color: rgba(23, 23, 28, 0.4);
+        .focus-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(139, 92, 246, 0.35) !important;
+          background-color: rgba(24, 22, 36, 0.75) !important;
         }
       `}</style>
     </section>

@@ -12,11 +12,11 @@ export const Footer: React.FC = () => {
   };
 
   const navLinks = [
+    { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
-    { label: 'Capabilities', href: '#skills' },
-    { label: 'Selected Work', href: '#work' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Work', href: '#work' },
     { label: 'Education', href: '#education' },
-    { label: 'Trajectory', href: '#focus' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -27,155 +27,194 @@ export const Footer: React.FC = () => {
     <footer
       role="contentinfo"
       style={{
-        borderTop: '1px solid var(--border-rule)',
-        paddingTop: '48px',
-        paddingBottom: '48px',
-        backgroundColor: '#070709',
+        borderTop: '1px solid var(--border-hairline)',
+        paddingTop: 'clamp(48px, 6vw, 72px)',
+        paddingBottom: 'clamp(36px, 5vw, 56px)',
+        backgroundColor: '#111116',
         position: 'relative',
         zIndex: 2,
       }}
     >
-      <div className="page-container">
-        {/* Top Tier: Colophon & Back to Top */}
+      <div className="editorial-container">
+        {/* Top Row: Wordmark, Statement & Back-to-Top */}
         <div
           style={{
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
-            alignItems: 'baseline',
-            gap: '24px',
-            marginBottom: '36px',
+            alignItems: 'flex-start',
+            gap: '32px',
+            marginBottom: '48px',
           }}
         >
-          <div>
-            <span
+          {/* Identity & Statement */}
+          <div style={{ maxWidth: '480px' }}>
+            <h3
               style={{
-                fontFamily: 'var(--font-sans)',
-                fontWeight: 600,
-                fontSize: '1.05rem',
+                fontFamily: 'var(--font-body)',
+                fontSize: '1.2rem',
+                fontWeight: 700,
+                letterSpacing: '0.04em',
                 color: 'var(--text-primary)',
-                letterSpacing: '-0.01em',
-                display: 'block',
-                marginBottom: '4px',
+                textTransform: 'uppercase',
+                marginBottom: '8px',
               }}
             >
               {personalInfo.name}
-            </span>
+            </h3>
             <p
               style={{
                 fontFamily: 'var(--font-serif)',
+                fontSize: '1.25rem',
                 fontStyle: 'italic',
-                fontSize: '1.05rem',
-                color: 'var(--text-muted)',
-                margin: 0,
+                color: 'var(--accent-violet-light)',
+                lineHeight: '1.4',
               }}
             >
               Designed with curiosity. Built with purpose.
             </p>
           </div>
 
+          {/* Back to Top Magnetic Button */}
           <button
             onClick={scrollToTop}
-            aria-label="Return to top of page"
+            aria-label="Scroll back to top"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.76rem',
-              color: 'var(--text-secondary)',
-              letterSpacing: '0.06em',
+              gap: '10px',
+              padding: '12px 20px',
+              backgroundColor: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '2px',
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.82rem',
+              fontWeight: 600,
+              letterSpacing: '0.04em',
               textTransform: 'uppercase',
-              padding: '6px 0',
-              borderBottom: '1px solid var(--border-rule-strong)',
-              transition: 'color 0.2s ease, border-color 0.2s ease',
+              color: 'var(--text-primary)',
+              transition: 'all 0.25s var(--ease-editorial)',
             }}
-            className="footer-top-btn"
+            className="back-to-top-btn"
           >
-            <span>Top</span>
-            <ArrowUp size={13} style={{ color: 'var(--accent-iris)' }} />
+            <span>BACK TO TOP</span>
+            <ArrowUp size={14} style={{ color: 'var(--accent-violet-light)' }} />
           </button>
         </div>
 
-        {/* Bottom Tier: Nav Links & Copyright */}
+        {/* Middle Row: Navigation Links & Socials */}
         <div
           style={{
-            borderTop: '1px solid var(--border-rule)',
-            paddingTop: '24px',
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
             alignItems: 'center',
-            gap: '20px',
+            gap: '24px',
+            paddingTop: '24px',
+            paddingBottom: '24px',
+            borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
           }}
         >
+          {/* Nav List */}
           <nav
             style={{
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '20px',
+              gap: '28px',
             }}
-            aria-label="Footer directory"
+            aria-label="Footer Navigation"
           >
             {navLinks.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.74rem',
-                  color: 'var(--text-muted)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.86rem',
+                  fontWeight: 500,
+                  letterSpacing: '0.02em',
+                  color: 'var(--text-secondary)',
                   textDecoration: 'none',
                   transition: 'color 0.2s ease',
                 }}
-                className="footer-anchor"
+                className="footer-nav-link"
               >
                 {item.label}
               </a>
             ))}
           </nav>
 
+          {/* Social Icons */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             {githubLink && githubLink.url && (
               <a
                 href={githubLink.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="GitHub profile"
-                style={{ color: 'var(--text-muted)', display: 'flex', transition: 'color 0.2s ease' }}
-                className="footer-anchor"
+                aria-label="GitHub Profile"
+                style={{
+                  color: 'var(--text-secondary)',
+                  transition: 'color 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+                className="footer-social-icon"
               >
-                <GithubIcon size={16} />
+                <GithubIcon size={18} />
               </a>
             )}
-
             {linkedinLink && (
               <a
                 href={linkedinLink.url || '#'}
                 target={linkedinLink.url ? '_blank' : '_self'}
                 rel="noopener noreferrer"
-                aria-label="LinkedIn profile"
-                style={{ color: 'var(--text-muted)', display: 'flex', transition: 'color 0.2s ease' }}
-                className="footer-anchor"
+                aria-label="LinkedIn Profile"
+                style={{
+                  color: 'var(--text-secondary)',
+                  transition: 'color 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+                className="footer-social-icon"
               >
-                <LinkedinIcon size={16} />
+                <LinkedinIcon size={18} />
               </a>
             )}
-
-            <span className="editorial-sidenote" style={{ fontSize: '0.72rem', marginLeft: '8px' }}>
-              &copy; {currentYear} Daksh Goswami
-            </span>
           </div>
+        </div>
+
+        {/* Bottom Metadata & Copyright */}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '16px',
+            marginTop: '28px',
+          }}
+        >
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
+            &copy; {currentYear} {personalInfo.name}. All rights reserved.
+          </span>
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.84rem', color: 'var(--text-muted)' }}>
+            Engineered with React &middot; Three.js &middot; TypeScript
+          </span>
         </div>
       </div>
 
       <style>{`
-        .footer-top-btn:hover {
-          color: var(--text-primary) !important;
-          border-color: var(--accent-iris) !important;
+        .back-to-top-btn:hover {
+          border-color: var(--accent-violet) !important;
+          background-color: rgba(139, 92, 246, 0.1) !important;
+          transform: translateY(-2px);
         }
-        .footer-anchor:hover {
-          color: var(--text-primary) !important;
+        .footer-nav-link:hover {
+          color: #ffffff !important;
+        }
+        .footer-social-icon:hover {
+          color: var(--accent-violet-light) !important;
         }
       `}</style>
     </footer>

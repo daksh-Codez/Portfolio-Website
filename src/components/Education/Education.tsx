@@ -1,106 +1,177 @@
 import React from 'react';
 import { educationData } from '../../data/education';
+import { GraduationCap, MapPin, BookOpen, Award } from 'lucide-react';
 
 export const Education: React.FC = () => {
   return (
     <section
       id="education"
       style={{
-        paddingTop: 'clamp(72px, 12vh, 140px)',
-        paddingBottom: 'clamp(72px, 12vh, 140px)',
+        paddingTop: 'clamp(80px, 12vw, 150px)',
+        paddingBottom: 'clamp(80px, 12vw, 150px)',
         position: 'relative',
         zIndex: 2,
       }}
     >
-      <div className="page-container">
-        {/* Section Header */}
-        <div className="editorial-section-header">
-          <span>04 / EDUCATION</span>
-          <span style={{ color: 'var(--text-muted)' }}>&mdash; ACADEMIC FOUNDATION</span>
-        </div>
+      <div className="editorial-container">
+        {/* Section Label */}
+        <div className="section-label">04 / EDUCATION</div>
 
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(12, 1fr)',
-            gap: 'clamp(24px, 4vw, 48px)',
-            alignItems: 'start',
-            borderTop: '1px solid var(--border-rule)',
-            paddingTop: '36px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+            gap: '24px',
+            marginBottom: 'clamp(40px, 6vw, 64px)',
           }}
         >
-          {/* Institution & Status (Left) */}
-          <div
-            style={{
-              gridColumn: 'span 12',
-            }}
-            className="edu-left-col"
-          >
-            <span className="editorial-index-tag" style={{ display: 'block', marginBottom: '8px', color: 'var(--accent-iris)' }}>
-              UNDERGRADUATE DEGREE
-            </span>
-            <h3
-              style={{
-                fontFamily: 'var(--font-serif)',
-                fontSize: 'clamp(2rem, 3.2vw, 3rem)',
-                fontWeight: 400,
-                color: 'var(--text-primary)',
-                lineHeight: '1.1',
-                margin: '0 0 10px 0',
-              }}
-            >
-              {educationData.institution}
-            </h3>
-            <p
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '1.05rem',
-                color: 'var(--text-secondary)',
-                margin: '0 0 6px 0',
-              }}
-            >
-              {educationData.degree} in {educationData.major}
-            </p>
-            <p className="editorial-sidenote" style={{ margin: 0 }}>
-              {educationData.status} &middot; {educationData.location}
+          <div>
+            <h2 className="section-hero-heading">
+              The{' '}
+              <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--accent-violet-light)' }}>
+                foundation.
+              </span>
+            </h2>
+          </div>
+          <div style={{ maxWidth: '420px' }}>
+            <p className="body-editorial" style={{ fontSize: '0.92rem' }}>
+              Academic foundations anchoring theoretical principles, computational theory, and rigorous engineering methodology.
             </p>
           </div>
+        </div>
 
-          {/* Academic Curriculum Focus (Right) */}
+        {/* Distinctive Editorial Timeline Composition */}
+        <div
+          style={{
+            borderTop: '1px solid var(--border-hairline)',
+            paddingTop: '48px',
+            position: 'relative',
+          }}
+        >
           <div
             style={{
-              gridColumn: 'span 12',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '14px',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(12, 1fr)',
+              gap: 'clamp(24px, 4vw, 48px)',
             }}
-            className="edu-right-col"
           >
-            <span className="editorial-index-tag" style={{ display: 'block', marginBottom: '4px' }}>
-              CURRICULAR EMPHASIS
-            </span>
-            {educationData.academicNotes.map((note, idx) => (
-              <p
-                key={idx}
-                className="editorial-body"
-                style={{ fontSize: '0.94rem', margin: 0 }}
+            {/* Left: Timeframe & Status */}
+            <div
+              style={{
+                gridColumn: 'span 12',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+              }}
+              className="edu-status-col"
+            >
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  color: 'var(--accent-violet-light)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                }}
               >
-                {note}
+                <GraduationCap size={16} />
+                <span>UNDERGRADUATE STUDIES</span>
+              </div>
+              <span
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.98rem',
+                  color: 'var(--text-primary)',
+                  fontWeight: 600,
+                }}
+              >
+                {educationData.status}
+              </span>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  color: 'var(--text-secondary)',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.88rem',
+                  marginTop: '4px',
+                }}
+              >
+                <MapPin size={14} style={{ color: 'var(--accent-violet)' }} />
+                <span>{educationData.location}</span>
+              </div>
+            </div>
+
+            {/* Middle: Degree & University */}
+            <div
+              style={{
+                gridColumn: 'span 12',
+              }}
+              className="edu-main-col"
+            >
+              <h3
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: 'clamp(1.5rem, 2.2vw, 2.2rem)',
+                  fontWeight: 600,
+                  color: 'var(--text-primary)',
+                  letterSpacing: '-0.02em',
+                  marginBottom: '8px',
+                }}
+              >
+                {educationData.institution}
+              </h3>
+              <p
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(1.2rem, 1.6vw, 1.5rem)',
+                  color: 'var(--accent-violet-light)',
+                  fontStyle: 'italic',
+                  marginBottom: '24px',
+                }}
+              >
+                {educationData.degree} in {educationData.major}
               </p>
-            ))}
+
+              {/* Academic Highlights */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px',
+                  paddingLeft: '16px',
+                  borderLeft: '1px solid rgba(139, 92, 246, 0.3)',
+                }}
+              >
+                {educationData.academicNotes.map((note, idx) => (
+                  <p
+                    key={idx}
+                    className="body-editorial"
+                    style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}
+                  >
+                    {note}
+                  </p>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <style>{`
         @media (min-width: 860px) {
-          .edu-left-col {
-            grid-column: span 6 !important;
+          .edu-status-col {
+            grid-column: span 4 !important;
           }
-          .edu-right-col {
-            grid-column: span 6 !important;
-            border-left: 1px solid var(--border-rule) !important;
-            padding-left: 36px !important;
+          .edu-main-col {
+            grid-column: span 8 !important;
           }
         }
       `}</style>

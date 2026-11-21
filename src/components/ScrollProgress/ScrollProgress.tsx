@@ -22,24 +22,25 @@ export const ScrollProgress: React.FC = () => {
       aria-valuenow={Math.round(progress)}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-label="Reading progress"
+      aria-label="Page scroll progress"
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
         width: '100vw',
-        height: '1px',
+        height: '2px',
         zIndex: 1000,
-        backgroundColor: 'transparent',
-        pointerEvents: 'none',
+        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+        pointerEvents: 'none'
       }}
     >
       <div
         style={{
           height: '100%',
           width: `${progress}%`,
-          backgroundColor: 'var(--accent-iris)',
-          transition: 'width 0.1s linear',
+          background: 'linear-gradient(90deg, #9B7BEE 0%, #B79CFF 60%, #FFFFFF 100%)',
+          boxShadow: '0 0 8px rgba(155, 123, 238, 0.4)',
+          transition: 'width 0.1s cubic-bezier(0.1, 0.9, 0.2, 1)'
         }}
       />
     </div>

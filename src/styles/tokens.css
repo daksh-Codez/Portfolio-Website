@@ -1,37 +1,55 @@
 :root {
-  /* Warm Editorial Graphite & Bone Palette */
-  --bg-primary: #0b0b0d;
-  --bg-secondary: #111114;
-  --bg-surface: #17171c;
-  --bg-surface-elevated: #1f1f26;
+  /* Softer, Sophisticated Dark Palette */
+  --bg-primary: #111116;
+  --bg-secondary: #181820;
+  --bg-tertiary: #1d1d26;
+  --bg-surface: #20202a;
+  --bg-surface-hover: #292937;
+  --bg-card: rgba(24, 24, 32, 0.72);
 
-  /* Typography Colors: Warm Off-White & Stone */
-  --text-primary: #f2efe9;
-  --text-secondary: #a8a59e;
-  --text-muted: #6e6b66;
-  --text-subtle: #4a4844;
+  /* Gentle, Highly Readable Typography Colors */
+  --text-primary: #f1eff5;
+  --text-secondary: #b2aebb;
+  --text-muted: #827e8e;
+  --text-subtle: #5a5766;
 
-  /* Intentional Editorial Accent: Warm Iris / Ink Violet */
-  --accent-iris: #8769fe;
-  --accent-iris-subtle: rgba(135, 105, 254, 0.12);
-  --accent-iris-muted: rgba(135, 105, 254, 0.25);
-  --accent-ink: #c4b5fd;
+  /* Refined Violet Accent Palette */
+  --accent-violet: #9b7bee;
+  --accent-violet-light: #b79cff;
+  --accent-violet-deep: #7853df;
+  --accent-violet-glow: rgba(155, 123, 238, 0.2);
+  --accent-violet-subtle: rgba(155, 123, 238, 0.1);
 
-  /* Editorial Dividers & Hairlines */
-  --border-rule: rgba(242, 239, 233, 0.08);
-  --border-rule-strong: rgba(242, 239, 233, 0.16);
+  /* Hairlines and Dividers */
+  --border-hairline: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.14);
+  --border-focus: rgba(155, 123, 238, 0.5);
 
   /* Typography Families */
-  --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Instrument Serif', Georgia, serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
 
-  /* Layout Dimensions */
-  --page-max-width: 1320px;
-  --page-gutter: clamp(24px, 5vw, 64px);
+  /* Spacing Scale */
+  --space-unit: 8px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+
+  /* Container Max Widths */
+  --container-max: 1360px;
+  --container-padding: clamp(20px, 4vw, 48px);
 
   /* Transitions */
-  --ease-editorial: cubic-bezier(0.19, 1, 0.22, 1);
-  --duration-quick: 180ms;
-  --duration-smooth: 400ms;
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 200ms;
+  --duration-base: 350ms;
+  --duration-slow: 700ms;
 }
