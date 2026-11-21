@@ -28,7 +28,7 @@ body {
 
 /* Custom Text Selection */
 ::selection {
-  background-color: var(--accent-blue);
+  background-color: var(--accent-purple);
   color: #ffffff;
 }
 
@@ -44,7 +44,7 @@ body {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-blue);
+  background: var(--accent-purple);
 }
 
 /* Links & interactive */
@@ -79,7 +79,7 @@ button {
     90deg,
     rgba(255, 255, 255, 0.01) 0%,
     rgba(255, 255, 255, 0.09) 20%,
-    rgba(59, 130, 246, 0.28) 50%,
+    rgba(139, 92, 246, 0.28) 50%,
     rgba(255, 255, 255, 0.09) 80%,
     rgba(255, 255, 255, 0.01) 100%
   );
@@ -110,7 +110,7 @@ button {
 .btn-editorial-primary:hover {
   background-color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
 }
 
 .btn-editorial-ghost {
@@ -133,15 +133,15 @@ button {
 }
 
 .btn-editorial-ghost:hover {
-  border-color: var(--accent-blue);
+  border-color: var(--accent-purple);
   color: #ffffff;
-  background: rgba(59, 130, 246, 0.12);
+  background: rgba(139, 92, 246, 0.12);
   transform: translateY(-2px);
 }
 
 /* Accessibility Focus States */
 :focus-visible {
-  outline: 2px solid var(--accent-blue);
+  outline: 2px solid var(--accent-purple);
   outline-offset: 3px;
 }
 
@@ -149,7 +149,7 @@ button {
   position: absolute;
   top: -40px;
   left: 20px;
-  background: var(--accent-blue);
+  background: var(--accent-purple);
   color: #fff;
   padding: 8px 16px;
   z-index: 9999;

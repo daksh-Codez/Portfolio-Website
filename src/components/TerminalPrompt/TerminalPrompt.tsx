@@ -138,7 +138,7 @@ export const TerminalPrompt: React.FC = () => {
             height: '360px',
             backgroundColor: 'rgba(7, 7, 11, 0.98)',
             backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(59, 130, 246, 0.45)',
+            border: '1px solid rgba(139, 92, 246, 0.45)',
             borderRadius: '6px',
             boxShadow: '0 20px 48px rgba(0, 0, 0, 0.65)',
             zIndex: 850,

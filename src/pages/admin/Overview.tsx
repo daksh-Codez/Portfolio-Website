@@ -66,7 +66,7 @@ export const Overview: React.FC = () => {
               fontSize: '0.78rem',
               fontWeight: 700,
               letterSpacing: '0.06em',
-              color: '#3B82F6',
+              color: '#8B5CF6',
               textTransform: 'uppercase',
             }}
           >
@@ -97,7 +97,7 @@ export const Overview: React.FC = () => {
               alignItems: 'center',
               gap: '8px',
               padding: '10px 18px',
-              backgroundColor: '#3B82F6',
+              backgroundColor: '#8B5CF6',
               borderRadius: '5px',
               color: '#FFFFFF',
               fontSize: '0.86rem',
@@ -183,7 +183,7 @@ export const Overview: React.FC = () => {
             <span style={{ fontSize: '0.8rem', color: '#ABA7B6', fontWeight: 600, textTransform: 'uppercase' }}>
               Total Projects
             </span>
-            <FolderGit2 size={18} style={{ color: '#60A5FA' }} />
+            <FolderGit2 size={18} style={{ color: '#A78BFA' }} />
           </div>
           <div style={{ fontSize: '2.2rem', fontWeight: 700, color: '#FFFFFF', lineHeight: 1 }}>
             {isLoading ? '...' : totalProjects}
@@ -288,7 +288,7 @@ export const Overview: React.FC = () => {
             to="/admin/projects"
             style={{
               fontSize: '0.82rem',
-              color: '#60A5FA',
+              color: '#A78BFA',
               textDecoration: 'none',
               display: 'inline-flex',
               alignItems: 'center',
@@ -323,7 +323,7 @@ export const Overview: React.FC = () => {
                   }}
                   className="table-row-hover"
                 >
-                  <td style={{ padding: '16px 24px', color: '#3B82F6', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
+                  <td style={{ padding: '16px 24px', color: '#8B5CF6', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
                     {project.number}
                   </td>
                   <td style={{ padding: '16px 24px', fontWeight: 600, color: '#F2EFF5' }}>
@@ -367,7 +367,7 @@ export const Overview: React.FC = () => {
                     <Link
                       to={`/admin/projects`}
                       style={{
-                        color: '#60A5FA',
+                        color: '#A78BFA',
                         fontSize: '0.8rem',
                         textDecoration: 'none',
                         fontWeight: 500,

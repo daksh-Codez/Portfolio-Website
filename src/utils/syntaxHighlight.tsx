@@ -35,19 +35,19 @@ export const highlightLine = (line: string): React.ReactNode[] => {
       );
     } else if (preproc) {
       elements.push(
-        <span key={match.index} style={{ color: '#38bdf8', fontWeight: 600 }}>
+        <span key={match.index} style={{ color: '#c084fc', fontWeight: 600 }}>
           {preproc}
         </span>
       );
     } else if (keyword) {
       elements.push(
-        <span key={match.index} style={{ color: '#60a5fa', fontWeight: 600 }}>
+        <span key={match.index} style={{ color: '#a78bfa', fontWeight: 600 }}>
           {keyword}
         </span>
       );
     } else if (stdFunc) {
       elements.push(
-        <span key={match.index} style={{ color: '#93c5fd' }}>
+        <span key={match.index} style={{ color: '#c4b5fd' }}>
           {stdFunc}
         </span>
       );

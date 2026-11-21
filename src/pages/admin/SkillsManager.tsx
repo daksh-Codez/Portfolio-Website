@@ -101,7 +101,7 @@ export const SkillsManager: React.FC = () => {
         }}
       >
         <div>
-          <span style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.06em', color: '#3B82F6', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.06em', color: '#8B5CF6', textTransform: 'uppercase' }}>
             TECHNICAL CAPABILITIES
           </span>
           <h1 style={{ fontSize: 'clamp(1.5rem, 2.2vw, 1.9rem)', fontWeight: 600, color: '#F2EFF5', marginTop: '2px' }}>
@@ -141,7 +141,7 @@ export const SkillsManager: React.FC = () => {
         <div
           style={{
             backgroundColor: 'rgba(12, 13, 20, 0.95)',
-            border: '1px solid rgba(59, 130, 246, 0.3)',
+            border: '1px solid rgba(139, 92, 246, 0.3)',
             borderRadius: '8px',
             padding: '24px',
             marginBottom: '32px',
@@ -226,7 +226,7 @@ export const SkillsManager: React.FC = () => {
                 disabled={isSaving}
                 style={{
                   padding: '8px 20px',
-                  backgroundColor: '#3B82F6',
+                  backgroundColor: '#8B5CF6',
                   border: 'none',
                   borderRadius: '4px',
                   color: '#FFFFFF',
@@ -267,7 +267,7 @@ export const SkillsManager: React.FC = () => {
                 }}
               >
                 <div>
-                  <h2 style={{ fontSize: '1rem', fontWeight: 700, color: '#3B82F6', letterSpacing: '0.04em' }}>
+                  <h2 style={{ fontSize: '1rem', fontWeight: 700, color: '#8B5CF6', letterSpacing: '0.04em' }}>
                     {cat}
                   </h2>
                   <span style={{ fontSize: '0.78rem', color: '#797585' }}>
@@ -283,10 +283,10 @@ export const SkillsManager: React.FC = () => {
                     alignItems: 'center',
                     gap: '6px',
                     padding: '6px 12px',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    border: '1px solid rgba(59, 130, 246, 0.3)',
+                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    border: '1px solid rgba(139, 92, 246, 0.3)',
                     borderRadius: '4px',
-                    color: '#93C5FD',
+                    color: '#C4B5FD',
                     fontSize: '0.78rem',
                     fontWeight: 600,
                     cursor: 'pointer',
@@ -339,7 +339,7 @@ export const SkillsManager: React.FC = () => {
                       <button
                         onClick={() => setEditingSkill(skill)}
                         title="Edit technology"
-                        style={{ background: 'none', border: 'none', color: '#60A5FA', cursor: 'pointer', padding: '4px' }}
+                        style={{ background: 'none', border: 'none', color: '#A78BFA', cursor: 'pointer', padding: '4px' }}
                       >
                         <Pencil size={14} />
                       </button>
@@ -382,8 +382,8 @@ export const SkillsManager: React.FC = () => {
           outline: none;
         }
         .form-input:focus {
-          border-color: #3B82F6;
-          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+          border-color: #8B5CF6;
+          box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
         }
       `}</style>
     </div>

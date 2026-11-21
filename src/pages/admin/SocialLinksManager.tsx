@@ -75,7 +75,7 @@ export const SocialLinksManager: React.FC = () => {
         }}
       >
         <div>
-          <span style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.06em', color: '#3B82F6', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.06em', color: '#8B5CF6', textTransform: 'uppercase' }}>
             CONNECTIVITY
           </span>
           <h1 style={{ fontSize: 'clamp(1.5rem, 2.2vw, 1.9rem)', fontWeight: 600, color: '#F2EFF5', marginTop: '2px' }}>
@@ -94,7 +94,7 @@ export const SocialLinksManager: React.FC = () => {
               alignItems: 'center',
               gap: '6px',
               padding: '10px 18px',
-              backgroundColor: '#3B82F6',
+              backgroundColor: '#8B5CF6',
               border: 'none',
               borderRadius: '5px',
               color: '#FFFFFF',
@@ -135,7 +135,7 @@ export const SocialLinksManager: React.FC = () => {
         <div
           style={{
             backgroundColor: 'rgba(12, 13, 20, 0.95)',
-            border: '1px solid rgba(59, 130, 246, 0.3)',
+            border: '1px solid rgba(139, 92, 246, 0.3)',
             borderRadius: '8px',
             padding: '24px',
             marginBottom: '32px',
@@ -212,7 +212,7 @@ export const SocialLinksManager: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSaving}
-                style={{ padding: '8px 20px', backgroundColor: '#3B82F6', border: 'none', color: '#FFFFFF', borderRadius: '4px', fontWeight: 600, cursor: 'pointer' }}
+                style={{ padding: '8px 20px', backgroundColor: '#8B5CF6', border: 'none', color: '#FFFFFF', borderRadius: '4px', fontWeight: 600, cursor: 'pointer' }}
               >
                 {isSaving ? 'Saving...' : 'Save Link'}
               </button>
@@ -278,7 +278,7 @@ export const SocialLinksManager: React.FC = () => {
 
                 <button
                   onClick={() => setEditingLink(link)}
-                  style={{ background: 'none', border: 'none', color: '#60A5FA', cursor: 'pointer', padding: '4px' }}
+                  style={{ background: 'none', border: 'none', color: '#A78BFA', cursor: 'pointer', padding: '4px' }}
                 >
                   <Pencil size={15} />
                 </button>
@@ -317,8 +317,8 @@ export const SocialLinksManager: React.FC = () => {
           outline: none;
         }
         .form-input:focus {
-          border-color: #3B82F6;
-          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+          border-color: #8B5CF6;
+          box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
         }
       `}</style>
     </div>

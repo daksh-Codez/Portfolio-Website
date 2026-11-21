@@ -55,7 +55,7 @@ void addStudentRecord(FILE *fp);
 void displayAllRecords(FILE *fp);
 int searchByRollNumber(FILE *fp, int roll);
 void updateRecord(FILE *fp, int roll);`,
-    visualAccent: "#3B82F6"
+    visualAccent: "#8B5CF6"
   },
   {
     id: "personal-expense-tracker",
@@ -87,7 +87,7 @@ typedef struct {
 
 double computeNetBalance(FILE *ledger);
 void filterByCategory(FILE *ledger, const char *cat);`,
-    visualAccent: "#60A5FA"
+    visualAccent: "#A78BFA"
   },
   {
     id: "number-guessing-game",
@@ -124,7 +124,7 @@ int runGameRound(int maxRange, int maxAttempts) {
     }
     return -1;
 }`,
-    visualAccent: "#38BDF8"
+    visualAccent: "#C084FC"
   },
   {
     id: "c-calculator",
@@ -159,7 +159,7 @@ double evaluate(double a, char op, double b, int *status) {
             return 0;
     }
 }`,
-    visualAccent: "#3B82F6"
+    visualAccent: "#8B5CF6"
   },
   {
     id: "cpp-calculator",
@@ -194,7 +194,7 @@ public:
         }
     }
 };`,
-    visualAccent: "#60A5FA"
+    visualAccent: "#A78BFA"
   },
   {
     id: "cpp-fundamentals-suite",
@@ -222,6 +222,6 @@ void printArray(const std::vector<T>& list) {
     }
     std::cout << "\\n";
 }`,
-    visualAccent: "#38BDF8"
+    visualAccent: "#C084FC"
   }
 ];

@@ -35,7 +35,7 @@ const blankProject: Omit<ProjectRecord, 'id'> = {
   source_file_name: 'main.c',
   start_line: 1,
   code_excerpt: '// Source code implementation',
-  visual_accent: '#3B82F6',
+  visual_accent: '#8B5CF6',
   display_order: 1,
   status: 'published',
 };
@@ -152,7 +152,7 @@ export const ProjectsManager: React.FC = () => {
         }}
       >
         <div>
-          <span style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.06em', color: '#3B82F6', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.06em', color: '#8B5CF6', textTransform: 'uppercase' }}>
             PORTFOLIO SHOWCASE
           </span>
           <h1 style={{ fontSize: 'clamp(1.5rem, 2.2vw, 1.9rem)', fontWeight: 600, color: '#F2EFF5', marginTop: '2px' }}>
@@ -171,7 +171,7 @@ export const ProjectsManager: React.FC = () => {
               alignItems: 'center',
               gap: '8px',
               padding: '10px 18px',
-              backgroundColor: '#3B82F6',
+              backgroundColor: '#8B5CF6',
               borderRadius: '5px',
               color: '#FFFFFF',
               fontSize: '0.86rem',
@@ -265,9 +265,9 @@ export const ProjectsManager: React.FC = () => {
                   fontWeight: 600,
                   cursor: 'pointer',
                   border: '1px solid',
-                  backgroundColor: activeTab === 'editor' ? 'rgba(59, 130, 246, 0.2)' : 'transparent',
-                  borderColor: activeTab === 'editor' ? '#3B82F6' : 'rgba(255, 255, 255, 0.1)',
-                  color: activeTab === 'editor' ? '#93C5FD' : '#ABA7B6',
+                  backgroundColor: activeTab === 'editor' ? 'rgba(139, 92, 246, 0.2)' : 'transparent',
+                  borderColor: activeTab === 'editor' ? '#8B5CF6' : 'rgba(255, 255, 255, 0.1)',
+                  color: activeTab === 'editor' ? '#C4B5FD' : '#ABA7B6',
                 }}
               >
                 Edit Form
@@ -282,9 +282,9 @@ export const ProjectsManager: React.FC = () => {
                   fontWeight: 600,
                   cursor: 'pointer',
                   border: '1px solid',
-                  backgroundColor: activeTab === 'preview' ? 'rgba(59, 130, 246, 0.2)' : 'transparent',
-                  borderColor: activeTab === 'preview' ? '#3B82F6' : 'rgba(255, 255, 255, 0.1)',
-                  color: activeTab === 'preview' ? '#93C5FD' : '#ABA7B6',
+                  backgroundColor: activeTab === 'preview' ? 'rgba(139, 92, 246, 0.2)' : 'transparent',
+                  borderColor: activeTab === 'preview' ? '#8B5CF6' : 'rgba(255, 255, 255, 0.1)',
+                  color: activeTab === 'preview' ? '#C4B5FD' : '#ABA7B6',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
@@ -320,7 +320,7 @@ export const ProjectsManager: React.FC = () => {
                 style={{
                   backgroundColor: 'rgba(8, 8, 12, 0.98)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
-                  borderTop: `2px solid ${editingProject.visual_accent || '#3B82F6'}`,
+                  borderTop: `2px solid ${editingProject.visual_accent || '#8B5CF6'}`,
                   borderRadius: '6px',
                   overflow: 'hidden',
                 }}
@@ -336,7 +336,7 @@ export const ProjectsManager: React.FC = () => {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <FileCode size={14} style={{ color: '#60A5FA' }} />
+                    <FileCode size={14} style={{ color: '#A78BFA' }} />
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#F2EFF5' }}>
                       {editingProject.source_file_name || 'source.c'}
                     </span>
@@ -556,7 +556,7 @@ export const ProjectsManager: React.FC = () => {
                   <label className="form-label">Accent Color</label>
                   <input
                     type="text"
-                    value={editingProject.visual_accent || '#3B82F6'}
+                    value={editingProject.visual_accent || '#8B5CF6'}
                     onChange={(e) => setEditingProject({ ...editingProject, visual_accent: e.target.value })}
                     className="form-input"
                   />
@@ -598,7 +598,7 @@ export const ProjectsManager: React.FC = () => {
                   disabled={isSaving}
                   style={{
                     padding: '10px 22px',
-                    backgroundColor: '#3B82F6',
+                    backgroundColor: '#8B5CF6',
                     border: 'none',
                     borderRadius: '4px',
                     color: '#FFFFFF',
@@ -646,7 +646,7 @@ export const ProjectsManager: React.FC = () => {
                   }}
                   className="table-row-hover"
                 >
-                  <td style={{ padding: '16px 20px', color: '#3B82F6', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
+                  <td style={{ padding: '16px 20px', color: '#8B5CF6', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
                     {project.number}
                   </td>
                   <td style={{ padding: '16px 20px' }}>
@@ -655,7 +655,7 @@ export const ProjectsManager: React.FC = () => {
                       {project.technologies?.slice(0, 3).join(', ')}
                     </div>
                   </td>
-                  <td style={{ padding: '16px 20px', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#93C5FD' }}>
+                  <td style={{ padding: '16px 20px', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#C4B5FD' }}>
                     {project.source_file_name}
                   </td>
                   <td style={{ padding: '16px 20px', fontSize: '0.82rem', color: '#ABA7B6' }}>
@@ -706,7 +706,7 @@ export const ProjectsManager: React.FC = () => {
                         title="Edit project"
                         style={{
                           padding: '6px',
-                          color: '#60A5FA',
+                          color: '#A78BFA',
                           background: 'none',
                           border: 'none',
                           cursor: 'pointer',
@@ -792,8 +792,8 @@ export const ProjectsManager: React.FC = () => {
           transition: border-color 0.2s ease;
         }
         .form-input:focus {
-          border-color: #3B82F6;
-          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+          border-color: #8B5CF6;
+          box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
         }
       `}</style>
     </div>

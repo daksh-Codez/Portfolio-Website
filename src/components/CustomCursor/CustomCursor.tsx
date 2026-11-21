@@ -154,12 +154,12 @@ export const CustomCursor: React.FC = () => {
           height: `${ringHeight}px`,
           borderRadius: ringBorderRadius,
           border: isHovered
-            ? '1px solid rgba(59, 130, 246, 0.55)'
+            ? '1px solid rgba(139, 92, 246, 0.55)'
             : '1px solid rgba(255, 255, 255, 0.22)',
           backgroundColor: hasLabel
             ? 'rgba(13, 15, 24, 0.88)'
             : isHovered
-            ? 'rgba(59, 130, 246, 0.12)'
+            ? 'rgba(139, 92, 246, 0.12)'
             : 'transparent',
           backdropFilter: hasLabel ? 'blur(6px)' : 'none',
           WebkitBackdropFilter: hasLabel ? 'blur(6px)' : 'none',
@@ -184,7 +184,7 @@ export const CustomCursor: React.FC = () => {
               fontSize: '0.62rem',
               fontWeight: 600,
               letterSpacing: '0.08em',
-              color: '#93C5FD',
+              color: '#C4B5FD',
               textTransform: 'uppercase',
               lineHeight: 1,
               userSelect: 'none',

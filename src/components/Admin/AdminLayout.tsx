@@ -116,11 +116,11 @@ export const AdminLayout: React.FC = () => {
                 gap: '5px',
                 marginTop: '4px',
                 padding: '2px 8px',
-                backgroundColor: 'rgba(59, 130, 246, 0.12)',
-                border: '1px solid rgba(59, 130, 246, 0.3)',
+                backgroundColor: 'rgba(139, 92, 246, 0.12)',
+                border: '1px solid rgba(139, 92, 246, 0.3)',
                 borderRadius: '3px',
                 fontSize: '0.68rem',
-                color: '#93C5FD',
+                color: '#C4B5FD',
                 fontFamily: 'var(--font-mono)',
               }}
             >
@@ -344,11 +344,11 @@ export const AdminLayout: React.FC = () => {
                 gap: '6px',
                 fontSize: '0.78rem',
                 fontWeight: 600,
-                color: '#60A5FA',
+                color: '#A78BFA',
                 padding: '6px 12px',
                 borderRadius: '4px',
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                border: '1px solid rgba(59, 130, 246, 0.3)',
+                backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                border: '1px solid rgba(139, 92, 246, 0.3)',
                 textDecoration: 'none',
               }}
             >
@@ -378,14 +378,14 @@ export const AdminLayout: React.FC = () => {
           color: #FFFFFF !important;
         }
         .admin-nav-item.active {
-          background-color: rgba(59, 130, 246, 0.15) !important;
-          color: #93C5FD !important;
-          border-left: 2px solid #3B82F6;
+          background-color: rgba(139, 92, 246, 0.15) !important;
+          color: #C4B5FD !important;
+          border-left: 2px solid #8B5CF6;
           font-weight: 600;
         }
         .admin-nav-item.active .nav-chevron {
           opacity: 0.8 !important;
-          color: #93C5FD;
+          color: #C4B5FD;
         }
         .view-site-pill:hover {
           background-color: rgba(255, 255, 255, 0.07) !important;

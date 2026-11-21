@@ -103,7 +103,7 @@ export const MediaLibrary: React.FC = () => {
         }}
       >
         <div>
-          <span style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.06em', color: '#3B82F6', textTransform: 'uppercase' }}>
+          <span style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.06em', color: '#8B5CF6', textTransform: 'uppercase' }}>
             STORAGE & ASSETS
           </span>
           <h1 style={{ fontSize: 'clamp(1.5rem, 2.2vw, 1.9rem)', fontWeight: 600, color: '#F2EFF5', marginTop: '2px' }}>
@@ -130,7 +130,7 @@ export const MediaLibrary: React.FC = () => {
               alignItems: 'center',
               gap: '8px',
               padding: '10px 18px',
-              backgroundColor: '#3B82F6',
+              backgroundColor: '#8B5CF6',
               borderRadius: '5px',
               color: '#FFFFFF',
               fontSize: '0.86rem',
@@ -173,18 +173,18 @@ export const MediaLibrary: React.FC = () => {
       <div
         onClick={() => fileInputRef.current?.click()}
         style={{
-          border: '2px dashed rgba(59, 130, 246, 0.3)',
+          border: '2px dashed rgba(139, 92, 246, 0.3)',
           borderRadius: '8px',
           padding: '40px 24px',
           textAlign: 'center',
-          backgroundColor: 'rgba(59, 130, 246, 0.03)',
+          backgroundColor: 'rgba(139, 92, 246, 0.03)',
           marginBottom: '36px',
           cursor: 'pointer',
           transition: 'all 0.25s ease',
         }}
         className="upload-dropzone"
       >
-        <UploadCloud size={32} style={{ color: '#60A5FA', margin: '0 auto 12px' }} />
+        <UploadCloud size={32} style={{ color: '#A78BFA', margin: '0 auto 12px' }} />
         <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#F2EFF5', marginBottom: '6px' }}>
           Select or drag images to upload
         </h3>
@@ -364,8 +364,8 @@ export const MediaLibrary: React.FC = () => {
 
       <style>{`
         .upload-dropzone:hover {
-          border-color: #3B82F6 !important;
-          background-color: rgba(59, 130, 246, 0.06) !important;
+          border-color: #8B5CF6 !important;
+          background-color: rgba(139, 92, 246, 0.06) !important;
         }
       `}</style>
     </div>

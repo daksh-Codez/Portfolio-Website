@@ -75,8 +75,8 @@ export const AmbientLight: React.FC = () => {
           transform: `translate3d(${pos.x - 375}px, ${pos.y - 375}px, 0)`,
           background: `radial-gradient(
             circle at center,
-            rgba(139, 92, 246, 0.04) 0%,
-            rgba(59, 130, 246, 0.024) 34%,
+            rgba(139, 92, 246, 0.045) 0%,
+            rgba(168, 85, 247, 0.024) 34%,
             rgba(255, 255, 255, 0.009) 58%,
             transparent 74%
           )`,

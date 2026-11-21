@@ -34,7 +34,7 @@
   font-weight: 400;
   text-transform: none;
   letter-spacing: -0.01em;
-  color: var(--accent-blue-light);
+  color: var(--accent-purple-light);
 }
 
 .section-hero-heading {
@@ -56,7 +56,7 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--accent-blue-light);
+  color: var(--accent-purple-light);
   margin-bottom: 1.5rem;
 }
 
@@ -65,7 +65,7 @@
   display: inline-block;
   width: 16px;
   height: 2px;
-  background-color: var(--accent-blue);
+  background-color: var(--accent-purple);
   border-radius: 1px;
 }
 

@@ -212,8 +212,8 @@ export const CurrentFocus: React.FC = () => {
           height: 38px;
           border-radius: 50%;
           background: rgba(8, 9, 14, 0.95);
-          border: 1px solid rgba(59, 130, 246, 0.35);
-          color: #93C5FD;
+          border: 1px solid rgba(139, 92, 246, 0.35);
+          color: #C4B5FD;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -223,11 +223,11 @@ export const CurrentFocus: React.FC = () => {
         }
 
         .timeline-item:hover .timeline-node {
-          border-color: #60A5FA;
+          border-color: #A78BFA;
           color: #FFFFFF;
-          background: rgba(16, 20, 32, 0.95);
+          background: rgba(18, 14, 28, 0.95);
           transform: scale(1.08);
-          box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 0 4px rgba(4, 4, 7, 0.95);
+          box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 0 4px rgba(4, 4, 7, 0.95);
         }
 
         /* Continuous Connecting Line Stem */
@@ -240,17 +240,17 @@ export const CurrentFocus: React.FC = () => {
           width: 1px;
           background: linear-gradient(
             to bottom,
-            rgba(59, 130, 246, 0.35) 0%,
-            rgba(59, 130, 246, 0.2) 60%,
-            rgba(59, 130, 246, 0.1) 100%
+            rgba(139, 92, 246, 0.35) 0%,
+            rgba(139, 92, 246, 0.2) 60%,
+            rgba(139, 92, 246, 0.1) 100%
           );
         }
 
         .timeline-item:hover .timeline-stem {
           background: linear-gradient(
             to bottom,
-            rgba(59, 130, 246, 0.6) 0%,
-            rgba(59, 130, 246, 0.35) 100%
+            rgba(139, 92, 246, 0.6) 0%,
+            rgba(139, 92, 246, 0.35) 100%
           );
         }
 
@@ -267,7 +267,7 @@ export const CurrentFocus: React.FC = () => {
 
         .timeline-item:hover .timeline-content {
           background: rgba(13, 14, 21, 0.75);
-          border-color: rgba(59, 130, 246, 0.28);
+          border-color: rgba(139, 92, 246, 0.28);
           transform: translateX(4px);
           box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
         }
@@ -323,9 +323,9 @@ export const CurrentFocus: React.FC = () => {
         }
 
         .badge-learning {
-          background: rgba(59, 130, 246, 0.1);
-          color: #93C5FD;
-          border-color: rgba(59, 130, 246, 0.25);
+          background: rgba(139, 92, 246, 0.1);
+          color: #C4B5FD;
+          border-color: rgba(139, 92, 246, 0.25);
         }
 
         .badge-practice {
@@ -410,17 +410,17 @@ export const CurrentFocus: React.FC = () => {
         }
 
         .milestone-node {
-          background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(8, 9, 14, 0.95)) !important;
-          border-color: rgba(59, 130, 246, 0.6) !important;
-          color: #93C5FD !important;
-          box-shadow: 0 0 16px rgba(59, 130, 246, 0.35), 0 0 0 4px rgba(4, 4, 7, 0.9) !important;
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(8, 9, 14, 0.95)) !important;
+          border-color: rgba(139, 92, 246, 0.6) !important;
+          color: #C4B5FD !important;
+          box-shadow: 0 0 16px rgba(139, 92, 246, 0.35), 0 0 0 4px rgba(4, 4, 7, 0.9) !important;
         }
 
         .milestone-box {
           flex: 1;
           padding: clamp(24px, 4vw, 36px);
-          background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, rgba(9, 10, 15, 0.85) 100%);
-          border: 1px solid rgba(59, 130, 246, 0.28);
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.07) 0%, rgba(9, 10, 15, 0.85) 100%);
+          border: 1px solid rgba(139, 92, 246, 0.28);
           border-radius: 6px;
           box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
           position: relative;
@@ -429,9 +429,9 @@ export const CurrentFocus: React.FC = () => {
         }
 
         .milestone-box:hover {
-          border-color: rgba(59, 130, 246, 0.5);
+          border-color: rgba(139, 92, 246, 0.5);
           transform: translateY(-2px);
-          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(59, 130, 246, 0.15);
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(139, 92, 246, 0.15);
         }
 
         .milestone-top-row {
@@ -457,9 +457,9 @@ export const CurrentFocus: React.FC = () => {
           letter-spacing: 0.04em;
           text-transform: uppercase;
           padding: 4px 12px;
-          background: rgba(59, 130, 246, 0.15);
-          color: #93C5FD;
-          border: 1px solid rgba(59, 130, 246, 0.4);
+          background: rgba(139, 92, 246, 0.15);
+          color: #C4B5FD;
+          border: 1px solid rgba(139, 92, 246, 0.4);
           border-radius: 12px;
         }
 
@@ -497,15 +497,15 @@ export const CurrentFocus: React.FC = () => {
           color: var(--accent-violet-light);
           text-decoration: none;
           padding: 8px 16px;
-          background: rgba(59, 130, 246, 0.08);
-          border: 1px solid rgba(59, 130, 246, 0.25);
+          background: rgba(139, 92, 246, 0.08);
+          border: 1px solid rgba(139, 92, 246, 0.25);
           border-radius: 4px;
           transition: all 0.25s ease;
         }
 
         .milestone-cta:hover {
-          background: rgba(59, 130, 246, 0.2);
-          border-color: rgba(59, 130, 246, 0.55);
+          background: rgba(139, 92, 246, 0.2);
+          border-color: rgba(139, 92, 246, 0.55);
           color: #FFFFFF;
           transform: translateX(3px);
         }

@@ -26,8 +26,8 @@ export const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ childr
             width: '32px',
             height: '32px',
             borderRadius: '50%',
-            border: '2px solid rgba(59, 130, 246, 0.2)',
-            borderTopColor: '#3B82F6',
+            border: '2px solid rgba(139, 92, 246, 0.2)',
+            borderTopColor: '#8B5CF6',
             animation: 'spin 0.8s linear infinite',
           }}
         />

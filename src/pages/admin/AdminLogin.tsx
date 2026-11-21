@@ -62,7 +62,7 @@ export const AdminLogin: React.FC = () => {
           width: '500px',
           height: '500px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%)',
           pointerEvents: 'none',
         }}
       />
@@ -115,12 +115,12 @@ export const AdminLogin: React.FC = () => {
               width: '44px',
               height: '44px',
               borderRadius: '50%',
-              backgroundColor: 'rgba(59, 130, 246, 0.1)',
-              border: '1px solid rgba(59, 130, 246, 0.35)',
+              backgroundColor: 'rgba(139, 92, 246, 0.1)',
+              border: '1px solid rgba(139, 92, 246, 0.35)',
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#60A5FA',
+              color: '#A78BFA',
               marginBottom: '16px',
             }}
           >
@@ -316,7 +316,7 @@ export const AdminLogin: React.FC = () => {
             style={{
               marginTop: '8px',
               padding: '12px 20px',
-              backgroundColor: '#3B82F6',
+              backgroundColor: '#8B5CF6',
               border: 'none',
               borderRadius: '5px',
               color: '#FFFFFF',
@@ -367,8 +367,8 @@ export const AdminLogin: React.FC = () => {
           color: #F2EFF5 !important;
         }
         .admin-input:focus {
-          border-color: #3B82F6 !important;
-          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+          border-color: #8B5CF6 !important;
+          box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
         }
         .admin-submit-btn:hover:not(:disabled) {
           background-color: #2563EB !important;

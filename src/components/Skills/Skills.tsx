@@ -135,20 +135,20 @@ export const Skills: React.FC = () => {
     // 1. Explicit typography & styles for known 10 skills
     if (norm === 'c') {
       return (
-        <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '1.05rem', color: 'var(--accent-blue-light)' }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '1.05rem', color: 'var(--accent-purple-light)' }}>
           [C]
         </span>
       );
     }
     if (norm === 'c++' || norm === 'cpp') {
       return (
-        <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.95rem', color: 'var(--accent-blue-light)' }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.95rem', color: 'var(--accent-purple-light)' }}>
           C++
         </span>
       );
     }
     if (norm === 'python') {
-      return <Code2 size={20} style={{ color: 'var(--accent-blue-light)' }} />;
+      return <Code2 size={20} style={{ color: 'var(--accent-purple-light)' }} />;
     }
     if (norm === 'html') {
       return <Globe size={18} style={{ color: '#38BDF8' }} />;
@@ -164,7 +164,7 @@ export const Skills: React.FC = () => {
       );
     }
     if (norm === 'sql') {
-      return <Database size={19} style={{ color: 'var(--accent-blue-light)' }} />;
+      return <Database size={19} style={{ color: 'var(--accent-purple-light)' }} />;
     }
     if (norm === 'git') {
       return <GitBranch size={18} style={{ color: '#F97316' }} />;
@@ -179,9 +179,9 @@ export const Skills: React.FC = () => {
     // 2. Dynamic icon matching by icon_name
     switch (iconKey) {
       case 'terminal':
-        return <Terminal size={18} style={{ color: 'var(--accent-blue-light)' }} />;
+        return <Terminal size={18} style={{ color: 'var(--accent-purple-light)' }} />;
       case 'database':
-        return <Database size={18} style={{ color: 'var(--accent-blue-light)' }} />;
+        return <Database size={18} style={{ color: 'var(--accent-purple-light)' }} />;
       case 'globe':
         return <Globe size={18} style={{ color: '#38BDF8' }} />;
       case 'wrench':
@@ -191,20 +191,20 @@ export const Skills: React.FC = () => {
       case 'gitbranch':
         return <GitBranch size={18} style={{ color: '#F97316' }} />;
       case 'cpu':
-        return <Cpu size={18} style={{ color: 'var(--accent-blue-light)' }} />;
+        return <Cpu size={18} style={{ color: 'var(--accent-purple-light)' }} />;
       case 'code2':
-        return <Code2 size={18} style={{ color: 'var(--accent-blue-light)' }} />;
+        return <Code2 size={18} style={{ color: 'var(--accent-purple-light)' }} />;
       case 'code':
         return <Code size={18} style={{ color: '#FBBF24' }} />;
       case 'server':
-        return <Server size={18} style={{ color: 'var(--accent-blue-light)' }} />;
+        return <Server size={18} style={{ color: 'var(--accent-purple-light)' }} />;
       case 'laptop':
       case 'monitor':
         return <Laptop size={18} style={{ color: '#38BDF8' }} />;
       case 'github':
         return <GithubIcon size={18} style={{ color: 'var(--text-primary)' }} />;
       default:
-        return <Code2 size={18} style={{ color: 'var(--accent-blue-light)' }} />;
+        return <Code2 size={18} style={{ color: 'var(--accent-purple-light)' }} />;
     }
   };
 
@@ -235,7 +235,7 @@ export const Skills: React.FC = () => {
           <div style={{ gridColumn: 'span 12' }} className="skills-heading-col">
             <h2 className="section-hero-heading" style={{ margin: 0 }}>
               Tools of my{' '}
-              <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--accent-blue-light)' }}>
+              <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--accent-purple-light)' }}>
                 trade.
               </span>
             </h2>
@@ -265,7 +265,7 @@ export const Skills: React.FC = () => {
             style={{
               backgroundColor: 'rgba(10, 10, 15, 0.82)',
               border: '1px solid var(--border-hairline)',
-              borderTop: '2px solid var(--accent-blue)',
+              borderTop: '2px solid var(--accent-purple)',
               borderRadius: '6px',
               padding: 'clamp(28px, 4vw, 44px)',
               position: 'relative',
@@ -293,7 +293,7 @@ export const Skills: React.FC = () => {
                     fontFamily: 'var(--font-body)',
                     fontSize: '1rem',
                     fontWeight: 700,
-                    color: 'var(--accent-blue-light)',
+                    color: 'var(--accent-purple-light)',
                     letterSpacing: '0.04em',
                   }}
                 >
@@ -323,8 +323,8 @@ export const Skills: React.FC = () => {
                   color: 'var(--text-secondary)',
                   letterSpacing: '0.03em',
                   padding: '5px 14px',
-                  backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                  border: '1px solid rgba(59, 130, 246, 0.25)',
+                  backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                  border: '1px solid rgba(139, 92, 246, 0.25)',
                   borderRadius: '20px',
                 }}
               >
@@ -352,7 +352,7 @@ export const Skills: React.FC = () => {
                     style={{
                       padding: '24px',
                       backgroundColor: isHovered ? 'rgba(28, 32, 46, 0.85)' : 'rgba(22, 22, 32, 0.65)',
-                      border: isHovered ? '1px solid rgba(59, 130, 246, 0.45)' : '1px solid var(--border-hairline)',
+                      border: isHovered ? '1px solid rgba(139, 92, 246, 0.45)' : '1px solid var(--border-hairline)',
                       borderRadius: '4px',
                       display: 'flex',
                       flexDirection: 'column',
@@ -371,8 +371,8 @@ export const Skills: React.FC = () => {
                               width: '38px',
                               height: '38px',
                               borderRadius: '6px',
-                              backgroundColor: 'rgba(59, 130, 246, 0.12)',
-                              border: '1px solid rgba(59, 130, 246, 0.24)',
+                              backgroundColor: 'rgba(139, 92, 246, 0.12)',
+                              border: '1px solid rgba(139, 92, 246, 0.24)',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
@@ -398,7 +398,7 @@ export const Skills: React.FC = () => {
                                 fontFamily: 'var(--font-body)',
                                 fontSize: '0.8rem',
                                 fontWeight: 600,
-                                color: 'var(--accent-blue-light)',
+                                color: 'var(--accent-purple-light)',
                               }}
                             >
                               {role}
@@ -411,8 +411,8 @@ export const Skills: React.FC = () => {
                             width: '6px',
                             height: '6px',
                             borderRadius: '50%',
-                            backgroundColor: 'var(--accent-blue)',
-                            boxShadow: isHovered ? '0 0 10px var(--accent-blue)' : 'none',
+                            backgroundColor: 'var(--accent-purple)',
+                            boxShadow: isHovered ? '0 0 10px var(--accent-purple)' : 'none',
                           }}
                         />
                       </div>
@@ -465,7 +465,7 @@ export const Skills: React.FC = () => {
                       fontFamily: 'var(--font-body)',
                       fontSize: '0.94rem',
                       fontWeight: 700,
-                      color: 'var(--accent-blue-light)',
+                      color: 'var(--accent-purple-light)',
                     }}
                   >
                     02
@@ -572,7 +572,7 @@ export const Skills: React.FC = () => {
                       fontFamily: 'var(--font-body)',
                       fontSize: '0.94rem',
                       fontWeight: 700,
-                      color: 'var(--accent-blue-light)',
+                      color: 'var(--accent-purple-light)',
                     }}
                   >
                     03
@@ -634,7 +634,7 @@ export const Skills: React.FC = () => {
                               fontFamily: 'var(--font-body)',
                               fontSize: '0.76rem',
                               fontWeight: 600,
-                              color: 'var(--accent-blue-light)',
+                              color: 'var(--accent-purple-light)',
                             }}
                           >
                             {role}
@@ -681,7 +681,7 @@ export const Skills: React.FC = () => {
                       fontFamily: 'var(--font-body)',
                       fontSize: '0.94rem',
                       fontWeight: 700,
-                      color: 'var(--accent-blue-light)',
+                      color: 'var(--accent-purple-light)',
                     }}
                   >
                     04
@@ -784,7 +784,7 @@ export const Skills: React.FC = () => {
                     fontFamily: 'var(--font-body)',
                     fontSize: '0.94rem',
                     fontWeight: 700,
-                    color: 'var(--accent-blue-light)',
+                    color: 'var(--accent-purple-light)',
                   }}
                 >
                   +
@@ -884,11 +884,11 @@ export const Skills: React.FC = () => {
           }
         }
         .tech-feature-card:hover {
-          border-color: rgba(59, 130, 246, 0.45) !important;
+          border-color: rgba(139, 92, 246, 0.45) !important;
           background-color: rgba(26, 30, 44, 0.85) !important;
         }
         .tech-sub-plate:hover {
-          border-color: rgba(59, 130, 246, 0.35) !important;
+          border-color: rgba(139, 92, 246, 0.35) !important;
           background-color: rgba(30, 32, 46, 0.75) !important;
           transform: translateY(-2px);
         }

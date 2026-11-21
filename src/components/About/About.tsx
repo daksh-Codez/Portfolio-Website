@@ -149,7 +149,7 @@ export const About: React.FC = () => {
                   padding: '28px',
                   backgroundColor: 'rgba(20, 20, 28, 0.7)',
                   border: '1px solid var(--border-hairline)',
-                  borderLeft: '2px solid rgba(59, 130, 246, 0.6)',
+                  borderLeft: '2px solid rgba(139, 92, 246, 0.6)',
                   position: 'relative',
                   transition: 'transform 0.25s ease, border-color 0.25s ease',
                 }}

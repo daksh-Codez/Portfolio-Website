@@ -19,7 +19,7 @@ export const WebsiteSettings: React.FC = () => {
   return (
     <div>
       <div style={{ marginBottom: '28px' }}>
-        <span style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.06em', color: '#3B82F6', textTransform: 'uppercase' }}>
+        <span style={{ fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.06em', color: '#8B5CF6', textTransform: 'uppercase' }}>
           CONFIGURATION & DIAGNOSTICS
         </span>
         <h1 style={{ fontSize: 'clamp(1.5rem, 2.2vw, 1.9rem)', fontWeight: 600, color: '#F2EFF5', marginTop: '2px' }}>
@@ -150,7 +150,7 @@ export const WebsiteSettings: React.FC = () => {
                 type="checkbox"
                 checked={enable3D}
                 onChange={(e) => setEnable3D(e.target.checked)}
-                style={{ width: '18px', height: '18px', accentColor: '#3B82F6', cursor: 'pointer' }}
+                style={{ width: '18px', height: '18px', accentColor: '#8B5CF6', cursor: 'pointer' }}
               />
             </div>
 
@@ -164,7 +164,7 @@ export const WebsiteSettings: React.FC = () => {
                 type="checkbox"
                 checked={enableAmbient}
                 onChange={(e) => setEnableAmbient(e.target.checked)}
-                style={{ width: '18px', height: '18px', accentColor: '#3B82F6', cursor: 'pointer' }}
+                style={{ width: '18px', height: '18px', accentColor: '#8B5CF6', cursor: 'pointer' }}
               />
             </div>
 
@@ -178,7 +178,7 @@ export const WebsiteSettings: React.FC = () => {
                 type="checkbox"
                 checked={enableTerminal}
                 onChange={(e) => setEnableTerminal(e.target.checked)}
-                style={{ width: '18px', height: '18px', accentColor: '#3B82F6', cursor: 'pointer' }}
+                style={{ width: '18px', height: '18px', accentColor: '#8B5CF6', cursor: 'pointer' }}
               />
             </div>
           </div>
@@ -189,7 +189,7 @@ export const WebsiteSettings: React.FC = () => {
             type="submit"
             style={{
               padding: '12px 24px',
-              backgroundColor: '#3B82F6',
+              backgroundColor: '#8B5CF6',
               border: 'none',
               borderRadius: '5px',
               color: '#FFFFFF',
@@ -229,8 +229,8 @@ export const WebsiteSettings: React.FC = () => {
           outline: none;
         }
         .form-input:focus {
-          border-color: #3B82F6;
-          box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+          border-color: #8B5CF6;
+          box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
         }
       `}</style>
     </div>

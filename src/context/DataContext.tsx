@@ -102,7 +102,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
           sourceFileName: p.source_file_name,
           startLine: p.start_line || 1,
           codeExcerpt: p.code_excerpt,
-          visualAccent: p.visual_accent || '#3B82F6',
+          visualAccent: p.visual_accent || '#8B5CF6',
         }));
         setProjectsList(mapped);
       }

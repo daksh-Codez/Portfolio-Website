@@ -375,11 +375,11 @@ export const Projects: React.FC = () => {
                             alignItems: 'center',
                             gap: '5px',
                             padding: '4px 8px',
-                            background: copiedId === project.id ? 'rgba(59, 130, 246, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                            background: copiedId === project.id ? 'rgba(139, 92, 246, 0.2)' : 'rgba(255, 255, 255, 0.05)',
                             border: '1px solid',
                             borderColor: copiedId === project.id ? 'var(--accent-violet)' : 'var(--border-hairline)',
                             borderRadius: '3px',
-                            color: copiedId === project.id ? '#93C5FD' : 'var(--text-secondary)',
+                            color: copiedId === project.id ? '#C4B5FD' : 'var(--text-secondary)',
                             fontFamily: 'var(--font-mono)',
                             fontSize: '0.7rem',
                             cursor: 'pointer',
@@ -388,7 +388,7 @@ export const Projects: React.FC = () => {
                         >
                           {copiedId === project.id ? (
                             <>
-                              <Check size={11} style={{ color: '#60A5FA' }} />
+                              <Check size={11} style={{ color: '#A78BFA' }} />
                               <span>COPIED</span>
                             </>
                           ) : (
@@ -560,10 +560,10 @@ export const Projects: React.FC = () => {
           align-items: center;
           gap: 8px;
           padding: 9px 18px;
-          background: rgba(59, 130, 246, 0.12);
-          border: 1px solid rgba(59, 130, 246, 0.35);
+          background: rgba(139, 92, 246, 0.12);
+          border: 1px solid rgba(139, 92, 246, 0.35);
           border-radius: 4px;
-          color: #93C5FD;
+          color: #C4B5FD;
           font-family: var(--font-body);
           font-size: 0.86rem;
           font-weight: 600;
@@ -573,11 +573,11 @@ export const Projects: React.FC = () => {
         }
 
         .view-repo-btn:hover {
-          background: rgba(59, 130, 246, 0.24);
-          border-color: rgba(59, 130, 246, 0.65);
+          background: rgba(139, 92, 246, 0.24);
+          border-color: rgba(139, 92, 246, 0.65);
           color: #FFFFFF;
           transform: translateY(-2px);
-          box-shadow: 0 4px 18px rgba(59, 130, 246, 0.25);
+          box-shadow: 0 4px 18px rgba(139, 92, 246, 0.25);
         }
 
         .view-repo-btn:hover .repo-arrow {
@@ -590,7 +590,7 @@ export const Projects: React.FC = () => {
 
         .code-preview-window:hover {
           transform: translateY(-3px);
-          border-color: rgba(59, 130, 246, 0.4) !important;
+          border-color: rgba(139, 92, 246, 0.4) !important;
           box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6) !important;
         }
 

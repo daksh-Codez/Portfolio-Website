@@ -13,24 +13,30 @@
   --text-muted: #797585;
   --text-subtle: #524f5d;
 
-  /* Premium Cobalt / Azure Blue Accent Palette */
-  --accent-blue: #3b82f6;
-  --accent-blue-light: #60a5fa;
-  --accent-blue-deep: #1d4ed8;
-  --accent-blue-glow: rgba(59, 130, 246, 0.24);
-  --accent-blue-subtle: rgba(59, 130, 246, 0.1);
+  /* Premium Royal / Editorial Purple Accent Palette */
+  --accent-purple: #8b5cf6;
+  --accent-purple-light: #a78bfa;
+  --accent-purple-deep: #6d28d9;
+  --accent-purple-glow: rgba(139, 92, 246, 0.25);
+  --accent-purple-subtle: rgba(139, 92, 246, 0.1);
 
   /* Aliased for backward compatibility */
-  --accent-violet: var(--accent-blue);
-  --accent-violet-light: var(--accent-blue-light);
-  --accent-violet-deep: var(--accent-blue-deep);
-  --accent-violet-glow: var(--accent-blue-glow);
-  --accent-violet-subtle: var(--accent-blue-subtle);
+  --accent-blue: var(--accent-purple);
+  --accent-blue-light: var(--accent-purple-light);
+  --accent-blue-deep: var(--accent-purple-deep);
+  --accent-blue-glow: var(--accent-purple-glow);
+  --accent-blue-subtle: var(--accent-purple-subtle);
+
+  --accent-violet: var(--accent-purple);
+  --accent-violet-light: var(--accent-purple-light);
+  --accent-violet-deep: var(--accent-purple-deep);
+  --accent-violet-glow: var(--accent-purple-glow);
+  --accent-violet-subtle: var(--accent-purple-subtle);
 
   /* Hairlines and Dividers */
   --border-hairline: rgba(255, 255, 255, 0.06);
   --border-subtle: rgba(255, 255, 255, 0.10);
-  --border-focus: rgba(59, 130, 246, 0.5);
+  --border-focus: rgba(139, 92, 246, 0.5);
 
   /* Typography Families */
   --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

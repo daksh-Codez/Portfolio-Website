@@ -56,7 +56,7 @@ export const Scene3D: React.FC = () => {
     // Outer Cage: Subtle geometric wireframe ring system for editorial depth
     const outerGeometry = new THREE.IcosahedronGeometry(2.1, 1);
     const outerMaterial = new THREE.MeshStandardMaterial({
-      color: 0x3b82f6,
+      color: 0x8b5cf6,
       wireframe: true,
       transparent: true,
       opacity: 0.25,
@@ -80,7 +80,7 @@ export const Scene3D: React.FC = () => {
     }
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0x93c5fd,
+      color: 0xc4b5fd,
       size: 0.035,
       transparent: true,
       opacity: 0.5
@@ -88,19 +88,19 @@ export const Scene3D: React.FC = () => {
     const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
     sculptureGroup.add(particleSystem);
 
-    // Lighting Design: Deep obsidian with refined blue rim light
-    const ambientLight = new THREE.AmbientLight(0x05070d, 1.5);
+    // Lighting Design: Deep obsidian with refined purple rim light
+    const ambientLight = new THREE.AmbientLight(0x07050d, 1.5);
     scene.add(ambientLight);
 
-    // Refined blue key rim light (reacts subtly to cursor)
-    const blueRimLight = new THREE.DirectionalLight(0x3b82f6, 4.2);
-    blueRimLight.position.set(4, 3, 2);
-    scene.add(blueRimLight);
+    // Refined purple key rim light (reacts subtly to cursor)
+    const purpleRimLight = new THREE.DirectionalLight(0x8b5cf6, 4.2);
+    purpleRimLight.position.set(4, 3, 2);
+    scene.add(purpleRimLight);
 
-    // Soft cold fill light
-    const coldFillLight = new THREE.DirectionalLight(0x1d4ed8, 2.5);
-    coldFillLight.position.set(-4, -2, -2);
-    scene.add(coldFillLight);
+    // Soft royal purple fill light
+    const purpleFillLight = new THREE.DirectionalLight(0x6d28d9, 2.5);
+    purpleFillLight.position.set(-4, -2, -2);
+    scene.add(purpleFillLight);
 
     // Subtle white specular point light (follows cursor reflection across surface)
     const specLight = new THREE.PointLight(0xffffff, 2.0, 15);
@@ -214,9 +214,9 @@ export const Scene3D: React.FC = () => {
       specLight.position.y = 4 + currentMouseY * 2.0;
       specLight.position.z = 3 + Math.sin(elapsedTime * 0.4) * 0.4;
 
-      // Blue key rim light angle subtly adjusts
-      blueRimLight.position.x = 4 + currentMouseX * 1.2;
-      blueRimLight.position.y = 3 + currentMouseY * 1.2;
+      // Purple key rim light angle subtly adjusts
+      purpleRimLight.position.x = 4 + currentMouseX * 1.2;
+      purpleRimLight.position.y = 3 + currentMouseY * 1.2;
 
       // Subtle sculpture parallax tilt responding gently to mouse
       sculptureGroup.rotation.x = -currentMouseY * 0.12;

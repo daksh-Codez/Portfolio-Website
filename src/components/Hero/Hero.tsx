@@ -70,8 +70,8 @@ export const Hero: React.FC = () => {
               alignItems: 'center',
               gap: '8px',
               padding: '7px 16px',
-              background: 'rgba(59, 130, 246, 0.12)',
-              border: '1px solid rgba(59, 130, 246, 0.3)',
+              background: 'rgba(139, 92, 246, 0.12)',
+              border: '1px solid rgba(139, 92, 246, 0.3)',
               borderRadius: '20px',
             }}
           >
