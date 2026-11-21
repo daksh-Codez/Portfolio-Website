@@ -1,16 +1,29 @@
 -- ========================================================
--- DAKSH GOSWAMI PORTFOLIO - SUPABASE DATABASE SCHEMA
--- PostgreSQL DDL + Row Level Security (RLS) + Seed Data
+-- DAKSH GOSWAMI PORTFOLIO - PRODUCTION DATABASE SCHEMA & RLS
+-- ========================================================
+-- Safe for execution on a fresh Supabase database and fully idempotent.
+-- Target Administrator UID: 8d3d305e-2243-4e22-a21f-fdbfd586645c
 -- ========================================================
 
--- Enable UUID extension
+-- ========================================================
+-- 1. EXTENSIONS
+-- ========================================================
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
--- --------------------------------------------------------
--- 1. PROJECTS TABLE
--- --------------------------------------------------------
+-- ========================================================
+-- 2. TABLE DEFINITIONS (All 10 CMS Tables)
+-- ========================================================
+
+-- 2.1 ADMIN USERS TABLE
+CREATE TABLE IF NOT EXISTS public.admin_users (
+    user_id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 2.2 PROJECTS TABLE
 CREATE TABLE IF NOT EXISTS public.projects (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     slug TEXT UNIQUE NOT NULL,
     number TEXT NOT NULL,
     title TEXT NOT NULL,
@@ -34,11 +47,9 @@ CREATE TABLE IF NOT EXISTS public.projects (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- --------------------------------------------------------
--- 2. SKILLS AND TECHNOLOGIES TABLE
--- --------------------------------------------------------
+-- 2.3 SKILLS & TECHNOLOGIES TABLE
 CREATE TABLE IF NOT EXISTS public.skills (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
     category TEXT NOT NULL CHECK (category IN (
         '01 / PROGRAMMING & SYSTEMS',
@@ -53,9 +64,7 @@ CREATE TABLE IF NOT EXISTS public.skills (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- --------------------------------------------------------
--- 3. PERSONAL INFORMATION (SINGLETON RECORD ID = 1)
--- --------------------------------------------------------
+-- 2.4 PERSONAL INFORMATION TABLE (Singleton ID = 1)
 CREATE TABLE IF NOT EXISTS public.personal_info (
     id INTEGER PRIMARY KEY DEFAULT 1 CHECK (id = 1),
     name TEXT NOT NULL,
@@ -71,9 +80,7 @@ CREATE TABLE IF NOT EXISTS public.personal_info (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- --------------------------------------------------------
--- 4. EDUCATION (SINGLETON RECORD ID = 1)
--- --------------------------------------------------------
+-- 2.5 EDUCATION TABLE (Singleton ID = 1)
 CREATE TABLE IF NOT EXISTS public.education (
     id INTEGER PRIMARY KEY DEFAULT 1 CHECK (id = 1),
     institution TEXT NOT NULL,
@@ -85,11 +92,9 @@ CREATE TABLE IF NOT EXISTS public.education (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- --------------------------------------------------------
--- 5. TRAJECTORY / CURRENT FOCUS TABLE
--- --------------------------------------------------------
+-- 2.6 TRAJECTORY / CURRENT FOCUS TABLE
 CREATE TABLE IF NOT EXISTS public.trajectory_items (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     number TEXT NOT NULL,
     title TEXT NOT NULL,
     phase TEXT NOT NULL,
@@ -102,9 +107,7 @@ CREATE TABLE IF NOT EXISTS public.trajectory_items (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- --------------------------------------------------------
--- 6. INTERNSHIP MILESTONE (SINGLETON RECORD ID = 1)
--- --------------------------------------------------------
+-- 2.7 INTERNSHIP MILESTONE TABLE (Singleton ID = 1)
 CREATE TABLE IF NOT EXISTS public.internship_milestone (
     id INTEGER PRIMARY KEY DEFAULT 1 CHECK (id = 1),
     eyebrow TEXT NOT NULL,
@@ -114,11 +117,9 @@ CREATE TABLE IF NOT EXISTS public.internship_milestone (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- --------------------------------------------------------
--- 7. SOCIAL LINKS TABLE
--- --------------------------------------------------------
+-- 2.8 SOCIAL LINKS TABLE
 CREATE TABLE IF NOT EXISTS public.social_links (
-    id TEXT PRIMARY KEY, -- e.g., 'github', 'linkedin', 'twitter'
+    id TEXT PRIMARY KEY,
     platform TEXT NOT NULL,
     url TEXT NOT NULL,
     handle TEXT NOT NULL,
@@ -127,11 +128,9 @@ CREATE TABLE IF NOT EXISTS public.social_links (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- --------------------------------------------------------
--- 8. MEDIA FILES LIBRARY
--- --------------------------------------------------------
+-- 2.9 MEDIA FILES METADATA TABLE
 CREATE TABLE IF NOT EXISTS public.media_files (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     filename TEXT NOT NULL,
     storage_path TEXT NOT NULL,
     public_url TEXT NOT NULL,
@@ -140,9 +139,7 @@ CREATE TABLE IF NOT EXISTS public.media_files (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- --------------------------------------------------------
--- 9. WEBSITE SETTINGS
--- --------------------------------------------------------
+-- 2.10 WEBSITE SETTINGS TABLE
 CREATE TABLE IF NOT EXISTS public.website_settings (
     key TEXT PRIMARY KEY,
     value JSONB NOT NULL,
@@ -150,10 +147,120 @@ CREATE TABLE IF NOT EXISTS public.website_settings (
 );
 
 -- ========================================================
--- ROW LEVEL SECURITY (RLS) POLICIES
+-- 3. STORAGE BUCKET CONFIGURATION
+-- ========================================================
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('portfolio-media', 'portfolio-media', true)
+ON CONFLICT (id) DO UPDATE SET public = true;
+
+-- ========================================================
+-- 4. ADMINISTRATOR REGISTRATION & HARDENED HELPER FUNCTION
 -- ========================================================
 
--- Enable RLS across all tables
+-- 4.1 Register Designated Administrator UID
+INSERT INTO public.admin_users (user_id)
+VALUES ('8d3d305e-2243-4e22-a21f-fdbfd586645c'::uuid)
+ON CONFLICT (user_id) DO NOTHING;
+
+-- 4.2 Hardened is_admin() Function
+-- SECURITY DEFINER executes with function owner's privileges (postgres).
+-- Restricted search_path prevents search-path hijacking attacks.
+-- Fully qualified references guarantee correct table and function resolution.
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS BOOLEAN
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = public, auth, pg_temp
+STABLE
+AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM public.admin_users WHERE user_id = auth.uid()
+  );
+$$;
+
+-- Explicit function permissions
+REVOKE ALL ON FUNCTION public.is_admin() FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.is_admin() TO anon, authenticated, service_role;
+
+-- ========================================================
+-- 5. EXPLICIT POSTGRESQL TABLE PRIVILEGES
+-- RLS serves as the policy boundary; privileges grant base API access.
+-- TRUNCATE is revoked from both anon and authenticated.
+-- media_files table is completely closed to anon.
+-- ========================================================
+
+-- Schema usage
+GRANT USAGE ON SCHEMA public TO anon, authenticated;
+
+-- Content tables: Public visitors (anon) receive SELECT only (excluding media_files and admin_users)
+GRANT SELECT ON TABLE 
+    public.projects,
+    public.skills,
+    public.personal_info,
+    public.education,
+    public.trajectory_items,
+    public.internship_milestone,
+    public.social_links,
+    public.website_settings
+TO anon;
+
+-- Explicitly revoke media_files and admin_users completely from anon
+REVOKE ALL ON TABLE public.media_files FROM anon;
+REVOKE ALL ON TABLE public.admin_users FROM anon;
+
+-- Explicitly revoke write & TRUNCATE privileges from anon across ALL tables
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE 
+    public.projects,
+    public.skills,
+    public.personal_info,
+    public.education,
+    public.trajectory_items,
+    public.internship_milestone,
+    public.social_links,
+    public.media_files,
+    public.website_settings,
+    public.admin_users
+FROM anon;
+
+-- Content tables: Authenticated users receive standard DML privileges (strictly gated by RLS)
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE 
+    public.projects,
+    public.skills,
+    public.personal_info,
+    public.education,
+    public.trajectory_items,
+    public.internship_milestone,
+    public.social_links,
+    public.media_files,
+    public.website_settings
+TO authenticated;
+
+-- Explicitly REVOKE TRUNCATE from authenticated across all tables
+REVOKE TRUNCATE ON TABLE 
+    public.projects,
+    public.skills,
+    public.personal_info,
+    public.education,
+    public.trajectory_items,
+    public.internship_milestone,
+    public.social_links,
+    public.media_files,
+    public.website_settings,
+    public.admin_users
+FROM authenticated;
+
+-- admin_users table: Locked down completely from API mutations
+REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE public.admin_users FROM authenticated;
+GRANT SELECT ON TABLE public.admin_users TO authenticated;
+
+-- ========================================================
+-- 6. ROW LEVEL SECURITY (RLS) POLICIES
+-- Strict least-privilege: Public read only published content;
+-- Admin only for CRUD and draft read; zero generic write access.
+-- ========================================================
+
+-- Enable RLS across all 10 tables
+ALTER TABLE public.admin_users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.skills ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.personal_info ENABLE ROW LEVEL SECURITY;
@@ -164,101 +271,201 @@ ALTER TABLE public.social_links ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.media_files ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.website_settings ENABLE ROW LEVEL SECURITY;
 
--- --------------------------------------------------------
--- PROJECTS POLICIES
--- Public can SELECT published projects only.
--- Authenticated admins have full CRUD.
--- --------------------------------------------------------
-CREATE POLICY "Public can view published projects"
-    ON public.projects FOR SELECT
-    USING (status = 'published' OR auth.role() = 'authenticated');
+-- 6.1 admin_users policies (Only user can check their own status; mutations impossible via API)
+DROP POLICY IF EXISTS "Admins can view own admin row" ON public.admin_users;
+CREATE POLICY "Admins can view own admin row"
+    ON public.admin_users FOR SELECT
+    USING (auth.uid() = user_id);
 
-CREATE POLICY "Admin can insert projects"
+-- 6.2 projects policies
+DROP POLICY IF EXISTS "Public read published projects" ON public.projects;
+DROP POLICY IF EXISTS "Admin insert projects" ON public.projects;
+DROP POLICY IF EXISTS "Admin update projects" ON public.projects;
+DROP POLICY IF EXISTS "Admin delete projects" ON public.projects;
+
+CREATE POLICY "Public read published projects"
+    ON public.projects FOR SELECT
+    USING (status = 'published' OR public.is_admin());
+
+CREATE POLICY "Admin insert projects"
     ON public.projects FOR INSERT
     TO authenticated
-    WITH CHECK (true);
+    WITH CHECK (public.is_admin());
 
-CREATE POLICY "Admin can update projects"
+CREATE POLICY "Admin update projects"
     ON public.projects FOR UPDATE
     TO authenticated
-    USING (true)
-    WITH CHECK (true);
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
 
-CREATE POLICY "Admin can delete projects"
+CREATE POLICY "Admin delete projects"
     ON public.projects FOR DELETE
     TO authenticated
-    USING (true);
+    USING (public.is_admin());
 
--- --------------------------------------------------------
--- SKILLS POLICIES
--- --------------------------------------------------------
-CREATE POLICY "Public can view published skills"
+-- 6.3 skills policies
+DROP POLICY IF EXISTS "Public read published skills" ON public.skills;
+DROP POLICY IF EXISTS "Admin manage skills" ON public.skills;
+
+CREATE POLICY "Public read published skills"
     ON public.skills FOR SELECT
-    USING (status = 'published' OR auth.role() = 'authenticated');
+    USING (status = 'published' OR public.is_admin());
 
-CREATE POLICY "Admin can manage skills"
+CREATE POLICY "Admin manage skills"
     ON public.skills FOR ALL
     TO authenticated
-    USING (true)
-    WITH CHECK (true);
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
 
--- --------------------------------------------------------
--- SINGLETON & PUBLIC DATA POLICIES (Read-only public, Admin CRUD)
--- --------------------------------------------------------
-CREATE POLICY "Public read personal_info" ON public.personal_info FOR SELECT USING (true);
-CREATE POLICY "Admin manage personal_info" ON public.personal_info FOR ALL TO authenticated USING (true) WITH CHECK (true);
+-- 6.4 personal_info policies (Singleton)
+DROP POLICY IF EXISTS "Public read personal_info" ON public.personal_info;
+DROP POLICY IF EXISTS "Admin manage personal_info" ON public.personal_info;
 
-CREATE POLICY "Public read education" ON public.education FOR SELECT USING (true);
-CREATE POLICY "Admin manage education" ON public.education FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Public read personal_info"
+    ON public.personal_info FOR SELECT
+    USING (true);
 
-CREATE POLICY "Public can view published trajectory" ON public.trajectory_items FOR SELECT USING (status = 'published' OR auth.role() = 'authenticated');
-CREATE POLICY "Admin manage trajectory" ON public.trajectory_items FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Admin manage personal_info"
+    ON public.personal_info FOR ALL
+    TO authenticated
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
 
-CREATE POLICY "Public read internship_milestone" ON public.internship_milestone FOR SELECT USING (true);
-CREATE POLICY "Admin manage internship_milestone" ON public.internship_milestone FOR ALL TO authenticated USING (true) WITH CHECK (true);
+-- 6.5 education policies (Singleton)
+DROP POLICY IF EXISTS "Public read education" ON public.education;
+DROP POLICY IF EXISTS "Admin manage education" ON public.education;
 
-CREATE POLICY "Public read published social_links" ON public.social_links FOR SELECT USING (status = 'published' OR auth.role() = 'authenticated');
-CREATE POLICY "Admin manage social_links" ON public.social_links FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Public read education"
+    ON public.education FOR SELECT
+    USING (true);
 
-CREATE POLICY "Public read media_files" ON public.media_files FOR SELECT USING (true);
-CREATE POLICY "Admin manage media_files" ON public.media_files FOR ALL TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Admin manage education"
+    ON public.education FOR ALL
+    TO authenticated
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
 
-CREATE POLICY "Public read website_settings" ON public.website_settings FOR SELECT USING (true);
-CREATE POLICY "Admin manage website_settings" ON public.website_settings FOR ALL TO authenticated USING (true) WITH CHECK (true);
+-- 6.6 trajectory_items policies
+DROP POLICY IF EXISTS "Public read published trajectory" ON public.trajectory_items;
+DROP POLICY IF EXISTS "Admin manage trajectory" ON public.trajectory_items;
 
--- ========================================================
--- STORAGE BUCKET CONFIGURATION
--- ========================================================
--- Create 'portfolio-media' public bucket for images/assets
-INSERT INTO storage.buckets (id, name, public)
-VALUES ('portfolio-media', 'portfolio-media', true)
-ON CONFLICT (id) DO UPDATE SET public = true;
+CREATE POLICY "Public read published trajectory"
+    ON public.trajectory_items FOR SELECT
+    USING (status = 'published' OR public.is_admin());
 
--- Storage policies: Public can download, authenticated admin can upload/delete
-CREATE POLICY "Public can view portfolio media"
+CREATE POLICY "Admin manage trajectory"
+    ON public.trajectory_items FOR ALL
+    TO authenticated
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
+
+-- 6.7 internship_milestone policies (Singleton)
+DROP POLICY IF EXISTS "Public read internship_milestone" ON public.internship_milestone;
+DROP POLICY IF EXISTS "Admin manage internship_milestone" ON public.internship_milestone;
+
+CREATE POLICY "Public read internship_milestone"
+    ON public.internship_milestone FOR SELECT
+    USING (true);
+
+CREATE POLICY "Admin manage internship_milestone"
+    ON public.internship_milestone FOR ALL
+    TO authenticated
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
+
+-- 6.8 social_links policies
+DROP POLICY IF EXISTS "Public read published social_links" ON public.social_links;
+DROP POLICY IF EXISTS "Admin manage social_links" ON public.social_links;
+
+CREATE POLICY "Public read published social_links"
+    ON public.social_links FOR SELECT
+    USING (status = 'published' OR public.is_admin());
+
+CREATE POLICY "Admin manage social_links"
+    ON public.social_links FOR ALL
+    TO authenticated
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
+
+-- 6.9 media_files policies (RESTRICTED TO DESIGNATED ADMIN ONLY)
+-- Public access removed; only authenticated administrator can read or manage media records.
+DROP POLICY IF EXISTS "Public read media_files" ON public.media_files;
+DROP POLICY IF EXISTS "Admin read media_files" ON public.media_files;
+DROP POLICY IF EXISTS "Admin insert media_files" ON public.media_files;
+DROP POLICY IF EXISTS "Admin update media_files" ON public.media_files;
+DROP POLICY IF EXISTS "Admin delete media_files" ON public.media_files;
+DROP POLICY IF EXISTS "Admin manage media_files" ON public.media_files;
+
+CREATE POLICY "Admin read media_files"
+    ON public.media_files FOR SELECT
+    TO authenticated
+    USING (public.is_admin());
+
+CREATE POLICY "Admin insert media_files"
+    ON public.media_files FOR INSERT
+    TO authenticated
+    WITH CHECK (public.is_admin());
+
+CREATE POLICY "Admin update media_files"
+    ON public.media_files FOR UPDATE
+    TO authenticated
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
+
+CREATE POLICY "Admin delete media_files"
+    ON public.media_files FOR DELETE
+    TO authenticated
+    USING (public.is_admin());
+
+-- 6.10 website_settings policies
+DROP POLICY IF EXISTS "Public read website_settings" ON public.website_settings;
+DROP POLICY IF EXISTS "Admin manage website_settings" ON public.website_settings;
+
+CREATE POLICY "Public read website_settings"
+    ON public.website_settings FOR SELECT
+    USING (true);
+
+CREATE POLICY "Admin manage website_settings"
+    ON public.website_settings FOR ALL
+    TO authenticated
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
+
+-- 6.11 storage.objects policies (portfolio-media bucket)
+DROP POLICY IF EXISTS "Public read portfolio-media" ON storage.objects;
+DROP POLICY IF EXISTS "Admin upload portfolio-media" ON storage.objects;
+DROP POLICY IF EXISTS "Admin update portfolio-media" ON storage.objects;
+DROP POLICY IF EXISTS "Admin delete portfolio-media" ON storage.objects;
+
+-- Public can view/render images from the CDN
+CREATE POLICY "Public read portfolio-media"
     ON storage.objects FOR SELECT
     USING (bucket_id = 'portfolio-media');
 
-CREATE POLICY "Admin can upload portfolio media"
+-- Only authorized administrator can upload, replace, or delete assets
+CREATE POLICY "Admin upload portfolio-media"
     ON storage.objects FOR INSERT
     TO authenticated
-    WITH CHECK (bucket_id = 'portfolio-media');
+    WITH CHECK (bucket_id = 'portfolio-media' AND public.is_admin());
 
-CREATE POLICY "Admin can update portfolio media"
+CREATE POLICY "Admin update portfolio-media"
     ON storage.objects FOR UPDATE
     TO authenticated
-    USING (bucket_id = 'portfolio-media');
+    USING (bucket_id = 'portfolio-media' AND public.is_admin())
+    WITH CHECK (bucket_id = 'portfolio-media' AND public.is_admin());
 
-CREATE POLICY "Admin can delete portfolio media"
+CREATE POLICY "Admin delete portfolio-media"
     ON storage.objects FOR DELETE
     TO authenticated
-    USING (bucket_id = 'portfolio-media');
+    USING (bucket_id = 'portfolio-media' AND public.is_admin());
 
 -- ========================================================
--- SEED INITIAL DATA FROM EXISTING PORTFOLIO
+-- 7. INITIAL SEED DATA
+-- Note: Project 01 is published with verified genuine source code.
+-- Projects 02-06 are seeded as 'draft' awaiting your real code & GitHub links.
 -- ========================================================
 
--- Personal Information
+-- 7.1 Personal Information
 INSERT INTO public.personal_info (id, name, role, tagline, headline, location, bio, about_paragraphs, email, availability_status)
 VALUES (
     1,
@@ -279,7 +486,7 @@ VALUES (
 )
 ON CONFLICT (id) DO NOTHING;
 
--- Education
+-- 7.2 Education
 INSERT INTO public.education (id, institution, degree, major, status, location, academic_notes)
 VALUES (
     1,
@@ -296,7 +503,7 @@ VALUES (
 )
 ON CONFLICT (id) DO NOTHING;
 
--- Internship Milestone
+-- 7.3 Internship Milestone
 INSERT INTO public.internship_milestone (id, eyebrow, title, description, badge)
 VALUES (
     1,
@@ -307,14 +514,14 @@ VALUES (
 )
 ON CONFLICT (id) DO NOTHING;
 
--- Social Links
+-- 7.4 Social Links
 INSERT INTO public.social_links (id, platform, url, handle, display_order, status)
 VALUES
     ('github', 'GitHub', 'https://github.com/daksh-Codez', 'daksh-Codez', 1, 'published'),
     ('linkedin', 'LinkedIn', 'https://www.linkedin.com/in/daksh-goswami-52b8262b9', 'Daksh Goswami', 2, 'published')
 ON CONFLICT (id) DO NOTHING;
 
--- Initial Skills & Technologies
+-- 7.5 Skills & Technologies
 INSERT INTO public.skills (name, category, icon_name, display_order, status)
 VALUES
     ('C', '01 / PROGRAMMING & SYSTEMS', 'Code2', 1, 'published'),
@@ -329,7 +536,7 @@ VALUES
     ('Visual Studio Code', '04 / DEVELOPMENT WORKFLOW', 'Monitor', 10, 'published')
 ON CONFLICT DO NOTHING;
 
--- Initial Trajectory Items
+-- 7.6 Trajectory Items
 INSERT INTO public.trajectory_items (number, title, phase, type, description, tags, display_order, status)
 VALUES
     ('01', 'Programming Fundamentals', 'LEARNING / FOUNDATIONS', 'learning', 'Strengthening C and C++ through memory concepts, data structures, structured programming, and algorithmic thinking.', ARRAY['Memory Allocation', 'Data Structures', 'Structured C', 'Algorithmic Thinking'], 1, 'published'),
@@ -339,10 +546,12 @@ VALUES
     ('05', 'AI in Software Development', 'EXPLORATION & EXPERIMENTATION', 'exploration', 'Exploring practical ways artificial intelligence and modern developer tools can support software creation.', ARRAY['Developer Augmentation', 'AI Tooling', 'Practical Workflows', 'Emerging Tech'], 5, 'published')
 ON CONFLICT DO NOTHING;
 
--- Initial Projects
+-- 7.7 Projects
 INSERT INTO public.projects (slug, number, title, language, category, short_description, technologies, highlights, source_file_name, start_line, code_excerpt, visual_accent, display_order, status)
 VALUES
     (
+        -- [PROJECT 01 - PUBLISHED]
+        -- Verified GitHub source code from student-management-system.c
         'student-management-system',
         '01',
         'Student Management System',
@@ -359,6 +568,8 @@ VALUES
         'published'
     ),
     (
+        -- [PROJECT 02 - SEEDED AS DRAFT]
+        -- Placeholder excerpt from scaffolding; awaiting genuine GitHub code.
         'personal-expense-tracker',
         '02',
         'Personal Expense Tracker',
@@ -372,9 +583,10 @@ VALUES
         '// Personal Expense Tracker - Ledger Core\n#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct {\n    int transactionId;\n    char date[12];\n    char category[25];\n    double amount;\n    char type; // ''I'' for Income, ''E'' for Expense\n} Transaction;\n\ndouble computeNetBalance(FILE *ledger);\nvoid filterByCategory(FILE *ledger, const char *cat);',
         '#60A5FA',
         2,
-        'published'
+        'draft'
     ),
     (
+        -- [PROJECT 03 - SEEDED AS DRAFT]
         'number-guessing-game',
         '03',
         'Number Guessing Game',
@@ -388,9 +600,10 @@ VALUES
         '// Number Guessing Game Logic\n#include <stdio.h>\n#include <stdlib.h>\n#include <time.h>\n\nint runGameRound(int maxRange, int maxAttempts) {\n    srand((unsigned int)time(NULL));\n    int target = (rand() % maxRange) + 1;\n    int guess, attempts = 0;\n\n    while (attempts < maxAttempts) {\n        printf("Enter guess (1-%d): ", maxRange);\n        if (scanf("%d", &guess) != 1) break;\n        attempts++;\n        if (guess == target) return attempts;\n        printf(guess < target ? "Too low!\\n" : "Too high!\\n");\n    }\n    return -1;\n}',
         '#38BDF8',
         3,
-        'published'
+        'draft'
     ),
     (
+        -- [PROJECT 04 - SEEDED AS DRAFT]
         'c-calculator',
         '04',
         'Basic Calculator in C',
@@ -404,9 +617,10 @@ VALUES
         '// Basic Arithmetic Calculator in C\n#include <stdio.h>\n\ndouble evaluate(double a, char op, double b, int *status) {\n    *status = 0;\n    switch (op) {\n        case ''+'': return a + b;\n        case ''-'': return a - b;\n        case ''*'': return a * b;\n        case ''/'':\n            if (b == 0.0) { *status = -1; return 0; }\n            return a / b;\n        default:\n            *status = -2;\n            return 0;\n    }\n}',
         '#3B82F6',
         4,
-        'published'
+        'draft'
     ),
     (
+        -- [PROJECT 05 - SEEDED AS DRAFT]
         'cpp-calculator',
         '05',
         'Basic Calculator in C++',
@@ -420,9 +634,10 @@ VALUES
         '#include <iostream>\n\nclass Calculator {\npublic:\n    double calculate(double num1, char op, double num2) {\n        switch (op) {\n            case ''+'': return num1 + num2;\n            case ''-'': return num1 - num2;\n            case ''*'': return num1 * num2;\n            case ''/'':\n                if (num2 == 0) throw std::invalid_argument("Division by zero");\n                return num1 / num2;\n            default:\n                throw std::invalid_argument("Unsupported operator");\n        }\n    }\n};',
         '#60A5FA',
         5,
-        'published'
+        'draft'
     ),
     (
+        -- [PROJECT 06 - SEEDED AS DRAFT]
         'cpp-fundamentals-suite',
         '06',
         'Basic Programs in C++',
@@ -436,11 +651,11 @@ VALUES
         '#include <iostream>\n#include <vector>\n\ntemplate <typename T>\nvoid printArray(const std::vector<T>& list) {\n    for (const auto& item : list) {\n        std::cout << item << " ";\n    }\n    std::cout << "\\n";\n}',
         '#38BDF8',
         6,
-        'published'
+        'draft'
     )
 ON CONFLICT (slug) DO NOTHING;
 
--- Initial Website Settings
+-- 7.8 Website Settings
 INSERT INTO public.website_settings (key, value)
 VALUES
     ('site_meta', '{"siteTitle": "Daksh Goswami — Aspiring Software Developer", "maintenanceMode": false, "contactEmail": "dakshgoswami4077@gmail.com"}'::jsonb),
