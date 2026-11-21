@@ -30,7 +30,7 @@ export const projects: Project[] = [
     // Replace with your GitHub repository URL when published (e.g., "https://github.com/dakshgoswami/student-management-system")
     githubUrl: undefined,
     visualConcept: {
-      accentColor: "#8B5CF6",
+      accentColor: "#3B82F6",
       diagramType: "data-struct",
       snippet: `typedef struct {\n  int id;\n  char name[50];\n  float gpa;\n  char department[30];\n} Student;\n\nvoid insertRecord(Student s);`
     }
@@ -49,7 +49,7 @@ export const projects: Project[] = [
     ],
     githubUrl: undefined,
     visualConcept: {
-      accentColor: "#A78BFA",
+      accentColor: "#60A5FA",
       diagramType: "ledger",
       snippet: `typedef struct {\n  char date[12];\n  char category[25];\n  double amount;\n  char type; // 'I' or 'E'\n} Transaction;\n\ndouble computeNetBalance();`
     }
@@ -68,7 +68,7 @@ export const projects: Project[] = [
     ],
     githubUrl: undefined,
     visualConcept: {
-      accentColor: "#C084FC",
+      accentColor: "#38BDF8",
       diagramType: "binary-search",
       snippet: `int target = (rand() % maxRange) + 1;\nwhile (attemptsLeft > 0) {\n  scanf("%d", &guess);\n  if (guess == target) return WON;\n  printf(guess < target ? "Too low\\n" : "Too high\\n");\n}`
     }
@@ -87,7 +87,7 @@ export const projects: Project[] = [
     ],
     githubUrl: undefined,
     visualConcept: {
-      accentColor: "#8B5CF6",
+      accentColor: "#3B82F6",
       diagramType: "arithmetic",
       snippet: `switch (op) {\n  case '+': result = a + b; break;\n  case '-': result = a - b; break;\n  case '*': result = a * b; break;\n  case '/': (b != 0) ? (result = a / b) : error(); break;\n}`
     }
@@ -106,7 +106,7 @@ export const projects: Project[] = [
     ],
     githubUrl: undefined,
     visualConcept: {
-      accentColor: "#A78BFA",
+      accentColor: "#60A5FA",
       diagramType: "oop-class",
       snippet: `class Calculator {\npublic:\n  double compute(double a, char op, double b);\nprivate:\n  bool validate(char op, double b);\n};`
     }
@@ -125,7 +125,7 @@ export const projects: Project[] = [
     ],
     githubUrl: undefined,
     visualConcept: {
-      accentColor: "#C084FC",
+      accentColor: "#38BDF8",
       diagramType: "syntax-tree",
       snippet: `// Exploring foundational paradigms\ntemplate <typename T>\nvoid demonstrateAlgorithms(const std::vector<T>& data) {\n  // Problem-solving exercises & practice\n}`
     }

@@ -85,7 +85,7 @@ export const CustomCursor: React.FC = () => {
           height: isHovered ? '48px' : '28px',
           borderRadius: '50%',
           border: isHovered ? '1px solid var(--accent-violet)' : '1px solid rgba(255, 255, 255, 0.22)',
-          backgroundColor: isHovered ? 'rgba(155, 123, 238, 0.1)' : 'transparent',
+          backgroundColor: isHovered ? 'rgba(59, 130, 246, 0.12)' : 'transparent',
           pointerEvents: 'none',
           zIndex: 9998,
           transform: `translate3d(${trailingPos.x - (isHovered ? 24 : 14)}px, ${trailingPos.y - (isHovered ? 24 : 14)}px, 0)`,

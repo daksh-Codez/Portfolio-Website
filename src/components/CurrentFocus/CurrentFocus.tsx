@@ -96,9 +96,9 @@ export const CurrentFocus: React.FC = () => {
                       letterSpacing: '0.04em',
                       textTransform: 'uppercase',
                       padding: '5px 12px',
-                      backgroundColor: 'rgba(155, 123, 238, 0.12)',
+                      backgroundColor: 'rgba(59, 130, 246, 0.12)',
                       color: 'var(--accent-violet-light)',
-                      border: '1px solid rgba(155, 123, 238, 0.28)',
+                      border: '1px solid rgba(59, 130, 246, 0.3)',
                       borderRadius: '12px',
                     }}
                   >

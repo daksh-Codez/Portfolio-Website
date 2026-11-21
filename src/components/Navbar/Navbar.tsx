@@ -80,7 +80,7 @@ export const Navbar: React.FC = () => {
                 width: '36px',
                 height: '36px',
                 borderRadius: '6px',
-                border: '1px solid rgba(155, 123, 238, 0.4)',
+                border: '1px solid rgba(59, 130, 246, 0.45)',
                 background: 'linear-gradient(135deg, rgba(32, 32, 42, 0.95), rgba(24, 24, 32, 0.95))',
                 display: 'flex',
                 alignItems: 'center',

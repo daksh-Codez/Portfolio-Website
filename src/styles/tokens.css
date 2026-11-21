@@ -13,17 +13,24 @@
   --text-muted: #797585;
   --text-subtle: #524f5d;
 
-  /* Refined Violet Accent Palette */
-  --accent-violet: #9b7bee;
-  --accent-violet-light: #b79cff;
-  --accent-violet-deep: #7853df;
-  --accent-violet-glow: rgba(155, 123, 238, 0.22);
-  --accent-violet-subtle: rgba(155, 123, 238, 0.1);
+  /* Premium Cobalt / Azure Blue Accent Palette */
+  --accent-blue: #3b82f6;
+  --accent-blue-light: #60a5fa;
+  --accent-blue-deep: #1d4ed8;
+  --accent-blue-glow: rgba(59, 130, 246, 0.24);
+  --accent-blue-subtle: rgba(59, 130, 246, 0.1);
+
+  /* Aliased for backward compatibility */
+  --accent-violet: var(--accent-blue);
+  --accent-violet-light: var(--accent-blue-light);
+  --accent-violet-deep: var(--accent-blue-deep);
+  --accent-violet-glow: var(--accent-blue-glow);
+  --accent-violet-subtle: var(--accent-blue-subtle);
 
   /* Hairlines and Dividers */
   --border-hairline: rgba(255, 255, 255, 0.07);
   --border-subtle: rgba(255, 255, 255, 0.12);
-  --border-focus: rgba(155, 123, 238, 0.5);
+  --border-focus: rgba(59, 130, 246, 0.5);
 
   /* Typography Families */
   --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

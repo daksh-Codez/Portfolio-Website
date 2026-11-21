@@ -42,11 +42,11 @@ export const Scene3D: React.FC = () => {
     // Core Geometry: Twisted Torus Knot with custom metallic shader/standard material
     const coreGeometry = new THREE.TorusKnotGeometry(1.2, 0.38, 120, 24, 2, 3);
     const coreMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x14141e,
-      emissive: 0x1a0f2e,
+      color: 0x101422,
+      emissive: 0x091428,
       roughness: 0.22,
       metalness: 0.88,
-      clearcoat: 0.6,
+      clearcoat: 0.65,
       clearcoatRoughness: 0.15,
       reflectivity: 0.9,
     });
@@ -56,10 +56,10 @@ export const Scene3D: React.FC = () => {
     // Outer Cage: Subtle geometric wireframe ring system for editorial depth
     const outerGeometry = new THREE.IcosahedronGeometry(2.1, 1);
     const outerMaterial = new THREE.MeshStandardMaterial({
-      color: 0x9b7bee,
+      color: 0x3b82f6,
       wireframe: true,
       transparent: true,
-      opacity: 0.22,
+      opacity: 0.25,
       roughness: 0.3,
       metalness: 0.7
     });
@@ -80,25 +80,25 @@ export const Scene3D: React.FC = () => {
     }
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0xb79cff,
+      color: 0x93c5fd,
       size: 0.035,
       transparent: true,
-      opacity: 0.45
+      opacity: 0.5
     });
     const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
     sculptureGroup.add(particleSystem);
 
-    // Lighting Design: Deep charcoal with refined violet rim light
-    const ambientLight = new THREE.AmbientLight(0x101017, 1.8);
+    // Lighting Design: Deep charcoal with refined blue rim light
+    const ambientLight = new THREE.AmbientLight(0x0a101a, 1.8);
     scene.add(ambientLight);
 
-    // Refined violet key rim light
-    const violetRimLight = new THREE.DirectionalLight(0x9b7bee, 4.0);
-    violetRimLight.position.set(4, 3, 2);
-    scene.add(violetRimLight);
+    // Refined blue key rim light
+    const blueRimLight = new THREE.DirectionalLight(0x3b82f6, 4.2);
+    blueRimLight.position.set(4, 3, 2);
+    scene.add(blueRimLight);
 
     // Soft cold fill light
-    const coldFillLight = new THREE.DirectionalLight(0x4c1d95, 2.5);
+    const coldFillLight = new THREE.DirectionalLight(0x1d4ed8, 2.5);
     coldFillLight.position.set(-4, -2, -2);
     scene.add(coldFillLight);
 
