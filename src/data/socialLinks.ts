@@ -4,7 +4,7 @@ export interface SocialLink {
   handle: string;
   url: string | null; // Placeholder supported
   isConfigured: boolean;
-  platform: 'github' | 'linkedin' | 'email';
+  platform: string;
 }
 
 export const socialLinks: SocialLink[] = [

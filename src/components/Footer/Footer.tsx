@@ -1,7 +1,7 @@
 import React from 'react';
 import { usePortfolioData } from '../../context/DataContext';
 import { ArrowUp } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '../Icons/Icons';
+import { renderSocialIcon } from '../Icons/Icons';
 
 export const Footer: React.FC = () => {
   const { personalInfoData, socialLinksList } = usePortfolioData();
@@ -22,8 +22,9 @@ export const Footer: React.FC = () => {
     { label: 'Contact', href: '#contact' },
   ];
 
-  const githubLink = socialLinks.find((s) => s.platform === 'github');
-  const linkedinLink = socialLinks.find((s) => s.platform === 'linkedin');
+  const visibleSocialLinks = socialLinks.filter(
+    (s) => s.id !== 'email' && s.platform?.toLowerCase() !== 'email'
+  );
 
   return (
     <footer
@@ -149,40 +150,34 @@ export const Footer: React.FC = () => {
 
           {/* Social Icons */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            {githubLink && githubLink.url && (
-              <a
-                href={githubLink.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub Profile"
-                style={{
-                  color: 'var(--text-secondary)',
-                  transition: 'color 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-                className="footer-social-icon"
-              >
-                <GithubIcon size={18} />
-              </a>
-            )}
-            {linkedinLink && (
-              <a
-                href={linkedinLink.url || '#'}
-                target={linkedinLink.url ? '_blank' : '_self'}
-                rel="noopener noreferrer"
-                aria-label="LinkedIn Profile"
-                style={{
-                  color: 'var(--text-secondary)',
-                  transition: 'color 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-                className="footer-social-icon"
-              >
-                <LinkedinIcon size={18} />
-              </a>
-            )}
+            {visibleSocialLinks.map((link) => {
+              const platformLabel = link.label || link.platform || 'Profile';
+              const isConfigured = Boolean(link.url && link.url !== '#');
+
+              return (
+                <a
+                  key={link.id}
+                  href={link.url || '#'}
+                  target={isConfigured ? '_blank' : '_self'}
+                  rel="noopener noreferrer"
+                  aria-label={`${platformLabel} Profile`}
+                  onClick={(e) => {
+                    if (!isConfigured) {
+                      e.preventDefault();
+                    }
+                  }}
+                  style={{
+                    color: 'var(--text-secondary)',
+                    transition: 'color 0.2s ease',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                  className="footer-social-icon"
+                >
+                  {renderSocialIcon(link.platform || link.id, 18)}
+                </a>
+              );
+            })}
           </div>
         </div>
 

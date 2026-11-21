@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { usePortfolioData } from '../../context/DataContext';
 import { Mail, ArrowUpRight, Copy, Check } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '../Icons/Icons';
+import { renderSocialIcon } from '../Icons/Icons';
 
 export const Contact: React.FC = () => {
   const { socialLinksList, personalInfoData } = usePortfolioData();
   const socialLinks = socialLinksList;
   const personalInfo = personalInfoData;
   const [copied, setCopied] = useState(false);
-  const emailLink = socialLinks.find((s) => s.platform === 'email');
-  const githubLink = socialLinks.find((s) => s.platform === 'github');
-  const linkedinLink = socialLinks.find((s) => s.platform === 'linkedin');
+  const contactEmail = personalInfo.email?.trim() || '';
+
+  const visibleSocialLinks = socialLinks.filter(
+    (s) => s.id !== 'email' && s.platform?.toLowerCase() !== 'email'
+  );
 
   const copyEmail = () => {
-    if (emailLink && emailLink.handle) {
-      navigator.clipboard.writeText(emailLink.handle);
+    if (contactEmail) {
+      navigator.clipboard.writeText(contactEmail);
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     }
@@ -114,10 +116,10 @@ export const Contact: React.FC = () => {
                 </span>
               </div>
 
-              {emailLink && (
+              {contactEmail ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <a
-                    href={emailLink.url || `mailto:${emailLink.handle}`}
+                    href={`mailto:${contactEmail}`}
                     style={{
                       fontFamily: 'var(--font-body)',
                       fontSize: 'clamp(1.2rem, 2.8vw, 2.2rem)',
@@ -131,13 +133,13 @@ export const Contact: React.FC = () => {
                     }}
                     className="email-link-text"
                   >
-                    <span>{emailLink.handle}</span>
+                    <span>{contactEmail}</span>
                     <ArrowUpRight size={24} style={{ color: 'var(--accent-violet-light)' }} />
                   </a>
 
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', marginTop: '8px' }}>
                     <a
-                      href={emailLink.url || `mailto:${emailLink.handle}`}
+                      href={`mailto:${contactEmail}`}
                       className="btn-editorial-primary"
                     >
                       <Mail size={16} />
@@ -154,6 +156,11 @@ export const Contact: React.FC = () => {
                     </button>
                   </div>
                 </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', color: 'var(--text-secondary)' }}>
+                  <span style={{ fontSize: '1rem', color: 'var(--text-primary)' }}>Direct contact channel currently offline.</span>
+                  <span style={{ fontSize: '0.85rem' }}>Please connect via LinkedIn or GitHub below.</span>
+                </div>
               )}
             </div>
           </div>
@@ -167,105 +174,83 @@ export const Contact: React.FC = () => {
               gap: '20px',
             }}
           >
-            {/* GitHub Card */}
-            {githubLink && (
-              <a
-                href={githubLink.url || '#'}
-                target={githubLink.url ? '_blank' : '_self'}
-                rel="noopener noreferrer"
-                style={{
-                  padding: '24px 28px',
-                  backgroundColor: 'rgba(10, 10, 15, 0.72)',
-                  border: '1px solid var(--border-hairline)',
-                  borderRadius: '4px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  textDecoration: 'none',
-                  transition: 'all 0.25s var(--ease-editorial)',
-                }}
-                className="social-profile-card"
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                  <div
-                    style={{
-                      width: '42px',
-                      height: '42px',
-                      borderRadius: '50%',
-                      backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--text-primary)',
-                    }}
-                  >
-                    <GithubIcon size={19} />
-                  </div>
-                  <div>
-                    <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '1.02rem', color: 'var(--text-primary)', display: 'block' }}>
-                      GitHub
-                    </span>
-                    <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
-                      @{githubLink.handle}
-                    </span>
-                  </div>
-                </div>
-                <ArrowUpRight size={18} style={{ color: 'var(--accent-violet-light)' }} />
-              </a>
-            )}
+            {visibleSocialLinks.map((link) => {
+              const platformLabel = link.label || link.platform || 'Profile';
+              const isConfigured = Boolean(link.url && link.url !== '#');
 
-            {/* LinkedIn Card */}
-            {linkedinLink && (
-              <a
-                href={linkedinLink.url || '#'}
-                target={linkedinLink.url ? '_blank' : '_self'}
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  if (!linkedinLink.url) {
-                    e.preventDefault();
-                    alert('LinkedIn profile URL can be configured in src/data/socialLinks.ts');
-                  }
-                }}
-                style={{
-                  padding: '24px 28px',
-                  backgroundColor: 'rgba(10, 10, 15, 0.72)',
-                  border: '1px solid var(--border-hairline)',
-                  borderRadius: '4px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  textDecoration: 'none',
-                  transition: 'all 0.25s var(--ease-editorial)',
-                }}
-                className="social-profile-card"
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                  <div
-                    style={{
-                      width: '42px',
-                      height: '42px',
-                      borderRadius: '50%',
-                      backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--text-primary)',
-                    }}
-                  >
-                    <LinkedinIcon size={19} />
+              return (
+                <a
+                  key={link.id}
+                  href={link.url || '#'}
+                  target={link.url ? '_blank' : '_self'}
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    if (!link.url || link.url === '#') {
+                      e.preventDefault();
+                    }
+                  }}
+                  style={{
+                    padding: '24px 28px',
+                    backgroundColor: 'rgba(10, 10, 15, 0.72)',
+                    border: '1px solid var(--border-hairline)',
+                    borderRadius: '4px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    textDecoration: 'none',
+                    transition: 'all 0.25s var(--ease-editorial)',
+                  }}
+                  className="social-profile-card"
+                  aria-label={`${platformLabel} Profile`}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <div
+                      style={{
+                        width: '42px',
+                        height: '42px',
+                        borderRadius: '50%',
+                        backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'var(--text-primary)',
+                      }}
+                    >
+                      {renderSocialIcon(link.platform || link.id, 19)}
+                    </div>
+                    <div>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-body)',
+                          fontWeight: 600,
+                          fontSize: '1.02rem',
+                          color: 'var(--text-primary)',
+                          display: 'block',
+                        }}
+                      >
+                        {platformLabel}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-body)',
+                          fontSize: '0.84rem',
+                          color: 'var(--text-secondary)',
+                        }}
+                      >
+                        {link.handle
+                          ? link.handle.startsWith('@')
+                            ? link.handle
+                            : `@${link.handle}`
+                          : isConfigured
+                          ? 'Visit Profile'
+                          : 'Configurable in CMS'}
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '1.02rem', color: 'var(--text-primary)', display: 'block' }}>
-                      LinkedIn
-                    </span>
-                    <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
-                      {linkedinLink.url ? `@${linkedinLink.handle}` : 'Configurable in data'}
-                    </span>
-                  </div>
-                </div>
-                <ArrowUpRight size={18} style={{ color: 'var(--accent-violet-light)' }} />
-              </a>
-            )}
+                  <ArrowUpRight size={18} style={{ color: 'var(--accent-violet-light)' }} />
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

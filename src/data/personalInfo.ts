@@ -9,6 +9,7 @@ export interface PersonalInfo {
   location: string;
   campusLocation: string;
   tagline: string;
+  email?: string;
   heroHeadline: string;
   heroBio: string;
   aboutEditorial: {
@@ -28,6 +29,7 @@ export const personalInfo: PersonalInfo = {
   degree: "Computer Science Engineering",
   location: "Delhi, India",
   campusLocation: "Greater Noida, Uttar Pradesh, India",
+  email: "dakshgoswami4077@gmail.com",
   tagline: "INDEPENDENTLY CURIOUS. CONSTANTLY BUILDING.",
   heroHeadline: "Computer Science student exploring the art of building software.",
   heroBio: "I'm a Computer Science Engineering student passionate about programming, software development, and creating useful digital products. I enjoy learning, experimenting, and turning ideas into functional projects.",

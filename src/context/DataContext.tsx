@@ -106,6 +106,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
           role: dbPersonal.role || prev.role,
           tagline: dbPersonal.tagline || prev.tagline,
           location: dbPersonal.location || prev.location,
+          email: dbPersonal.email !== undefined ? dbPersonal.email : prev.email,
           heroHeadline: dbPersonal.headline || prev.heroHeadline,
           heroBio: dbPersonal.bio || prev.heroBio,
           aboutEditorial: {
@@ -187,7 +188,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
             handle: s.handle,
             url: s.url,
             isConfigured: Boolean(s.url),
-            platform: (s.id === 'github' || s.id === 'linkedin' || s.id === 'email') ? s.id : 'github',
+            platform: s.platform || s.id,
           }))
         );
       }
@@ -364,7 +365,19 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const savePersonalInfo = async (info: Partial<PersonalInfoRecord>) => {
-    if (!isSupabaseConfigured) return { error: new Error('Supabase is not configured.') };
+    if (!isSupabaseConfigured) {
+      setPersonalInfoData((prev) => ({
+        ...prev,
+        name: info.name ?? prev.name,
+        role: info.role ?? prev.role,
+        tagline: info.tagline ?? prev.tagline,
+        location: info.location ?? prev.location,
+        email: info.email !== undefined ? info.email : prev.email,
+        heroHeadline: info.headline ?? prev.heroHeadline,
+        heroBio: info.bio ?? prev.heroBio,
+      }));
+      return { error: null };
+    }
     const { error } = await supabase
       .from('personal_info')
       .upsert({ ...info, id: 1, updated_at: new Date().toISOString() });
@@ -471,7 +484,39 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const saveSocialLink = async (link: Partial<SocialLinkRecord>) => {
-    if (!isSupabaseConfigured) return { error: new Error('Supabase is not configured.') };
+    if (!isSupabaseConfigured) {
+      if (link.id) {
+        setSocialLinksList((prev) => {
+          const exists = prev.some((s) => s.id === link.id);
+          if (exists) {
+            return prev.map((s) =>
+              s.id === link.id
+                ? {
+                    ...s,
+                    label: link.platform || s.label,
+                    handle: link.handle || s.handle,
+                    url: link.url || s.url,
+                    platform: link.platform || s.platform,
+                    isConfigured: Boolean(link.url),
+                  }
+                : s
+            );
+          }
+          return [
+            ...prev,
+            {
+              id: link.id!,
+              label: link.platform || '',
+              handle: link.handle || '',
+              url: link.url || '',
+              isConfigured: Boolean(link.url),
+              platform: link.platform || link.id!,
+            },
+          ];
+        });
+      }
+      return { error: null };
+    }
     const { error } = await supabase
       .from('social_links')
       .upsert({ ...link, updated_at: new Date().toISOString() });
@@ -480,7 +525,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const deleteSocialLink = async (id: string) => {
-    if (!isSupabaseConfigured) return { error: new Error('Supabase is not configured.') };
+    if (!isSupabaseConfigured) {
+      setSocialLinksList((prev) => prev.filter((s) => s.id !== id));
+      return { error: null };
+    }
     const { error } = await supabase.from('social_links').delete().eq('id', id);
     await fetchPublicData();
     return { error };
