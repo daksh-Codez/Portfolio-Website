@@ -1,28 +1,28 @@
 :root {
-  /* Softer, Sophisticated Dark Palette */
-  --bg-primary: #111116;
-  --bg-secondary: #181820;
-  --bg-tertiary: #1d1d26;
-  --bg-surface: #20202a;
-  --bg-surface-hover: #292937;
-  --bg-card: rgba(24, 24, 32, 0.72);
+  /* Deep, Luxurious Dark Palette */
+  --bg-primary: #09090d;
+  --bg-secondary: #0e0e14;
+  --bg-tertiary: #13131b;
+  --bg-surface: #181822;
+  --bg-surface-hover: #20202d;
+  --bg-card: rgba(18, 18, 26, 0.8);
 
   /* Gentle, Highly Readable Typography Colors */
-  --text-primary: #f1eff5;
-  --text-secondary: #b2aebb;
-  --text-muted: #827e8e;
-  --text-subtle: #5a5766;
+  --text-primary: #f2eff5;
+  --text-secondary: #aba7b6;
+  --text-muted: #797585;
+  --text-subtle: #524f5d;
 
   /* Refined Violet Accent Palette */
   --accent-violet: #9b7bee;
   --accent-violet-light: #b79cff;
   --accent-violet-deep: #7853df;
-  --accent-violet-glow: rgba(155, 123, 238, 0.2);
+  --accent-violet-glow: rgba(155, 123, 238, 0.22);
   --accent-violet-subtle: rgba(155, 123, 238, 0.1);
 
   /* Hairlines and Dividers */
-  --border-hairline: rgba(255, 255, 255, 0.08);
-  --border-subtle: rgba(255, 255, 255, 0.14);
+  --border-hairline: rgba(255, 255, 255, 0.07);
+  --border-subtle: rgba(255, 255, 255, 0.12);
   --border-focus: rgba(155, 123, 238, 0.5);
 
   /* Typography Families */

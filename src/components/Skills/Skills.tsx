@@ -152,7 +152,7 @@ export const Skills: React.FC = () => {
                     key={skill.name}
                     style={{
                       padding: '20px 24px',
-                      backgroundColor: 'rgba(28, 28, 38, 0.72)',
+                      backgroundColor: 'rgba(20, 20, 28, 0.72)',
                       border: '1px solid var(--border-hairline)',
                       borderRadius: '4px',
                       display: 'flex',

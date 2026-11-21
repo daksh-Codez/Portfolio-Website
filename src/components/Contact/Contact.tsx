@@ -77,7 +77,7 @@ export const Contact: React.FC = () => {
           <div
             style={{
               gridColumn: 'span 12',
-              backgroundColor: 'rgba(28, 28, 38, 0.75)',
+              backgroundColor: 'rgba(18, 18, 26, 0.85)',
               border: '1px solid var(--border-subtle)',
               borderRadius: '4px',
               padding: 'clamp(28px, 4vw, 44px)',
@@ -173,7 +173,7 @@ export const Contact: React.FC = () => {
                 rel="noopener noreferrer"
                 style={{
                   padding: '24px 28px',
-                  backgroundColor: 'rgba(28, 28, 38, 0.65)',
+                  backgroundColor: 'rgba(18, 18, 26, 0.72)',
                   border: '1px solid var(--border-hairline)',
                   borderRadius: '4px',
                   display: 'flex',
@@ -226,7 +226,7 @@ export const Contact: React.FC = () => {
                 }}
                 style={{
                   padding: '24px 28px',
-                  backgroundColor: 'rgba(28, 28, 38, 0.65)',
+                  backgroundColor: 'rgba(18, 18, 26, 0.72)',
                   border: '1px solid var(--border-hairline)',
                   borderRadius: '4px',
                   display: 'flex',

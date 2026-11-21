@@ -89,7 +89,7 @@ export const Scene3D: React.FC = () => {
     sculptureGroup.add(particleSystem);
 
     // Lighting Design: Deep charcoal with refined violet rim light
-    const ambientLight = new THREE.AmbientLight(0x151520, 2.0);
+    const ambientLight = new THREE.AmbientLight(0x101017, 1.8);
     scene.add(ambientLight);
 
     // Refined violet key rim light

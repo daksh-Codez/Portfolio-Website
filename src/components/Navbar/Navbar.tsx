@@ -55,10 +55,10 @@ export const Navbar: React.FC = () => {
           right: 0,
           zIndex: 900,
           transition: 'background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.4s ease, border-color 0.4s ease',
-          backgroundColor: isScrolled ? 'rgba(17, 17, 22, 0.88)' : 'transparent',
+          backgroundColor: isScrolled ? 'rgba(9, 9, 13, 0.92)' : 'transparent',
           backdropFilter: isScrolled ? 'blur(16px)' : 'none',
           WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
-          borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid transparent',
+          borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.07)' : '1px solid transparent',
           padding: isScrolled ? '16px 0' : '28px 0',
         }}
       >
@@ -232,7 +232,7 @@ export const Navbar: React.FC = () => {
             position: 'fixed',
             inset: 0,
             zIndex: 950,
-            backgroundColor: 'rgba(17, 17, 22, 0.98)',
+            backgroundColor: 'rgba(9, 9, 13, 0.98)',
             backdropFilter: 'blur(20px)',
             display: 'flex',
             flexDirection: 'column',

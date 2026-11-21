@@ -145,7 +145,7 @@ export const About: React.FC = () => {
                 key={item.number}
                 style={{
                   padding: '28px',
-                  backgroundColor: 'rgba(28, 28, 38, 0.65)',
+                  backgroundColor: 'rgba(20, 20, 28, 0.7)',
                   border: '1px solid var(--border-hairline)',
                   borderLeft: '2px solid rgba(155, 123, 238, 0.5)',
                   position: 'relative',

@@ -250,13 +250,13 @@ export const Projects: React.FC = () => {
                 >
                   <div
                     style={{
-                      backgroundColor: 'rgba(24, 24, 32, 0.88)',
+                      backgroundColor: 'rgba(16, 16, 23, 0.92)',
                       backdropFilter: 'blur(12px)',
                       border: '1px solid var(--border-hairline)',
                       borderTop: `2px solid ${project.visualConcept.accentColor}`,
                       borderRadius: '4px',
                       overflow: 'hidden',
-                      boxShadow: '0 16px 36px rgba(0, 0, 0, 0.35)',
+                      boxShadow: '0 16px 36px rgba(0, 0, 0, 0.45)',
                       transition: 'border-color 0.3s ease, transform 0.3s ease',
                     }}
                     className="code-preview-window"
@@ -265,7 +265,7 @@ export const Projects: React.FC = () => {
                     <div
                       style={{
                         padding: '12px 18px',
-                        backgroundColor: 'rgba(30, 30, 40, 0.92)',
+                        backgroundColor: 'rgba(22, 22, 30, 0.95)',
                         borderBottom: '1px solid var(--border-hairline)',
                         display: 'flex',
                         alignItems: 'center',
@@ -364,7 +364,7 @@ export const Projects: React.FC = () => {
           style={{
             marginTop: 'clamp(64px, 10vw, 100px)',
             padding: '36px',
-            backgroundColor: 'rgba(28, 28, 38, 0.7)',
+            backgroundColor: 'rgba(18, 18, 26, 0.75)',
             border: '1px solid var(--border-hairline)',
             borderRadius: '4px',
             display: 'flex',

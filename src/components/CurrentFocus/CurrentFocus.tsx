@@ -11,7 +11,7 @@ export const CurrentFocus: React.FC = () => {
         paddingBottom: 'clamp(80px, 12vw, 150px)',
         position: 'relative',
         zIndex: 2,
-        backgroundColor: 'rgba(24, 24, 32, 0.45)',
+        backgroundColor: 'rgba(12, 12, 18, 0.45)',
       }}
     >
       <div className="editorial-container">
@@ -56,7 +56,7 @@ export const CurrentFocus: React.FC = () => {
               key={item.number}
               style={{
                 padding: '32px',
-                backgroundColor: 'rgba(28, 28, 38, 0.72)',
+                backgroundColor: 'rgba(18, 18, 26, 0.72)',
                 border: '1px solid var(--border-hairline)',
                 borderRadius: '4px',
                 display: 'flex',
