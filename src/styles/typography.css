@@ -1,0 +1,87 @@
+/* Typography System */
+
+.font-editorial-statement {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.font-mono-tag {
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 0.75vw, 0.82rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Fluid Heading Scales */
+.hero-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(3.2rem, 10vw, 8.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.hero-serif-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  color: var(--accent-violet-light);
+}
+
+.section-hero-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-violet-light);
+  margin-bottom: 1.25rem;
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 1px;
+  background-color: var(--accent-violet);
+}
+
+.editorial-lead {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+  line-height: 1.25;
+  color: var(--text-primary);
+  font-weight: 400;
+}
+
+.body-editorial {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.7;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.mono-meta {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
