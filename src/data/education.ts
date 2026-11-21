@@ -20,48 +20,78 @@ export const educationData: EducationRecord = {
   ]
 };
 
-export interface FocusItem {
+export type TrajectoryType = 'learning' | 'practice' | 'building' | 'workflow' | 'exploration';
+
+export interface TrajectoryItem {
   number: string;
   title: string;
+  phase: string;
+  type: TrajectoryType;
   description: string;
-  status: 'In Progress' | 'Active Exploration' | 'Target Objective';
+  tags: string[];
 }
 
-export const focusItems: FocusItem[] = [
+export const trajectoryItems: TrajectoryItem[] = [
   {
     number: "01",
-    title: "Strengthening Programming Fundamentals",
-    description: "Deepening mastery over memory structures, algorithmic complexity, and structured execution in C and C++.",
-    status: "In Progress"
+    title: "Programming Fundamentals",
+    phase: "LEARNING / FOUNDATIONS",
+    type: "learning",
+    description: "Strengthening C and C++ through memory concepts, data structures, structured programming, and algorithmic thinking.",
+    tags: ["Memory Allocation", "Data Structures", "Structured C", "Algorithmic Thinking"]
   },
   {
     number: "02",
-    title: "Improving C++ & Problem-Solving",
-    description: "Solving algorithmic challenges and understanding modern C++ idiom patterns and efficient STL utilization.",
-    status: "In Progress"
+    title: "C++ & Problem-Solving",
+    phase: "PRACTICE & CHALLENGES",
+    type: "practice",
+    description: "Practising algorithmic challenges and exploring modern C++ concepts and STL.",
+    tags: ["Algorithmic Practice", "Modern C++", "STL Containers", "Time Complexity"]
   },
   {
     number: "03",
-    title: "Building Practical Software Projects",
-    description: "Translating concepts into useful command-line utilities, structured systems, and reliable user tools.",
-    status: "Active Exploration"
+    title: "Practical Software Projects",
+    phase: "BUILDING & APPLICATION",
+    type: "building",
+    description: "Turning programming concepts into useful applications, command-line utilities, and practical software tools.",
+    tags: ["CLI Utilities", "File Persistence", "Modular Codebases", "User Experience"]
   },
   {
     number: "04",
-    title: "Modern Development Workflows",
-    description: "Refining Git version control strategies, semantic code documentation, and automated CLI workflows.",
-    status: "Active Exploration"
+    title: "Developer Workflows",
+    phase: "WORKFLOW & TOOLING",
+    type: "workflow",
+    description: "Improving Git, GitHub, version control, documentation, and development practices.",
+    tags: ["Git Version Control", "GitHub Workflows", "Documentation", "Commit Discipline"]
   },
   {
     number: "05",
-    title: "Software Engineering & AI Applications",
-    description: "Exploring how modern artificial intelligence and developer tools integrate practically into software creation.",
-    status: "Active Exploration"
-  },
-  {
-    number: "06",
-    title: "Internship Opportunities",
-    description: "Actively seeking industry internships to contribute to real-world engineering teams and accelerate professional growth.",
-    status: "Target Objective"
+    title: "AI in Software Development",
+    phase: "EXPLORATION & EXPERIMENTATION",
+    type: "exploration",
+    description: "Exploring practical ways artificial intelligence and modern developer tools can support software creation.",
+    tags: ["Developer Augmentation", "AI Tooling", "Practical Workflows", "Emerging Tech"]
   }
 ];
+
+export interface MilestoneGoal {
+  eyebrow: string;
+  title: string;
+  description: string;
+  badge: string;
+}
+
+export const internshipMilestone: MilestoneGoal = {
+  eyebrow: "My next milestone.",
+  title: "An industry internship.",
+  description: "Looking forward to applying my skills, learning from engineering teams, and contributing to real-world projects.",
+  badge: "Target Objective"
+};
+
+// Legacy compatibility for any lingering imports
+export const focusItems = trajectoryItems.map(item => ({
+  number: item.number,
+  title: item.title,
+  description: item.description,
+  status: item.type === 'building' ? 'Active Exploration' as const : 'In Progress' as const
+}));

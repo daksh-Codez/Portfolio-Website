@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import { projects, Project } from '../../data/projects';
 import { socialLinks } from '../../data/socialLinks';
-import { ArrowUpRight, Code, CheckCircle2, Terminal } from 'lucide-react';
+import { ArrowUpRight, Code, CheckCircle2, Terminal, Copy, Check, FileCode } from 'lucide-react';
 import { GithubIcon } from '../Icons/Icons';
+import { highlightLine } from '../../utils/syntaxHighlight';
 
 export const Projects: React.FC = () => {
-  const [activeProjectId, setActiveProjectId] = useState<string>(projects[0].id);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const githubProfile = socialLinks.find((s) => s.id === 'github');
+
+  const handleCopyCode = (projectId: string, code: string) => {
+    navigator.clipboard.writeText(code);
+    setCopiedId(projectId);
+    setTimeout(() => {
+      setCopiedId((prev) => (prev === projectId ? null : prev));
+    }, 2000);
+  };
 
   return (
     <section
@@ -41,29 +50,31 @@ export const Projects: React.FC = () => {
               </span>
             </h2>
           </div>
-          <div style={{ maxWidth: '460px' }}>
+          <div style={{ maxWidth: '480px' }}>
             <p className="body-editorial">
-              A growing collection of projects, experiments, and practical programming work focused on low-level systems, file storage, and algorithm logic.
+              Real projects and foundational implementations in C and C++, featuring genuine source code excerpts, memory-conscious data structures, and persistent storage routines.
             </p>
           </div>
         </div>
 
         {/* Editorial Project Showcase: Alternating Asymmetric Layouts */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(48px, 8vw, 96px)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(56px, 9vw, 104px)' }}>
           {projects.map((project, idx) => {
             const isEven = idx % 2 === 1;
+            const lines = project.codeExcerpt.split('\n');
+            const endLine = project.startLine + lines.length - 1;
 
             return (
               <div
                 key={project.id}
-                onMouseEnter={() => setActiveProjectId(project.id)}
+                id={`project-${project.id}`}
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(12, 1fr)',
-                  gap: 'clamp(24px, 4vw, 48px)',
+                  gap: 'clamp(28px, 4.5vw, 56px)',
                   alignItems: 'center',
                   borderTop: '1px solid var(--border-hairline)',
-                  paddingTop: 'clamp(32px, 5vw, 64px)',
+                  paddingTop: 'clamp(36px, 6vw, 72px)',
                 }}
                 className="project-row"
               >
@@ -181,66 +192,96 @@ export const Projects: React.FC = () => {
                     ))}
                   </ul>
 
+                  {/* Technologies tags */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '8px',
+                      marginBottom: '28px',
+                    }}
+                  >
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        style={{
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '0.76rem',
+                          color: 'var(--text-secondary)',
+                          padding: '4px 10px',
+                          backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                          border: '1px solid var(--border-hairline)',
+                          borderRadius: '3px',
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
                   {/* Metadata & Actions */}
                   <div
                     style={{
                       display: 'flex',
                       flexWrap: 'wrap',
                       alignItems: 'center',
-                      gap: '16px',
+                      gap: '14px',
                     }}
                   >
-                    <span
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        padding: '6px 14px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                        border: '1px solid var(--border-hairline)',
-                        borderRadius: '2px',
-                        fontFamily: 'var(--font-body)',
-                        fontSize: '0.84rem',
-                        fontWeight: 600,
-                        color: 'var(--text-primary)',
-                      }}
-                    >
-                      <Code size={14} style={{ color: 'var(--accent-violet-light)' }} />
-                      {project.language}
-                    </span>
-
-                    {/* GitHub Link (Only rendered when configured) */}
+                    {/* View Repository Button (Active if URL provided) */}
                     {project.githubUrl ? (
                       <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-editorial-ghost"
-                        style={{ padding: '8px 18px', fontSize: '0.78rem' }}
+                        className="view-repo-btn"
+                        aria-label={`View ${project.title} repository on GitHub`}
                       >
-                        <GithubIcon size={14} />
-                        <span>Source Code</span>
-                        <ArrowUpRight size={13} />
+                        <GithubIcon size={15} />
+                        <span>View Repository</span>
+                        <ArrowUpRight size={14} className="repo-arrow" />
                       </a>
                     ) : (
-                      <span
+                      <div
                         style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '0.72rem',
-                          color: 'var(--text-muted)',
-                          padding: '6px 12px',
-                          backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '9px 16px',
+                          backgroundColor: 'rgba(255, 255, 255, 0.03)',
                           border: '1px dashed var(--border-hairline)',
-                          borderRadius: '2px',
+                          borderRadius: '4px',
+                          fontFamily: 'var(--font-body)',
+                          fontSize: '0.82rem',
+                          color: 'var(--text-muted)',
                         }}
                       >
-                        Source available in local development suite
-                      </span>
+                        <GithubIcon size={14} />
+                        <span>Repository link pending confirmation</span>
+                      </div>
                     )}
+
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        padding: '9px 14px',
+                        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                        border: '1px solid var(--border-hairline)',
+                        borderRadius: '4px',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.8rem',
+                        color: 'var(--text-secondary)',
+                      }}
+                    >
+                      <Code size={13} style={{ color: 'var(--accent-violet-light)' }} />
+                      {project.language}
+                    </span>
                   </div>
                 </div>
 
-                {/* Visual Architecture Preview Column */}
+                {/* Real Source Code Preview Column */}
                 <div
                   style={{
                     gridColumn: 'span 12',
@@ -250,13 +291,13 @@ export const Projects: React.FC = () => {
                 >
                   <div
                     style={{
-                      backgroundColor: 'rgba(16, 16, 23, 0.92)',
-                      backdropFilter: 'blur(12px)',
+                      backgroundColor: 'rgba(14, 15, 21, 0.96)',
+                      backdropFilter: 'blur(16px)',
                       border: '1px solid var(--border-hairline)',
-                      borderTop: `2px solid ${project.visualConcept.accentColor}`,
-                      borderRadius: '4px',
+                      borderTop: `2px solid ${project.visualAccent || 'var(--accent-violet)'}`,
+                      borderRadius: '6px',
                       overflow: 'hidden',
-                      boxShadow: '0 16px 36px rgba(0, 0, 0, 0.45)',
+                      boxShadow: '0 20px 45px rgba(0, 0, 0, 0.55)',
                       transition: 'border-color 0.3s ease, transform 0.3s ease',
                     }}
                     className="code-preview-window"
@@ -265,91 +306,181 @@ export const Projects: React.FC = () => {
                     <div
                       style={{
                         padding: '12px 18px',
-                        backgroundColor: 'rgba(22, 22, 30, 0.95)',
+                        backgroundColor: 'rgba(20, 21, 29, 0.98)',
                         borderBottom: '1px solid var(--border-hairline)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
+                        gap: '12px',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
-                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#F59E0B' }} />
-                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981' }} />
+                      {/* Left: Window controls and File Tab */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '7px', flexShrink: 0 }}>
+                          <span style={{ width: '9px', height: '9px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
+                          <span style={{ width: '9px', height: '9px', borderRadius: '50%', backgroundColor: '#F59E0B' }} />
+                          <span style={{ width: '9px', height: '9px', borderRadius: '50%', backgroundColor: '#10B981' }} />
+                        </div>
+
+                        {/* File Tab */}
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '7px',
+                            backgroundColor: 'rgba(30, 32, 44, 0.7)',
+                            padding: '4px 10px',
+                            borderRadius: '4px',
+                            border: '1px solid rgba(255, 255, 255, 0.06)',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          <FileCode size={13} style={{ color: 'var(--accent-violet-light)', flexShrink: 0 }} />
+                          <span
+                            style={{
+                              fontFamily: 'var(--font-mono)',
+                              fontSize: '0.8rem',
+                              color: 'var(--text-primary)',
+                              fontWeight: 500,
+                            }}
+                          >
+                            {project.sourceFileName}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Right: Line count & Copy snippet button */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
                         <span
                           style={{
                             fontFamily: 'var(--font-mono)',
-                            fontSize: '0.78rem',
-                            color: 'var(--text-secondary)',
-                            marginLeft: '8px',
-                          }}
-                        >
-                          {project.id}.{project.language === 'C++' ? 'cpp' : 'c'}
-                        </span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Terminal size={13} style={{ color: 'var(--accent-violet-light)' }} />
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-body)',
-                            fontSize: '0.74rem',
-                            fontWeight: 600,
-                            letterSpacing: '0.04em',
+                            fontSize: '0.72rem',
                             color: 'var(--text-muted)',
-                            textTransform: 'uppercase',
+                            letterSpacing: '0.02em',
                           }}
                         >
-                          READONLY
+                          Lines {project.startLine}–{endLine}
                         </span>
+
+                        <button
+                          type="button"
+                          onClick={() => handleCopyCode(project.id, project.codeExcerpt)}
+                          title="Copy source excerpt"
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '5px',
+                            padding: '4px 8px',
+                            background: copiedId === project.id ? 'rgba(59, 130, 246, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid',
+                            borderColor: copiedId === project.id ? 'var(--accent-violet)' : 'var(--border-hairline)',
+                            borderRadius: '3px',
+                            color: copiedId === project.id ? '#93C5FD' : 'var(--text-secondary)',
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '0.7rem',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                          }}
+                        >
+                          {copiedId === project.id ? (
+                            <>
+                              <Check size={11} style={{ color: '#60A5FA' }} />
+                              <span>COPIED</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy size={11} />
+                              <span>COPY</span>
+                            </>
+                          )}
+                        </button>
                       </div>
                     </div>
 
-                    {/* Code Snippet Display */}
+                    {/* Source Code Viewer with Gutter Line Numbers */}
                     <div
                       style={{
-                        padding: '24px',
+                        padding: '18px 0',
                         fontFamily: 'var(--font-mono)',
                         fontSize: '0.82rem',
-                        lineHeight: '1.6',
-                        color: 'var(--text-secondary)',
+                        lineHeight: '1.68',
                         overflowX: 'auto',
+                        backgroundColor: 'rgba(10, 11, 16, 0.95)',
                       }}
                     >
-                      <pre style={{ margin: 0 }}>
-                        <code>{project.visualConcept.snippet}</code>
-                      </pre>
+                      <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                        <tbody>
+                          {lines.map((line, lIdx) => {
+                            const lineNum = project.startLine + lIdx;
+                            return (
+                              <tr key={lIdx} className="code-line-row">
+                                <td
+                                  style={{
+                                    width: '46px',
+                                    minWidth: '46px',
+                                    paddingRight: '14px',
+                                    paddingLeft: '16px',
+                                    textAlign: 'right',
+                                    color: 'rgba(148, 163, 184, 0.4)',
+                                    userSelect: 'none',
+                                    fontSize: '0.76rem',
+                                    verticalAlign: 'top',
+                                    borderRight: '1px solid rgba(255, 255, 255, 0.06)',
+                                  }}
+                                >
+                                  {lineNum}
+                                </td>
+                                <td
+                                  style={{
+                                    paddingLeft: '16px',
+                                    paddingRight: '20px',
+                                    whiteSpace: 'pre',
+                                    color: '#CBD5E1',
+                                  }}
+                                >
+                                  {highlightLine(line)}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
                     </div>
 
-                    {/* Window Footer Meta */}
+                    {/* Window Status Bar */}
                     <div
                       style={{
-                        padding: '10px 18px',
-                        backgroundColor: 'rgba(10, 10, 14, 0.6)',
+                        padding: '8px 18px',
+                        backgroundColor: 'rgba(15, 16, 22, 0.9)',
                         borderTop: '1px solid var(--border-hairline)',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                       }}
                     >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Terminal size={12} style={{ color: 'var(--accent-violet-light)' }} />
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '0.74rem',
+                            color: 'var(--text-muted)',
+                          }}
+                        >
+                          {project.sourceFileName} · {lines.length} lines shown
+                        </span>
+                      </div>
                       <span
                         style={{
-                          fontFamily: 'var(--font-body)',
-                          fontSize: '0.78rem',
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '0.74rem',
                           fontWeight: 500,
-                          color: 'var(--text-muted)',
-                        }}
-                      >
-                        PARADIGM: {project.category}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-body)',
-                          fontSize: '0.78rem',
-                          fontWeight: 600,
                           color: 'var(--accent-violet-light)',
                         }}
                       >
-                        UTF-8 / LF
+                        {project.language} · UTF-8
                       </span>
                     </div>
                   </div>
@@ -421,9 +552,48 @@ export const Projects: React.FC = () => {
             order: 2 !important;
           }
         }
+
+        .view-repo-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 9px 18px;
+          background: rgba(59, 130, 246, 0.12);
+          border: 1px solid rgba(59, 130, 246, 0.35);
+          border-radius: 4px;
+          color: #93C5FD;
+          font-family: var(--font-body);
+          font-size: 0.86rem;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          text-decoration: none;
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .view-repo-btn:hover {
+          background: rgba(59, 130, 246, 0.24);
+          border-color: rgba(59, 130, 246, 0.65);
+          color: #FFFFFF;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 18px rgba(59, 130, 246, 0.25);
+        }
+
+        .view-repo-btn:hover .repo-arrow {
+          transform: translate(2px, -2px);
+        }
+
+        .repo-arrow {
+          transition: transform 0.2s ease;
+        }
+
         .code-preview-window:hover {
-          transform: translateY(-4px);
-          border-color: rgba(139, 92, 246, 0.4) !important;
+          transform: translateY(-3px);
+          border-color: rgba(59, 130, 246, 0.4) !important;
+          box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        .code-line-row:hover {
+          background-color: rgba(255, 255, 255, 0.02);
         }
       `}</style>
     </section>
