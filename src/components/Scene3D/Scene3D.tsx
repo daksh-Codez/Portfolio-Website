@@ -92,7 +92,7 @@ export const Scene3D: React.FC = () => {
     const ambientLight = new THREE.AmbientLight(0x0a101a, 1.8);
     scene.add(ambientLight);
 
-    // Refined blue key rim light
+    // Refined blue key rim light (reacts subtly to cursor)
     const blueRimLight = new THREE.DirectionalLight(0x3b82f6, 4.2);
     blueRimLight.position.set(4, 3, 2);
     scene.add(blueRimLight);
@@ -102,7 +102,7 @@ export const Scene3D: React.FC = () => {
     coldFillLight.position.set(-4, -2, -2);
     scene.add(coldFillLight);
 
-    // Subtle white specular point light
+    // Subtle white specular point light (follows cursor reflection across surface)
     const specLight = new THREE.PointLight(0xffffff, 2.0, 15);
     specLight.position.set(0, 4, 3);
     scene.add(specLight);
@@ -120,6 +120,13 @@ export const Scene3D: React.FC = () => {
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
+    // Track document visibility to pause animation loop when backgrounded
+    let isVisible = !document.hidden;
+    const handleVisibilityChange = () => {
+      isVisible = !document.hidden;
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     // Scroll Storytelling calculation
     const getScrollTargets = () => {
       const scrollY = window.scrollY;
@@ -129,13 +136,6 @@ export const Scene3D: React.FC = () => {
       );
       const progress = Math.min(Math.max(scrollY / totalHeight, 0), 1);
       const isMobile = window.innerWidth < 768;
-
-      // Section-based choreography
-      // 0.00 - 0.18: HERO (center-right on desktop, center on mobile, large scale)
-      // 0.18 - 0.38: ABOUT (shifted right, rotated, giving room to editorial text)
-      // 0.38 - 0.60: SKILLS (shifted left, angled, displaying cage geometry)
-      // 0.60 - 0.85: PROJECTS (subtle, recessed, lower opacity/scale)
-      // 0.85 - 1.00: CONTACT (centered bottom, elevated glow)
 
       let targetX = 1.3;
       let targetY = 0.0;
@@ -189,6 +189,9 @@ export const Scene3D: React.FC = () => {
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
 
+      // Skip expensive rendering and calculations if the page tab is hidden
+      if (!isVisible) return;
+
       const delta = clock.getDelta();
       const elapsedTime = clock.getElapsedTime();
 
@@ -206,10 +209,23 @@ export const Scene3D: React.FC = () => {
       const newScale = currentScale + (targetScale - currentScale) * 0.06;
       sculptureGroup.scale.set(newScale, newScale, newScale);
 
-      // Rotation choreography: base idle + scroll evolution + mouse tilt
+      // Responsive cursor lighting: specular glint follows cursor trajectory
+      specLight.position.x = currentMouseX * 3.5;
+      specLight.position.y = 4 + currentMouseY * 2.0;
+      specLight.position.z = 3 + Math.sin(elapsedTime * 0.4) * 0.4;
+
+      // Blue key rim light angle subtly adjusts
+      blueRimLight.position.x = 4 + currentMouseX * 1.2;
+      blueRimLight.position.y = 3 + currentMouseY * 1.2;
+
+      // Subtle sculpture parallax tilt responding gently to mouse
+      sculptureGroup.rotation.x = -currentMouseY * 0.12;
+      sculptureGroup.rotation.y = currentMouseX * 0.16;
+
+      // Rotation choreography: base idle + scroll evolution
       if (!prefersReducedMotion) {
-        coreMesh.rotation.x = elapsedTime * 0.22 + progress * Math.PI * 2.5 + currentMouseY * 0.3;
-        coreMesh.rotation.y = elapsedTime * 0.31 + progress * Math.PI * 3.0 + currentMouseX * 0.3;
+        coreMesh.rotation.x = elapsedTime * 0.22 + progress * Math.PI * 2.5 + currentMouseY * 0.2;
+        coreMesh.rotation.y = elapsedTime * 0.31 + progress * Math.PI * 3.0 + currentMouseX * 0.2;
 
         outerMesh.rotation.x = -elapsedTime * 0.15 + progress * Math.PI;
         outerMesh.rotation.y = elapsedTime * 0.18 + progress * Math.PI * 1.5;
@@ -236,6 +252,7 @@ export const Scene3D: React.FC = () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }

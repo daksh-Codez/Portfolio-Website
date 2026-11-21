@@ -2,6 +2,7 @@ import React from 'react';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import { Scene3D } from './components/Scene3D/Scene3D';
 import { CustomCursor } from './components/CustomCursor/CustomCursor';
+import { AmbientLight } from './components/AmbientLight/AmbientLight';
 import { ScrollProgress } from './components/ScrollProgress/ScrollProgress';
 import { Navbar } from './components/Navbar/Navbar';
 import { Hero } from './components/Hero/Hero';
@@ -28,7 +29,10 @@ export const App: React.FC = () => {
       {/* Persistent Hairline Scroll Progress Bar */}
       <ScrollProgress />
 
-      {/* Editorial Custom Precision Cursor */}
+      {/* Ambient Luxury Mouse Light Reflection */}
+      <AmbientLight />
+
+      {/* Editorial Custom Precision Cursor with Contextual Badging */}
       <CustomCursor />
 
       {/* Signature 3D Spatial Canvas */}
