@@ -97,7 +97,7 @@ export const TerminalPrompt: React.FC = () => {
               alignItems: 'center',
               gap: '8px',
               padding: '10px 18px',
-              backgroundColor: 'rgba(16, 16, 23, 0.95)',
+              backgroundColor: 'rgba(10, 10, 15, 0.95)',
               backdropFilter: 'blur(12px)',
               border: '1px solid var(--border-subtle)',
               borderRadius: '24px',
@@ -136,7 +136,7 @@ export const TerminalPrompt: React.FC = () => {
             right: '24px',
             width: 'clamp(320px, 90vw, 480px)',
             height: '360px',
-            backgroundColor: 'rgba(14, 14, 20, 0.98)',
+            backgroundColor: 'rgba(7, 7, 11, 0.98)',
             backdropFilter: 'blur(20px)',
             border: '1px solid rgba(59, 130, 246, 0.45)',
             borderRadius: '6px',
@@ -151,7 +151,7 @@ export const TerminalPrompt: React.FC = () => {
           <div
             style={{
               padding: '10px 16px',
-              backgroundColor: 'rgba(18, 18, 26, 0.95)',
+              backgroundColor: 'rgba(10, 10, 15, 0.95)',
               borderBottom: '1px solid var(--border-hairline)',
               display: 'flex',
               alignItems: 'center',

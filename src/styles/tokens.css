@@ -1,11 +1,11 @@
 :root {
-  /* Deep, Luxurious Dark Palette */
-  --bg-primary: #09090d;
-  --bg-secondary: #0e0e14;
-  --bg-tertiary: #13131b;
-  --bg-surface: #181822;
-  --bg-surface-hover: #20202d;
-  --bg-card: rgba(18, 18, 26, 0.8);
+  /* Deep, Luxurious Dark Palette (Deep Obsidian / Pitch Midnight) */
+  --bg-primary: #040407;
+  --bg-secondary: #08080c;
+  --bg-tertiary: #0c0c12;
+  --bg-surface: #101016;
+  --bg-surface-hover: #15151e;
+  --bg-card: rgba(11, 11, 16, 0.88);
 
   /* Gentle, Highly Readable Typography Colors */
   --text-primary: #f2eff5;
@@ -28,8 +28,8 @@
   --accent-violet-subtle: var(--accent-blue-subtle);
 
   /* Hairlines and Dividers */
-  --border-hairline: rgba(255, 255, 255, 0.07);
-  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-hairline: rgba(255, 255, 255, 0.06);
+  --border-subtle: rgba(255, 255, 255, 0.10);
   --border-focus: rgba(59, 130, 246, 0.5);
 
   /* Typography Families */
@@ -58,5 +58,5 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --duration-fast: 200ms;
   --duration-base: 350ms;
-  --duration-slow: 700ms;
+  --duration-slow: 600ms;
 }

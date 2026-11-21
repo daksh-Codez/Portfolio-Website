@@ -88,8 +88,8 @@ export const Scene3D: React.FC = () => {
     const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
     sculptureGroup.add(particleSystem);
 
-    // Lighting Design: Deep charcoal with refined blue rim light
-    const ambientLight = new THREE.AmbientLight(0x0a101a, 1.8);
+    // Lighting Design: Deep obsidian with refined blue rim light
+    const ambientLight = new THREE.AmbientLight(0x05070d, 1.5);
     scene.add(ambientLight);
 
     // Refined blue key rim light (reacts subtly to cursor)

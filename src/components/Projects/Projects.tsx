@@ -291,7 +291,7 @@ export const Projects: React.FC = () => {
                 >
                   <div
                     style={{
-                      backgroundColor: 'rgba(14, 15, 21, 0.96)',
+                      backgroundColor: 'rgba(8, 8, 12, 0.96)',
                       backdropFilter: 'blur(16px)',
                       border: '1px solid var(--border-hairline)',
                       borderTop: `2px solid ${project.visualAccent || 'var(--accent-violet)'}`,
@@ -306,7 +306,7 @@ export const Projects: React.FC = () => {
                     <div
                       style={{
                         padding: '12px 18px',
-                        backgroundColor: 'rgba(20, 21, 29, 0.98)',
+                        backgroundColor: 'rgba(12, 13, 18, 0.98)',
                         borderBottom: '1px solid var(--border-hairline)',
                         display: 'flex',
                         alignItems: 'center',
@@ -407,7 +407,7 @@ export const Projects: React.FC = () => {
                         fontSize: '0.82rem',
                         lineHeight: '1.68',
                         overflowX: 'auto',
-                        backgroundColor: 'rgba(10, 11, 16, 0.95)',
+                        backgroundColor: 'rgba(6, 6, 10, 0.98)',
                       }}
                     >
                       <table style={{ borderCollapse: 'collapse', width: '100%' }}>
@@ -495,7 +495,7 @@ export const Projects: React.FC = () => {
           style={{
             marginTop: 'clamp(64px, 10vw, 100px)',
             padding: '36px',
-            backgroundColor: 'rgba(18, 18, 26, 0.75)',
+            backgroundColor: 'rgba(10, 10, 15, 0.85)',
             border: '1px solid var(--border-hairline)',
             borderRadius: '4px',
             display: 'flex',

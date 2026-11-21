@@ -49,7 +49,7 @@ export const CurrentFocus: React.FC = () => {
         paddingBottom: 'clamp(80px, 12vw, 150px)',
         position: 'relative',
         zIndex: 2,
-        backgroundColor: 'rgba(12, 12, 18, 0.4)',
+        backgroundColor: 'rgba(6, 6, 9, 0.45)',
       }}
     >
       <div className="editorial-container">
@@ -207,13 +207,13 @@ export const CurrentFocus: React.FC = () => {
           width: 38px;
           height: 38px;
           border-radius: 50%;
-          background: rgba(14, 15, 22, 0.95);
+          background: rgba(8, 9, 14, 0.95);
           border: 1px solid rgba(59, 130, 246, 0.35);
           color: #93C5FD;
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 0 0 4px rgba(9, 9, 13, 0.8), 0 4px 12px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 0 4px rgba(4, 4, 7, 0.9), 0 4px 12px rgba(0, 0, 0, 0.5);
           z-index: 2;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -221,9 +221,9 @@ export const CurrentFocus: React.FC = () => {
         .timeline-item:hover .timeline-node {
           border-color: #60A5FA;
           color: #FFFFFF;
-          background: rgba(24, 28, 44, 0.95);
+          background: rgba(16, 20, 32, 0.95);
           transform: scale(1.08);
-          box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 0 4px rgba(9, 9, 13, 0.9);
+          box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 0 4px rgba(4, 4, 7, 0.95);
         }
 
         /* Continuous Connecting Line Stem */
@@ -254,7 +254,7 @@ export const CurrentFocus: React.FC = () => {
         .timeline-content {
           flex: 1;
           padding: 24px 28px;
-          background: rgba(16, 17, 24, 0.45);
+          background: rgba(9, 10, 15, 0.55);
           border: 1px solid var(--border-hairline);
           border-radius: 6px;
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -262,10 +262,10 @@ export const CurrentFocus: React.FC = () => {
         }
 
         .timeline-item:hover .timeline-content {
-          background: rgba(20, 22, 32, 0.7);
+          background: rgba(13, 14, 21, 0.75);
           border-color: rgba(59, 130, 246, 0.28);
           transform: translateX(4px);
-          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
         }
 
         /* Meta Bar (Number, Phase, Badge) */
@@ -406,16 +406,16 @@ export const CurrentFocus: React.FC = () => {
         }
 
         .milestone-node {
-          background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(14, 15, 22, 0.95)) !important;
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(8, 9, 14, 0.95)) !important;
           border-color: rgba(59, 130, 246, 0.6) !important;
           color: #93C5FD !important;
-          box-shadow: 0 0 16px rgba(59, 130, 246, 0.35), 0 0 0 4px rgba(9, 9, 13, 0.8) !important;
+          box-shadow: 0 0 16px rgba(59, 130, 246, 0.35), 0 0 0 4px rgba(4, 4, 7, 0.9) !important;
         }
 
         .milestone-box {
           flex: 1;
           padding: clamp(24px, 4vw, 36px);
-          background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, rgba(16, 18, 26, 0.75) 100%);
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.07) 0%, rgba(9, 10, 15, 0.85) 100%);
           border: 1px solid rgba(59, 130, 246, 0.28);
           border-radius: 6px;
           box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);

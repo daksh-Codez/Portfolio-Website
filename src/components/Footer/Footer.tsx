@@ -30,7 +30,7 @@ export const Footer: React.FC = () => {
         borderTop: '1px solid var(--border-hairline)',
         paddingTop: 'clamp(48px, 6vw, 72px)',
         paddingBottom: 'clamp(36px, 5vw, 56px)',
-        backgroundColor: '#09090d',
+        backgroundColor: 'var(--bg-primary)',
         position: 'relative',
         zIndex: 2,
       }}

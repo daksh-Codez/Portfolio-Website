@@ -178,7 +178,7 @@ export const Skills: React.FC = () => {
           {/* 01 / PROGRAMMING & SYSTEMS — Prominent Feature Showcase */}
           <div
             style={{
-              backgroundColor: 'rgba(18, 18, 26, 0.82)',
+              backgroundColor: 'rgba(10, 10, 15, 0.82)',
               border: '1px solid var(--border-hairline)',
               borderTop: '2px solid var(--accent-blue)',
               borderRadius: '6px',
@@ -360,7 +360,7 @@ export const Skills: React.FC = () => {
             <div
               style={{
                 gridColumn: 'span 12',
-                backgroundColor: 'rgba(18, 18, 26, 0.72)',
+                backgroundColor: 'rgba(10, 10, 15, 0.72)',
                 border: '1px solid var(--border-hairline)',
                 borderRadius: '6px',
                 padding: 'clamp(24px, 3vw, 32px)',
@@ -406,7 +406,7 @@ export const Skills: React.FC = () => {
                       key={skill.name}
                       style={{
                         padding: '14px 18px',
-                        backgroundColor: 'rgba(24, 24, 34, 0.55)',
+                        backgroundColor: 'rgba(14, 14, 20, 0.65)',
                         border: '1px solid var(--border-hairline)',
                         borderRadius: '4px',
                         display: 'flex',
@@ -464,7 +464,7 @@ export const Skills: React.FC = () => {
             <div
               style={{
                 gridColumn: 'span 12',
-                backgroundColor: 'rgba(18, 18, 26, 0.72)',
+                backgroundColor: 'rgba(10, 10, 15, 0.72)',
                 border: '1px solid var(--border-hairline)',
                 borderRadius: '6px',
                 padding: 'clamp(24px, 3vw, 32px)',
@@ -510,7 +510,7 @@ export const Skills: React.FC = () => {
                       key={skill.name}
                       style={{
                         padding: '18px 20px',
-                        backgroundColor: 'rgba(24, 24, 34, 0.55)',
+                        backgroundColor: 'rgba(14, 14, 20, 0.65)',
                         border: '1px solid var(--border-hairline)',
                         borderRadius: '4px',
                         display: 'flex',
@@ -567,7 +567,7 @@ export const Skills: React.FC = () => {
             <div
               style={{
                 gridColumn: 'span 12',
-                backgroundColor: 'rgba(18, 18, 26, 0.72)',
+                backgroundColor: 'rgba(10, 10, 15, 0.72)',
                 border: '1px solid var(--border-hairline)',
                 borderRadius: '6px',
                 padding: 'clamp(24px, 3vw, 32px)',
@@ -613,7 +613,7 @@ export const Skills: React.FC = () => {
                       key={skill.name}
                       style={{
                         padding: '14px 18px',
-                        backgroundColor: 'rgba(24, 24, 34, 0.55)',
+                        backgroundColor: 'rgba(14, 14, 20, 0.65)',
                         border: '1px solid var(--border-hairline)',
                         borderRadius: '4px',
                         display: 'flex',
