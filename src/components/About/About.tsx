@@ -1,196 +1,130 @@
 import React from 'react';
 import { personalInfo } from '../../data/personalInfo';
-import { Terminal, Code2, Cpu } from 'lucide-react';
 
 export const About: React.FC = () => {
   return (
     <section
       id="about"
       style={{
-        paddingTop: 'clamp(80px, 12vw, 150px)',
-        paddingBottom: 'clamp(80px, 12vw, 150px)',
+        paddingTop: 'clamp(72px, 12vh, 140px)',
+        paddingBottom: 'clamp(72px, 12vh, 140px)',
         position: 'relative',
         zIndex: 2,
       }}
     >
-      <div className="editorial-container">
-        {/* Section Label */}
-        <div className="section-label">01 / ABOUT</div>
+      <div className="page-container">
+        {/* Section Index Marker */}
+        <div className="editorial-section-header">
+          <span>01 / ABOUT</span>
+          <span style={{ color: 'var(--text-muted)' }}>&mdash; INTENT &amp; BACKGROUND</span>
+        </div>
 
-        {/* Asymmetrical Editorial Grid */}
+        {/* Editorial Layout: Left Narrative Column + Right Marginal Notes */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',
-            columnGap: 'clamp(20px, 4vw, 40px)',
-            rowGap: '48px',
+            gap: 'clamp(24px, 5vw, 64px)',
+            alignItems: 'start',
           }}
         >
-          {/* Left Column: Expressive Headline */}
+          {/* Main Story Essay (Spans 8 columns on desktop) */}
           <div
             style={{
               gridColumn: 'span 12',
             }}
-            className="about-headline-col"
+            className="about-essay-col"
           >
-            <h2 className="section-hero-heading" style={{ maxWidth: '820px' }}>
+            <h2
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(2.4rem, 4.5vw, 4rem)',
+                fontWeight: 400,
+                lineHeight: '1.1',
+                letterSpacing: '-0.02em',
+                color: 'var(--text-primary)',
+                marginBottom: 'clamp(24px, 4vw, 36px)',
+              }}
+            >
               Curiosity is where{' '}
-              <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--accent-violet-light)' }}>
+              <span style={{ fontStyle: 'italic', color: 'var(--accent-ink)' }}>
                 everything begins.
               </span>
             </h2>
-          </div>
 
-          {/* Editorial Content Breakdown: 2 Columns */}
-          <div
-            style={{
-              gridColumn: 'span 12',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: 'clamp(32px, 5vw, 64px)',
-              marginTop: '16px',
-            }}
-          >
-            {/* Primary Narrative */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-              <p
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: 'clamp(1.1rem, 1.3vw, 1.25rem)',
-                  lineHeight: '1.65',
-                  color: 'var(--text-primary)',
-                  fontWeight: 400,
-                }}
-              >
-                {personalInfo.aboutEditorial.paragraphs[0]}
-              </p>
-              <p className="body-editorial">
-                {personalInfo.aboutEditorial.paragraphs[1]}
-              </p>
-            </div>
-
-            {/* Secondary Narrative & Details */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-              <p className="body-editorial">
-                {personalInfo.aboutEditorial.paragraphs[2]}
-              </p>
-              <p className="body-editorial">
-                {personalInfo.aboutEditorial.paragraphs[3]}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+              <p className="editorial-body-large">
+                I am a Computer Science Engineering undergraduate at Galgotias University with a genuine fascination for programming, low-level mechanics, and software craftsmanship.
               </p>
 
-              {/* Editorial Stat / Identity Strip */}
-              <div
-                style={{
-                  marginTop: '16px',
-                  paddingTop: '20px',
-                  borderTop: '1px solid var(--border-hairline)',
-                  display: 'flex',
-                  gap: '32px',
-                }}
-              >
-                <div>
-                  <span className="mono-meta" style={{ display: 'block', marginBottom: '4px' }}>
-                    DEGREE PURSUIT
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.92rem', color: 'var(--text-primary)', fontWeight: 600 }}>
-                    B.Tech CSE
-                  </span>
-                </div>
-                <div>
-                  <span className="mono-meta" style={{ display: 'block', marginBottom: '4px' }}>
-                    ACADEMIC HOME
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.92rem', color: 'var(--text-primary)', fontWeight: 600 }}>
-                    Galgotias University
-                  </span>
-                </div>
-              </div>
+              <p className="editorial-body">
+                Rather than jumping straight to high-level abstractions or superficial tutorials, I have prioritized learning how computers actually execute instructions. Working in C and C++ has given me a deep appreciation for procedural structure, memory allocation, and algorithmic trade-offs.
+              </p>
+
+              <p className="editorial-body">
+                My work so far reflects this philosophy: console-based student management systems with custom file I/O, expense ledgers with structured records, and mathematical calculators built to practice clean control flow. Each project is an intentional exercise in turning logic into functional software.
+              </p>
+
+              <p className="editorial-body">
+                Currently, my goal is straightforward: continue strengthening my problem-solving fundamentals, explore real-world software engineering workflows, and contribute to an engineering team as an intern.
+              </p>
             </div>
           </div>
 
-          {/* Three Core Principles / Tenets */}
+          {/* Editorial Marginalia / Side Context (Spans 4 columns on desktop) */}
           <div
             style={{
               gridColumn: 'span 12',
-              marginTop: 'clamp(32px, 6vw, 64px)',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '24px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '32px',
+              borderTop: '1px solid var(--border-rule)',
+              paddingTop: '28px',
             }}
+            className="about-marginalia-col"
           >
-            {personalInfo.aboutEditorial.values.map((item) => (
-              <div
-                key={item.number}
-                style={{
-                  padding: '28px',
-                  backgroundColor: 'rgba(18, 18, 24, 0.45)',
-                  border: '1px solid var(--border-hairline)',
-                  borderLeft: '2px solid rgba(139, 92, 246, 0.4)',
-                  position: 'relative',
-                  transition: 'transform 0.25s ease, border-color 0.25s ease',
-                }}
-                className="about-principle-card"
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: '16px',
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.8rem',
-                      color: 'var(--accent-violet-light)',
-                      letterSpacing: '0.1em',
-                    }}
-                  >
-                    // {item.number}
-                  </span>
-                  <span
-                    style={{
-                      width: '4px',
-                      height: '4px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--accent-violet)',
-                    }}
-                  />
-                </div>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '1.15rem',
-                    fontWeight: 600,
-                    color: 'var(--text-primary)',
-                    marginBottom: '10px',
-                    letterSpacing: '-0.01em',
-                  }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '0.88rem',
-                    lineHeight: '1.6',
-                    color: 'var(--text-secondary)',
-                  }}
-                >
-                  {item.description}
-                </p>
-              </div>
-            ))}
+            <div>
+              <span className="editorial-index-tag" style={{ display: 'block', marginBottom: '8px', color: 'var(--accent-iris)' }}>
+                NOTE &middot; 01 // FIRST PRINCIPLES
+              </span>
+              <p className="editorial-sidenote">
+                Valuing memory pointers, data types, and deterministic execution before relying on complex framework abstractions.
+              </p>
+            </div>
+
+            <div>
+              <span className="editorial-index-tag" style={{ display: 'block', marginBottom: '8px', color: 'var(--accent-iris)' }}>
+                NOTE &middot; 02 // DELIBERATE PRACTICE
+              </span>
+              <p className="editorial-sidenote">
+                Writing code incrementally, reading compiler errors carefully, and building functional tools in the terminal.
+              </p>
+            </div>
+
+            <div>
+              <span className="editorial-index-tag" style={{ display: 'block', marginBottom: '8px', color: 'var(--accent-iris)' }}>
+                NOTE &middot; 03 // AMBITION
+              </span>
+              <p className="editorial-sidenote">
+                Preparing for software engineering internships to test skills against real-world systems and collaborate with experienced engineers.
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
       <style>{`
-        .about-principle-card:hover {
-          transform: translateY(-3px);
-          border-left-color: var(--accent-violet) !important;
-          border-color: rgba(139, 92, 246, 0.2) !important;
+        @media (min-width: 960px) {
+          .about-essay-col {
+            grid-column: span 8 !important;
+          }
+          .about-marginalia-col {
+            grid-column: span 4 !important;
+            border-top: none !important;
+            border-left: 1px solid var(--border-rule) !important;
+            padding-top: 0 !important;
+            padding-left: 36px !important;
+          }
         }
       `}</style>
     </section>

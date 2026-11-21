@@ -12,11 +12,11 @@ export const Footer: React.FC = () => {
   };
 
   const navLinks = [
-    { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Work', href: '#work' },
+    { label: 'Capabilities', href: '#skills' },
+    { label: 'Selected Work', href: '#work' },
     { label: 'Education', href: '#education' },
+    { label: 'Trajectory', href: '#focus' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -27,102 +27,95 @@ export const Footer: React.FC = () => {
     <footer
       role="contentinfo"
       style={{
-        borderTop: '1px solid var(--border-hairline)',
-        paddingTop: 'clamp(48px, 6vw, 72px)',
-        paddingBottom: 'clamp(36px, 5vw, 56px)',
-        backgroundColor: '#050507',
+        borderTop: '1px solid var(--border-rule)',
+        paddingTop: '48px',
+        paddingBottom: '48px',
+        backgroundColor: '#070709',
         position: 'relative',
         zIndex: 2,
       }}
     >
-      <div className="editorial-container">
-        {/* Top Row: Wordmark, Statement & Back-to-Top */}
+      <div className="page-container">
+        {/* Top Tier: Colophon & Back to Top */}
         <div
           style={{
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            gap: '32px',
-            marginBottom: '48px',
+            alignItems: 'baseline',
+            gap: '24px',
+            marginBottom: '36px',
           }}
         >
-          {/* Identity & Statement */}
-          <div style={{ maxWidth: '480px' }}>
-            <h3
+          <div>
+            <span
               style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '1.2rem',
-                fontWeight: 700,
-                letterSpacing: '0.04em',
+                fontFamily: 'var(--font-sans)',
+                fontWeight: 600,
+                fontSize: '1.05rem',
                 color: 'var(--text-primary)',
-                textTransform: 'uppercase',
-                marginBottom: '8px',
+                letterSpacing: '-0.01em',
+                display: 'block',
+                marginBottom: '4px',
               }}
             >
               {personalInfo.name}
-            </h3>
+            </span>
             <p
               style={{
                 fontFamily: 'var(--font-serif)',
-                fontSize: '1.25rem',
                 fontStyle: 'italic',
-                color: 'var(--accent-violet-light)',
-                lineHeight: '1.4',
+                fontSize: '1.05rem',
+                color: 'var(--text-muted)',
+                margin: 0,
               }}
             >
               Designed with curiosity. Built with purpose.
             </p>
           </div>
 
-          {/* Back to Top Magnetic Button */}
           <button
             onClick={scrollToTop}
-            aria-label="Scroll back to top"
+            aria-label="Return to top of page"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '10px',
-              padding: '12px 20px',
-              backgroundColor: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: '2px',
+              gap: '8px',
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.75rem',
-              letterSpacing: '0.1em',
+              fontSize: '0.76rem',
+              color: 'var(--text-secondary)',
+              letterSpacing: '0.06em',
               textTransform: 'uppercase',
-              color: 'var(--text-primary)',
-              transition: 'all 0.25s var(--ease-editorial)',
+              padding: '6px 0',
+              borderBottom: '1px solid var(--border-rule-strong)',
+              transition: 'color 0.2s ease, border-color 0.2s ease',
             }}
-            className="back-to-top-btn"
+            className="footer-top-btn"
           >
-            <span>BACK TO TOP</span>
-            <ArrowUp size={14} style={{ color: 'var(--accent-violet-light)' }} />
+            <span>Top</span>
+            <ArrowUp size={13} style={{ color: 'var(--accent-iris)' }} />
           </button>
         </div>
 
-        {/* Middle Row: Navigation Links & Socials */}
+        {/* Bottom Tier: Nav Links & Copyright */}
         <div
           style={{
+            borderTop: '1px solid var(--border-rule)',
+            paddingTop: '24px',
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
             alignItems: 'center',
-            gap: '24px',
-            paddingTop: '24px',
-            paddingBottom: '24px',
-            borderTop: '1px solid rgba(255, 255, 255, 0.04)',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+            gap: '20px',
           }}
         >
-          {/* Nav List */}
           <nav
             style={{
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '24px',
+              gap: '20px',
             }}
-            aria-label="Footer Navigation"
+            aria-label="Footer directory"
           >
             {navLinks.map((item) => (
               <a
@@ -131,89 +124,58 @@ export const Footer: React.FC = () => {
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.74rem',
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  color: 'var(--text-secondary)',
+                  color: 'var(--text-muted)',
                   textDecoration: 'none',
                   transition: 'color 0.2s ease',
                 }}
-                className="footer-nav-link"
+                className="footer-anchor"
               >
                 {item.label}
               </a>
             ))}
           </nav>
 
-          {/* Social Icons */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             {githubLink && githubLink.url && (
               <a
                 href={githubLink.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="GitHub Profile"
-                style={{
-                  color: 'var(--text-secondary)',
-                  transition: 'color 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-                className="footer-social-icon"
+                aria-label="GitHub profile"
+                style={{ color: 'var(--text-muted)', display: 'flex', transition: 'color 0.2s ease' }}
+                className="footer-anchor"
               >
-                <GithubIcon size={18} />
+                <GithubIcon size={16} />
               </a>
             )}
+
             {linkedinLink && (
               <a
                 href={linkedinLink.url || '#'}
                 target={linkedinLink.url ? '_blank' : '_self'}
                 rel="noopener noreferrer"
-                aria-label="LinkedIn Profile"
-                style={{
-                  color: 'var(--text-secondary)',
-                  transition: 'color 0.2s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-                className="footer-social-icon"
+                aria-label="LinkedIn profile"
+                style={{ color: 'var(--text-muted)', display: 'flex', transition: 'color 0.2s ease' }}
+                className="footer-anchor"
               >
-                <LinkedinIcon size={18} />
+                <LinkedinIcon size={16} />
               </a>
             )}
-          </div>
-        </div>
 
-        {/* Bottom Metadata & Copyright */}
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: '16px',
-            marginTop: '28px',
-          }}
-        >
-          <span className="mono-meta" style={{ fontSize: '0.72rem' }}>
-            &copy; {currentYear} {personalInfo.name}. All rights reserved.
-          </span>
-          <span className="mono-meta" style={{ fontSize: '0.72rem', color: 'var(--text-subtle)' }}>
-            ENGINEERED WITH REACT &middot; THREE.JS &middot; TYPESCRIPT
-          </span>
+            <span className="editorial-sidenote" style={{ fontSize: '0.72rem', marginLeft: '8px' }}>
+              &copy; {currentYear} Daksh Goswami
+            </span>
+          </div>
         </div>
       </div>
 
       <style>{`
-        .back-to-top-btn:hover {
-          border-color: var(--accent-violet) !important;
-          background-color: rgba(139, 92, 246, 0.1) !important;
-          transform: translateY(-2px);
+        .footer-top-btn:hover {
+          color: var(--text-primary) !important;
+          border-color: var(--accent-iris) !important;
         }
-        .footer-nav-link:hover {
-          color: #ffffff !important;
-        }
-        .footer-social-icon:hover {
-          color: var(--accent-violet-light) !important;
+        .footer-anchor:hover {
+          color: var(--text-primary) !important;
         }
       `}</style>
     </footer>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { socialLinks } from '../../data/socialLinks';
 import { personalInfo } from '../../data/personalInfo';
-import { Mail, ArrowUpRight, Copy, Check } from 'lucide-react';
+import { ArrowUpRight, Copy, Check } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../Icons/Icons';
 
 export const Contact: React.FC = () => {
@@ -14,7 +14,7 @@ export const Contact: React.FC = () => {
     if (emailLink && emailLink.handle) {
       navigator.clipboard.writeText(emailLink.handle);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
+      setTimeout(() => setCopied(false), 2200);
     }
   };
 
@@ -22,250 +22,213 @@ export const Contact: React.FC = () => {
     <section
       id="contact"
       style={{
-        paddingTop: 'clamp(80px, 14vw, 170px)',
-        paddingBottom: 'clamp(80px, 12vw, 140px)',
+        paddingTop: 'clamp(72px, 14vh, 160px)',
+        paddingBottom: 'clamp(72px, 12vh, 140px)',
         position: 'relative',
         zIndex: 2,
       }}
     >
-      <div className="editorial-container">
-        {/* Section Label */}
-        <div className="section-label">06 / CONTACT</div>
+      <div className="page-container">
+        {/* Section Header */}
+        <div className="editorial-section-header">
+          <span>06 / CONTACT</span>
+          <span style={{ color: 'var(--text-muted)' }}>&mdash; DISPATCH &amp; INQUIRY</span>
+        </div>
 
-        {/* Large Editorial Typographic Statement */}
-        <div style={{ maxWidth: '940px' }}>
+        {/* Large Typographic Sign-off */}
+        <div style={{ maxWidth: '820px', marginBottom: 'clamp(36px, 6vw, 64px)' }}>
           <h2
             style={{
               fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2.8rem, 6.8vw, 6rem)',
+              fontSize: 'clamp(2.8rem, 5.5vw, 5.2rem)',
               lineHeight: '1.05',
-              letterSpacing: '-0.03em',
+              letterSpacing: '-0.02em',
               color: 'var(--text-primary)',
               fontWeight: 400,
-              marginBottom: 'clamp(24px, 4vw, 36px)',
+              margin: '0 0 20px 0',
             }}
           >
             Let's create something{' '}
-            <span style={{ fontStyle: 'italic', color: 'var(--accent-violet-light)' }}>
+            <span style={{ fontStyle: 'italic', color: 'var(--accent-ink)' }}>
               meaningful.
             </span>
           </h2>
 
           <p
-            className="body-editorial"
+            className="editorial-body"
             style={{
-              fontSize: 'clamp(1.1rem, 1.4vw, 1.35rem)',
-              maxWidth: '680px',
-              marginBottom: 'clamp(36px, 6vw, 56px)',
+              fontSize: 'clamp(1.05rem, 1.25vw, 1.25rem)',
               color: 'var(--text-secondary)',
+              margin: 0,
             }}
           >
-            I'm always interested in connecting with people, exploring opportunities, and discussing ideas around technology and software development.
+            I am always interested in discussing software engineering internships, technical collaborations, or ideas around low-level systems and digital products.
           </p>
         </div>
 
-        {/* Contact Matrix: Interactive Email Box + Social Links */}
+        {/* Contact Matrix: Direct Channel & Links */}
         <div
           style={{
+            borderTop: '1px solid var(--border-rule)',
+            paddingTop: '36px',
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',
-            gap: 'clamp(24px, 4vw, 40px)',
+            gap: 'clamp(28px, 4vw, 48px)',
             alignItems: 'start',
           }}
         >
-          {/* Direct Email Action Card */}
+          {/* Email Address & Quick Actions (Left 7 cols) */}
           <div
             style={{
               gridColumn: 'span 12',
-              backgroundColor: 'rgba(16, 16, 24, 0.7)',
-              border: '1px solid var(--border-subtle)',
-              borderRadius: '3px',
-              padding: 'clamp(28px, 4vw, 44px)',
-              position: 'relative',
-              overflow: 'hidden',
             }}
-            className="contact-card-col"
+            className="contact-direct-col"
           >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-                <span className="font-mono-tag" style={{ color: 'var(--accent-violet-light)' }}>
-                  DIRECT CHANNEL
-                </span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.72rem',
-                    color: 'var(--text-muted)',
-                  }}
-                >
-                  {personalInfo.location} (IST / UTC+5:30)
-                </span>
-              </div>
+            <span className="editorial-index-tag" style={{ display: 'block', marginBottom: '10px', color: 'var(--accent-iris)' }}>
+              DIRECT EMAIL
+            </span>
 
-              {emailLink && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {emailLink && (
+              <div>
+                <a
+                  href={emailLink.url || `mailto:${emailLink.handle}`}
+                  style={{
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: 'clamp(1.3rem, 2.5vw, 2.2rem)',
+                    fontWeight: 600,
+                    letterSpacing: '-0.02em',
+                    color: 'var(--text-primary)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    wordBreak: 'break-all',
+                    marginBottom: '16px',
+                  }}
+                  className="contact-mail-link"
+                >
+                  <span>{emailLink.handle}</span>
+                  <ArrowUpRight size={22} style={{ color: 'var(--accent-iris)' }} />
+                </a>
+
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
                   <a
                     href={emailLink.url || `mailto:${emailLink.handle}`}
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: 'clamp(1.2rem, 2.8vw, 2.2rem)',
-                      fontWeight: 600,
-                      color: 'var(--text-primary)',
-                      wordBreak: 'break-all',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '12px',
-                      textDecoration: 'none',
-                    }}
-                    className="email-link-text"
+                    className="editorial-btn-primary"
                   >
-                    <span>{emailLink.handle}</span>
-                    <ArrowUpRight size={24} style={{ color: 'var(--accent-violet-light)' }} />
+                    <span>Send Message</span>
                   </a>
 
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px', marginTop: '8px' }}>
-                    <a
-                      href={emailLink.url || `mailto:${emailLink.handle}`}
-                      className="btn-editorial-primary"
-                    >
-                      <Mail size={16} />
-                      <span>OPEN MAIL CLIENT</span>
-                    </a>
-
-                    <button
-                      onClick={copyEmail}
-                      className="btn-editorial-ghost"
-                      aria-label="Copy email address to clipboard"
-                    >
-                      {copied ? <Check size={16} style={{ color: '#10B981' }} /> : <Copy size={16} />}
-                      <span>{copied ? 'COPIED TO CLIPBOARD' : 'COPY ADDRESS'}</span>
-                    </button>
-                  </div>
+                  <button
+                    onClick={copyEmail}
+                    className="editorial-btn-quiet"
+                    aria-label="Copy email address to clipboard"
+                  >
+                    {copied ? <Check size={14} style={{ color: '#10B981' }} /> : <Copy size={14} />}
+                    <span>{copied ? 'Copied' : 'Copy Address'}</span>
+                  </button>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
 
-          {/* Social Profiles Grid */}
+          {/* Location & Social Connections (Right 5 cols) */}
           <div
             style={{
               gridColumn: 'span 12',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '24px',
             }}
+            className="contact-meta-col"
           >
-            {/* GitHub Card */}
-            {githubLink && (
-              <a
-                href={githubLink.url || '#'}
-                target={githubLink.url ? '_blank' : '_self'}
-                rel="noopener noreferrer"
-                style={{
-                  padding: '24px 28px',
-                  backgroundColor: 'rgba(16, 16, 22, 0.5)',
-                  border: '1px solid var(--border-hairline)',
-                  borderRadius: '2px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  textDecoration: 'none',
-                  transition: 'all 0.25s var(--ease-editorial)',
-                }}
-                className="social-profile-card"
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                  <div
-                    style={{
-                      width: '38px',
-                      height: '38px',
-                      borderRadius: '50%',
-                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--text-primary)',
-                    }}
-                  >
-                    <GithubIcon size={18} />
-                  </div>
-                  <div>
-                    <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '1rem', color: 'var(--text-primary)', display: 'block' }}>
-                      GitHub
-                    </span>
-                    <span className="mono-meta" style={{ fontSize: '0.74rem' }}>
-                      @{githubLink.handle}
-                    </span>
-                  </div>
-                </div>
-                <ArrowUpRight size={18} style={{ color: 'var(--accent-violet-light)' }} />
-              </a>
-            )}
+            <div>
+              <span className="editorial-index-tag" style={{ display: 'block', marginBottom: '6px' }}>
+                LOCATION & TIMEZONE
+              </span>
+              <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.95rem', color: 'var(--text-primary)', margin: 0, fontWeight: 500 }}>
+                {personalInfo.location}
+              </p>
+              <p className="editorial-sidenote" style={{ margin: '2px 0 0' }}>
+                India Standard Time (IST / UTC+5:30)
+              </p>
+            </div>
 
-            {/* LinkedIn Card */}
-            {linkedinLink && (
-              <a
-                href={linkedinLink.url || '#'}
-                target={linkedinLink.url ? '_blank' : '_self'}
-                rel="noopener noreferrer"
-                onClick={(e) => {
-                  if (!linkedinLink.url) {
-                    e.preventDefault();
-                    alert('LinkedIn profile URL can be configured in src/data/socialLinks.ts');
-                  }
-                }}
-                style={{
-                  padding: '24px 28px',
-                  backgroundColor: 'rgba(16, 16, 22, 0.5)',
-                  border: '1px solid var(--border-hairline)',
-                  borderRadius: '2px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  textDecoration: 'none',
-                  transition: 'all 0.25s var(--ease-editorial)',
-                }}
-                className="social-profile-card"
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-                  <div
+            <div>
+              <span className="editorial-index-tag" style={{ display: 'block', marginBottom: '8px' }}>
+                EXTERNAL PLATFORMS
+              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {githubLink && (
+                  <a
+                    href={githubLink.url || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
-                      width: '38px',
-                      height: '38px',
-                      borderRadius: '50%',
-                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                      display: 'flex',
+                      display: 'inline-flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--text-primary)',
+                      gap: '8px',
+                      color: 'var(--text-secondary)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.84rem',
+                      transition: 'color 0.2s ease',
                     }}
+                    className="contact-social-row"
                   >
-                    <LinkedinIcon size={18} />
-                  </div>
-                  <div>
-                    <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: '1rem', color: 'var(--text-primary)', display: 'block' }}>
-                      LinkedIn
-                    </span>
-                    <span className="mono-meta" style={{ fontSize: '0.74rem' }}>
-                      {linkedinLink.url ? `@${linkedinLink.handle}` : 'Configurable in data'}
-                    </span>
-                  </div>
-                </div>
-                <ArrowUpRight size={18} style={{ color: 'var(--accent-violet-light)' }} />
-              </a>
-            )}
+                    <GithubIcon size={16} />
+                    <span>github.com/{githubLink.handle}</span>
+                    <ArrowUpRight size={13} style={{ color: 'var(--accent-iris)' }} />
+                  </a>
+                )}
+
+                {linkedinLink && (
+                  <a
+                    href={linkedinLink.url || '#'}
+                    target={linkedinLink.url ? '_blank' : '_self'}
+                    rel="noopener noreferrer"
+                    onClick={(e) => {
+                      if (!linkedinLink.url) {
+                        e.preventDefault();
+                        alert('LinkedIn profile URL configurable in src/data/socialLinks.ts');
+                      }
+                    }}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      color: 'var(--text-secondary)',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.84rem',
+                      transition: 'color 0.2s ease',
+                    }}
+                    className="contact-social-row"
+                  >
+                    <LinkedinIcon size={16} />
+                    <span>linkedin / {linkedinLink.handle}</span>
+                    <ArrowUpRight size={13} style={{ color: 'var(--accent-iris)' }} />
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <style>{`
-        .social-profile-card:hover {
-          border-color: rgba(139, 92, 246, 0.4) !important;
-          background-color: rgba(26, 24, 38, 0.7) !important;
-          transform: translateY(-2px);
+        @media (min-width: 900px) {
+          .contact-direct-col {
+            grid-column: span 7 !important;
+          }
+          .contact-meta-col {
+            grid-column: span 5 !important;
+            border-left: 1px solid var(--border-rule) !important;
+            padding-left: 36px !important;
+          }
         }
-        .email-link-text:hover {
-          color: var(--accent-violet-light) !important;
+        .contact-mail-link:hover {
+          color: var(--accent-ink) !important;
+        }
+        .contact-social-row:hover {
+          color: var(--text-primary) !important;
         }
       `}</style>
     </section>

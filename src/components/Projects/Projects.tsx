@@ -1,148 +1,148 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { projects, Project } from '../../data/projects';
 import { socialLinks } from '../../data/socialLinks';
-import { ArrowUpRight, Code, CheckCircle2, Terminal } from 'lucide-react';
+import { ArrowUpRight, Check } from 'lucide-react';
 import { GithubIcon } from '../Icons/Icons';
 
 export const Projects: React.FC = () => {
-  const [activeProjectId, setActiveProjectId] = useState<string>(projects[0].id);
-
   const githubProfile = socialLinks.find((s) => s.id === 'github');
 
   return (
     <section
       id="work"
       style={{
-        paddingTop: 'clamp(80px, 12vw, 150px)',
-        paddingBottom: 'clamp(80px, 12vw, 150px)',
+        paddingTop: 'clamp(72px, 12vh, 140px)',
+        paddingBottom: 'clamp(72px, 12vh, 140px)',
         position: 'relative',
         zIndex: 2,
       }}
     >
-      <div className="editorial-container">
+      <div className="page-container">
         {/* Section Header */}
-        <div className="section-label">03 / SELECTED WORK</div>
+        <div className="editorial-section-header">
+          <span>03 / SELECTED WORK</span>
+          <span style={{ color: 'var(--text-muted)' }}>&mdash; PRACTICAL IMPLEMENTATIONS</span>
+        </div>
 
         <div
           style={{
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
-            alignItems: 'flex-end',
+            alignItems: 'baseline',
             gap: '24px',
-            marginBottom: 'clamp(48px, 8vw, 80px)',
+            marginBottom: 'clamp(48px, 6vw, 72px)',
           }}
         >
           <div>
-            <h2 className="section-hero-heading">
+            <h2
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(2.4rem, 4.5vw, 4rem)',
+                fontWeight: 400,
+                lineHeight: '1.1',
+                letterSpacing: '-0.02em',
+                color: 'var(--text-primary)',
+                margin: 0,
+              }}
+            >
               Things I've{' '}
-              <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--accent-violet-light)' }}>
+              <span style={{ fontStyle: 'italic', color: 'var(--accent-ink)' }}>
                 built.
               </span>
             </h2>
           </div>
-          <div style={{ maxWidth: '460px' }}>
-            <p className="body-editorial">
-              A growing collection of projects, experiments, and practical programming work focused on low-level systems, file storage, and algorithm logic.
-            </p>
-          </div>
+          <p
+            className="editorial-body"
+            style={{ maxWidth: '440px', fontSize: '0.92rem', margin: 0 }}
+          >
+            A collection of practical programming projects in C and C++, exploring memory structures, stream validation, and procedural algorithms.
+          </p>
         </div>
 
-        {/* Editorial Project Showcase: Alternating Asymmetric Layouts */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(48px, 8vw, 96px)' }}>
+        {/* Project Exhibition Catalogue: Typographic Ledger */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(48px, 6vw, 80px)' }}>
           {projects.map((project, idx) => {
-            const isEven = idx % 2 === 1;
+            const isFeatured = idx < 2; // Give first two larger editorial focus
 
             return (
-              <div
+              <article
                 key={project.id}
-                onMouseEnter={() => setActiveProjectId(project.id)}
                 style={{
+                  borderTop: '1px solid var(--border-rule)',
+                  paddingTop: 'clamp(32px, 4vw, 48px)',
                   display: 'grid',
                   gridTemplateColumns: 'repeat(12, 1fr)',
                   gap: 'clamp(24px, 4vw, 48px)',
-                  alignItems: 'center',
-                  borderTop: '1px solid var(--border-hairline)',
-                  paddingTop: 'clamp(32px, 5vw, 64px)',
+                  alignItems: 'start',
                 }}
-                className="project-row"
+                className="project-catalogue-item"
               >
-                {/* Text Content Column */}
+                {/* Project Metadata & Title (Left 6-7 cols) */}
                 <div
                   style={{
                     gridColumn: 'span 12',
-                    order: isEven ? 2 : 1,
                   }}
-                  className={`project-content-col ${isEven ? 'order-desktop-2' : 'order-desktop-1'}`}
+                  className="project-text-block"
                 >
-                  {/* Project Index & Category */}
                   <div
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '16px',
-                      marginBottom: '16px',
+                      gap: '12px',
+                      marginBottom: '12px',
                     }}
                   >
                     <span
                       style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.85rem',
+                        fontSize: '0.82rem',
                         fontWeight: 600,
-                        color: 'var(--accent-violet-light)',
+                        color: 'var(--accent-iris)',
                       }}
                     >
-                      PROJECT {project.number}
+                      № {project.number}
                     </span>
-                    <span
-                      style={{
-                        width: '4px',
-                        height: '4px',
-                        borderRadius: '50%',
-                        backgroundColor: 'var(--text-muted)',
-                      }}
-                    />
-                    <span className="font-mono-tag" style={{ color: 'var(--text-muted)' }}>
-                      {project.category}
+                    <span style={{ color: 'var(--border-rule-strong)' }}>/</span>
+                    <span className="editorial-index-tag" style={{ color: 'var(--text-muted)' }}>
+                      {project.language} &middot; {project.category}
                     </span>
                   </div>
 
-                  {/* Title */}
                   <h3
                     style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: 'clamp(1.6rem, 2.5vw, 2.4rem)',
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: isFeatured ? 'clamp(1.6rem, 2.4vw, 2.2rem)' : 'clamp(1.3rem, 1.8vw, 1.6rem)',
                       fontWeight: 600,
                       letterSpacing: '-0.02em',
                       color: 'var(--text-primary)',
-                      marginBottom: '16px',
+                      marginBottom: '14px',
                       lineHeight: '1.2',
                     }}
                   >
                     {project.title}
                   </h3>
 
-                  {/* Description */}
                   <p
-                    className="body-editorial"
+                    className="editorial-body"
                     style={{
-                      fontSize: 'clamp(0.95rem, 1.05vw, 1.05rem)',
-                      lineHeight: '1.7',
-                      marginBottom: '24px',
-                      maxWidth: '540px',
+                      fontSize: '0.96rem',
+                      lineHeight: '1.65',
+                      marginBottom: '20px',
+                      maxWidth: '560px',
                     }}
                   >
                     {project.description}
                   </p>
 
-                  {/* Highlights */}
+                  {/* Highlights list */}
                   <ul
                     style={{
                       listStyle: 'none',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '10px',
-                      marginBottom: '28px',
+                      gap: '8px',
+                      marginBottom: '24px',
                     }}
                   >
                     {project.highlights.map((h, hIdx) => (
@@ -151,244 +151,140 @@ export const Projects: React.FC = () => {
                         style={{
                           display: 'flex',
                           alignItems: 'flex-start',
-                          gap: '10px',
-                          fontFamily: 'var(--font-body)',
-                          fontSize: '0.86rem',
+                          gap: '8px',
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: '0.85rem',
                           color: 'var(--text-secondary)',
                         }}
                       >
-                        <CheckCircle2
-                          size={15}
-                          style={{
-                            color: 'var(--accent-violet-light)',
-                            flexShrink: 0,
-                            marginTop: '2px',
-                          }}
-                        />
+                        <span style={{ color: 'var(--accent-iris)', marginTop: '2px' }}>&bull;</span>
                         <span>{h}</span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* Metadata & Actions */}
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      alignItems: 'center',
-                      gap: '16px',
-                    }}
-                  >
-                    <span
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        padding: '5px 12px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid var(--border-hairline)',
-                        borderRadius: '2px',
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '0.75rem',
-                        color: 'var(--text-primary)',
-                      }}
-                    >
-                      <Code size={13} style={{ color: 'var(--accent-violet-light)' }} />
-                      {project.language}
-                    </span>
-
-                    {/* GitHub Link (Only rendered when configured) */}
+                  {/* Links / Status */}
+                  <div>
                     {project.githubUrl ? (
                       <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn-editorial-ghost"
-                        style={{ padding: '8px 18px', fontSize: '0.78rem' }}
+                        className="editorial-btn-quiet"
+                        style={{ padding: '8px 16px', fontSize: '0.8rem' }}
                       >
                         <GithubIcon size={14} />
                         <span>Source Code</span>
                         <ArrowUpRight size={13} />
                       </a>
                     ) : (
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '0.72rem',
-                          color: 'var(--text-muted)',
-                          padding: '6px 12px',
-                          backgroundColor: 'rgba(255, 255, 255, 0.02)',
-                          border: '1px dashed var(--border-hairline)',
-                          borderRadius: '2px',
-                        }}
-                      >
-                        Source available in local development suite
+                      <span className="editorial-sidenote" style={{ fontSize: '0.74rem' }}>
+                        Source code available in local workspace repository
                       </span>
                     )}
                   </div>
                 </div>
 
-                {/* Visual Architecture Preview Column */}
+                {/* Architectural Code Ledger Snippet (Right 5-6 cols) */}
                 <div
                   style={{
                     gridColumn: 'span 12',
-                    order: isEven ? 1 : 2,
+                    backgroundColor: 'rgba(17, 17, 20, 0.7)',
+                    border: '1px solid var(--border-rule)',
+                    borderRadius: '2px',
+                    overflow: 'hidden',
                   }}
-                  className={`project-visual-col ${isEven ? 'order-desktop-1' : 'order-desktop-2'}`}
+                  className="project-code-block"
                 >
                   <div
                     style={{
-                      backgroundColor: 'rgba(12, 12, 16, 0.75)',
-                      backdropFilter: 'blur(10px)',
-                      border: '1px solid var(--border-hairline)',
-                      borderTop: `2px solid ${project.visualConcept.accentColor}`,
-                      borderRadius: '4px',
-                      overflow: 'hidden',
-                      boxShadow: '0 16px 36px rgba(0, 0, 0, 0.4)',
-                      transition: 'border-color 0.3s ease, transform 0.3s ease',
+                      padding: '10px 16px',
+                      borderBottom: '1px solid var(--border-rule)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      backgroundColor: 'rgba(11, 11, 13, 0.5)',
                     }}
-                    className="code-preview-window"
                   >
-                    {/* Window Title Bar */}
-                    <div
+                    <span
                       style={{
-                        padding: '12px 18px',
-                        backgroundColor: 'rgba(20, 20, 28, 0.8)',
-                        borderBottom: '1px solid var(--border-hairline)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                      }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#EF4444' }} />
-                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#F59E0B' }} />
-                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10B981' }} />
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-mono)',
-                            fontSize: '0.7rem',
-                            color: 'var(--text-muted)',
-                            marginLeft: '8px',
-                          }}
-                        >
-                          {project.id}.{project.language === 'C++' ? 'cpp' : 'c'}
-                        </span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Terminal size={12} style={{ color: 'var(--accent-violet-light)' }} />
-                        <span className="font-mono-tag" style={{ fontSize: '0.66rem', color: 'var(--text-muted)' }}>
-                          READONLY
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Code Snippet Display */}
-                    <div
-                      style={{
-                        padding: '24px',
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.82rem',
-                        lineHeight: '1.6',
+                        fontSize: '0.74rem',
                         color: 'var(--text-secondary)',
-                        overflowX: 'auto',
                       }}
                     >
-                      <pre style={{ margin: 0 }}>
-                        <code>{project.visualConcept.snippet}</code>
-                      </pre>
-                    </div>
+                      {project.id}.{project.language === 'C++' ? 'cpp' : 'c'}
+                    </span>
+                    <span className="editorial-index-tag" style={{ fontSize: '0.68rem', color: 'var(--accent-iris)' }}>
+                      LOGIC SPEC
+                    </span>
+                  </div>
 
-                    {/* Window Footer Meta */}
-                    <div
-                      style={{
-                        padding: '10px 18px',
-                        backgroundColor: 'rgba(10, 10, 14, 0.6)',
-                        borderTop: '1px solid var(--border-hairline)',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <span className="mono-meta" style={{ fontSize: '0.7rem' }}>
-                        PARADIGM: {project.category}
-                      </span>
-                      <span className="mono-meta" style={{ fontSize: '0.7rem', color: 'var(--accent-violet-light)' }}>
-                        UTF-8 / LF
-                      </span>
-                    </div>
+                  <div
+                    style={{
+                      padding: '18px',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.8rem',
+                      lineHeight: '1.65',
+                      color: 'var(--text-secondary)',
+                      overflowX: 'auto',
+                    }}
+                  >
+                    <pre style={{ margin: 0 }}>
+                      <code>{project.visualConcept.snippet}</code>
+                    </pre>
                   </div>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
 
-        {/* Bottom GitHub Archive Callout */}
-        <div
-          style={{
-            marginTop: 'clamp(64px, 10vw, 100px)',
-            padding: '36px',
-            backgroundColor: 'rgba(16, 16, 24, 0.5)',
-            border: '1px solid var(--border-hairline)',
-            borderRadius: '2px',
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '24px',
-          }}
-        >
-          <div>
-            <h4
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '1.25rem',
-                fontWeight: 600,
-                color: 'var(--text-primary)',
-                marginBottom: '6px',
-              }}
-            >
-              Explore Repositories & Future Builds
-            </h4>
-            <p className="body-editorial" style={{ fontSize: '0.88rem' }}>
-              All code modules are developed with structured documentation, test inputs, and commit discipline.
-            </p>
-          </div>
+        {/* GitHub Direct Link Callout */}
+        {githubProfile && githubProfile.url && (
+          <div
+            style={{
+              marginTop: 'clamp(56px, 8vw, 84px)',
+              paddingTop: '28px',
+              borderTop: '1px solid var(--border-rule)',
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '20px',
+            }}
+          >
+            <div>
+              <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '1rem', color: 'var(--text-primary)', margin: 0 }}>
+                Continuous Coding on GitHub
+              </p>
+              <p className="editorial-sidenote" style={{ margin: '4px 0 0' }}>
+                Practicing daily commits, clean git workflows, and progressive project refactoring.
+              </p>
+            </div>
 
-          {githubProfile && githubProfile.url && (
             <a
               href={githubProfile.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-editorial-primary"
+              className="editorial-btn-quiet"
             >
-              <GithubIcon size={16} />
-              <span>VISIT GITHUB PROFILE</span>
-              <ArrowUpRight size={14} />
+              <GithubIcon size={15} />
+              <span>Visit @{githubProfile.handle}</span>
+              <ArrowUpRight size={13} />
             </a>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <style>{`
         @media (min-width: 900px) {
-          .project-content-col {
+          .project-text-block {
             grid-column: span 6 !important;
           }
-          .project-visual-col {
+          .project-code-block {
             grid-column: span 6 !important;
           }
-          .order-desktop-1 {
-            order: 1 !important;
-          }
-          .order-desktop-2 {
-            order: 2 !important;
-          }
-        }
-        .code-preview-window:hover {
-          transform: translateY(-4px);
-          border-color: rgba(139, 92, 246, 0.4) !important;
         }
       `}</style>
     </section>

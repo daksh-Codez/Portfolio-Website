@@ -1,202 +1,152 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { skillGroups } from '../../data/skills';
-import { Terminal, Database, Globe, Wrench, ChevronRight } from 'lucide-react';
 
 export const Skills: React.FC = () => {
-  const [activeGroupId, setActiveGroupId] = useState(skillGroups[0].id);
-
-  const getGroupIcon = (id: string) => {
-    switch (id) {
-      case 'programming':
-        return <Terminal size={18} />;
-      case 'web':
-        return <Globe size={18} />;
-      case 'database':
-        return <Database size={18} />;
-      case 'tools':
-      default:
-        return <Wrench size={18} />;
-    }
-  };
-
   return (
     <section
       id="skills"
       style={{
-        paddingTop: 'clamp(80px, 12vw, 150px)',
-        paddingBottom: 'clamp(80px, 12vw, 150px)',
+        paddingTop: 'clamp(72px, 12vh, 140px)',
+        paddingBottom: 'clamp(72px, 12vh, 140px)',
         position: 'relative',
         zIndex: 2,
       }}
     >
-      <div className="editorial-container">
+      <div className="page-container">
         {/* Section Header */}
-        <div className="section-label">02 / CAPABILITIES</div>
+        <div className="editorial-section-header">
+          <span>02 / CAPABILITIES</span>
+          <span style={{ color: 'var(--text-muted)' }}>&mdash; TECHNICAL INVENTORY</span>
+        </div>
 
         <div
           style={{
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
-            alignItems: 'flex-end',
+            alignItems: 'baseline',
             gap: '24px',
             marginBottom: 'clamp(40px, 6vw, 64px)',
           }}
         >
-          <div>
-            <h2 className="section-hero-heading">
-              Tools of my{' '}
-              <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--accent-violet-light)' }}>
-                trade.
-              </span>
-            </h2>
-          </div>
-          <div style={{ maxWidth: '420px' }}>
-            <p className="body-editorial" style={{ fontSize: '0.92rem' }}>
-              A disciplined repertoire of programming languages, foundational web technologies, database principles, and development tooling.
-            </p>
-          </div>
+          <h2
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(2.4rem, 4.5vw, 4rem)',
+              fontWeight: 400,
+              lineHeight: '1.1',
+              letterSpacing: '-0.02em',
+              color: 'var(--text-primary)',
+              margin: 0,
+            }}
+          >
+            Tools of my{' '}
+            <span style={{ fontStyle: 'italic', color: 'var(--accent-ink)' }}>
+              trade.
+            </span>
+          </h2>
+
+          <p
+            className="editorial-body"
+            style={{ maxWidth: '420px', fontSize: '0.92rem', margin: 0 }}
+          >
+            A disciplined inventory of languages, frameworks, and developer tools learned through hands-on practice, without exaggerated claims.
+          </p>
         </div>
 
-        {/* Editorial Layout: Left Navigation / Categories + Right Expanded Matrix */}
+        {/* Technical Ledger / Spec-Sheet Layout */}
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(12, 1fr)',
-            gap: 'clamp(24px, 4vw, 40px)',
+            borderTop: '1px solid var(--border-rule)',
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
           {skillGroups.map((group) => (
             <div
               key={group.id}
               style={{
-                gridColumn: 'span 12',
-                borderTop: '1px solid var(--border-hairline)',
-                paddingTop: '32px',
-                paddingBottom: '32px',
+                borderBottom: '1px solid var(--border-rule)',
+                paddingTop: '28px',
+                paddingBottom: '28px',
                 display: 'grid',
                 gridTemplateColumns: 'repeat(12, 1fr)',
-                gap: '20px',
-                transition: 'background-color 0.2s ease',
+                gap: '24px',
+                alignItems: 'baseline',
               }}
-              className="skill-category-row"
+              className="skills-ledger-row"
             >
-              {/* Category Metadata */}
+              {/* Category Col (4 cols) */}
               <div
                 style={{
                   gridColumn: 'span 12',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
                 }}
-                className="category-meta-col"
+                className="skills-cat-col"
               >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.78rem',
-                    color: 'var(--accent-violet-light)',
-                  }}
-                >
-                  {group.index}
-                </span>
-                <div
-                  style={{
-                    color: 'var(--accent-violet)',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                >
-                  {getGroupIcon(group.id)}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span className="editorial-index-tag" style={{ color: 'var(--accent-iris)' }}>
+                    [{group.index}]
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-sans)',
+                      fontWeight: 600,
+                      fontSize: '0.92rem',
+                      letterSpacing: '0.04em',
+                      color: 'var(--text-primary)',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {group.category}
+                  </span>
                 </div>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '1rem',
-                    fontWeight: 600,
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    color: 'var(--text-primary)',
-                  }}
-                >
-                  {group.category}
-                </h3>
-              </div>
-
-              {/* Summary Description */}
-              <div
-                style={{
-                  gridColumn: 'span 12',
-                  maxWidth: '520px',
-                }}
-                className="category-desc-col"
-              >
-                <p className="body-editorial" style={{ fontSize: '0.88rem' }}>
+                <p className="editorial-sidenote" style={{ marginTop: '6px', maxWidth: '320px' }}>
                   {group.summary}
                 </p>
               </div>
 
-              {/* Skills Grid */}
+              {/* Items List (8 cols) */}
               <div
                 style={{
                   gridColumn: 'span 12',
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-                  gap: '16px',
-                  marginTop: '12px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px',
                 }}
+                className="skills-items-col"
               >
                 {group.skills.map((skill) => (
                   <div
                     key={skill.name}
                     style={{
-                      padding: '18px 22px',
-                      backgroundColor: 'rgba(20, 20, 28, 0.5)',
-                      border: '1px solid var(--border-hairline)',
-                      borderRadius: '2px',
                       display: 'flex',
-                      flexDirection: 'column',
-                      gap: '6px',
-                      transition: 'all 0.25s var(--ease-editorial)',
-                      position: 'relative',
+                      flexWrap: 'wrap',
+                      alignItems: 'baseline',
+                      justifyContent: 'space-between',
+                      padding: '10px 14px',
+                      backgroundColor: 'rgba(23, 23, 28, 0.4)',
+                      borderLeft: '2px solid transparent',
+                      transition: 'background-color 0.2s ease, border-color 0.2s ease',
                     }}
-                    className="skill-pill-card"
+                    className="skill-spec-entry"
                   >
-                    <div
+                    <span
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
+                        fontFamily: 'var(--font-sans)',
+                        fontWeight: 600,
+                        fontSize: '1rem',
+                        color: 'var(--text-primary)',
                       }}
                     >
-                      <span
-                        style={{
-                          fontFamily: 'var(--font-body)',
-                          fontSize: '1.05rem',
-                          fontWeight: 600,
-                          color: 'var(--text-primary)',
-                          letterSpacing: '-0.01em',
-                        }}
-                      >
-                        {skill.name}
-                      </span>
-                      <span
-                        style={{
-                          width: '5px',
-                          height: '5px',
-                          borderRadius: '50%',
-                          backgroundColor: 'var(--accent-violet)',
-                          opacity: 0.6,
-                        }}
-                      />
-                    </div>
+                      {skill.name}
+                    </span>
+
                     {skill.tag && (
                       <span
                         style={{
                           fontFamily: 'var(--font-mono)',
-                          fontSize: '0.72rem',
+                          fontSize: '0.78rem',
                           color: 'var(--text-muted)',
-                          lineHeight: '1.4',
                         }}
                       >
                         {skill.tag}
@@ -211,22 +161,17 @@ export const Skills: React.FC = () => {
       </div>
 
       <style>{`
-        .skill-pill-card:hover {
-          border-color: rgba(139, 92, 246, 0.4) !important;
-          background-color: rgba(30, 27, 46, 0.5) !important;
-          transform: translateY(-2px);
+        @media (min-width: 860px) {
+          .skills-cat-col {
+            grid-column: span 4 !important;
+          }
+          .skills-items-col {
+            grid-column: span 8 !important;
+          }
         }
-        @media (min-width: 900px) {
-          .category-meta-col {
-            grid-column: span 3 !important;
-          }
-          .category-desc-col {
-            grid-column: span 3 !important;
-          }
-          .skill-category-row > div:nth-child(3) {
-            grid-column: span 6 !important;
-            margin-top: 0 !important;
-          }
+        .skill-spec-entry:hover {
+          background-color: rgba(31, 31, 38, 0.7) !important;
+          border-left-color: var(--accent-iris) !important;
         }
       `}</style>
     </section>
