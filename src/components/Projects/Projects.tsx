@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { projects, Project } from '../../data/projects';
-import { socialLinks } from '../../data/socialLinks';
+import { Project } from '../../data/projects';
+import { usePortfolioData } from '../../context/DataContext';
 import { ArrowUpRight, Code, CheckCircle2, Terminal, Copy, Check, FileCode } from 'lucide-react';
 import { GithubIcon } from '../Icons/Icons';
 import { highlightLine } from '../../utils/syntaxHighlight';
 
 export const Projects: React.FC = () => {
+  const { projectsList, socialLinksList } = usePortfolioData();
+  const projects = projectsList;
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const githubProfile = socialLinks.find((s) => s.id === 'github');
+  const githubProfile = socialLinksList.find((s) => s.id === 'github');
 
   const handleCopyCode = (projectId: string, code: string) => {
     navigator.clipboard.writeText(code);

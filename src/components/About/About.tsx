@@ -1,8 +1,10 @@
 import React from 'react';
-import { personalInfo } from '../../data/personalInfo';
+import { usePortfolioData } from '../../context/DataContext';
 import { Terminal, Code2, Cpu } from 'lucide-react';
 
 export const About: React.FC = () => {
+  const { personalInfoData } = usePortfolioData();
+  const personalInfo = personalInfoData;
   return (
     <section
       id="about"

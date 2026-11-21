@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { socialLinks } from '../../data/socialLinks';
-import { personalInfo } from '../../data/personalInfo';
+import { usePortfolioData } from '../../context/DataContext';
 import { Mail, ArrowUpRight, Copy, Check } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../Icons/Icons';
 
 export const Contact: React.FC = () => {
+  const { socialLinksList, personalInfoData } = usePortfolioData();
+  const socialLinks = socialLinksList;
+  const personalInfo = personalInfoData;
   const [copied, setCopied] = useState(false);
   const emailLink = socialLinks.find((s) => s.platform === 'email');
   const githubLink = socialLinks.find((s) => s.platform === 'github');

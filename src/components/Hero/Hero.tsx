@@ -1,8 +1,10 @@
 import React from 'react';
-import { personalInfo } from '../../data/personalInfo';
+import { usePortfolioData } from '../../context/DataContext';
 import { ArrowDownRight, Compass, Sparkles } from 'lucide-react';
 
 export const Hero: React.FC = () => {
+  const { personalInfoData } = usePortfolioData();
+  const personalInfo = personalInfoData;
   const scrollTo = (href: string) => {
     const target = document.querySelector(href);
     if (target) {

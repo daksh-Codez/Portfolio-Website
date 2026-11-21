@@ -1,5 +1,6 @@
 import React from 'react';
-import { trajectoryItems, internshipMilestone, TrajectoryType } from '../../data/education';
+import { TrajectoryType } from '../../data/education';
+import { usePortfolioData } from '../../context/DataContext';
 import {
   Compass,
   Layers,
@@ -11,6 +12,9 @@ import {
 } from 'lucide-react';
 
 export const CurrentFocus: React.FC = () => {
+  const { trajectoryList, milestoneData } = usePortfolioData();
+  const trajectoryItems = trajectoryList;
+  const internshipMilestone = milestoneData;
   const getIconForType = (type: TrajectoryType) => {
     switch (type) {
       case 'learning':

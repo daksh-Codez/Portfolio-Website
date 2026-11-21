@@ -1,10 +1,12 @@
 import React from 'react';
-import { personalInfo } from '../../data/personalInfo';
-import { socialLinks } from '../../data/socialLinks';
+import { usePortfolioData } from '../../context/DataContext';
 import { ArrowUp } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../Icons/Icons';
 
 export const Footer: React.FC = () => {
+  const { personalInfoData, socialLinksList } = usePortfolioData();
+  const personalInfo = personalInfoData;
+  const socialLinks = socialLinksList;
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = () => {

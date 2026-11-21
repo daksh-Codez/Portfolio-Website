@@ -1,69 +1,65 @@
 import React from 'react';
-import { useSmoothScroll } from './hooks/useSmoothScroll';
-import { Scene3D } from './components/Scene3D/Scene3D';
-import { CustomCursor } from './components/CustomCursor/CustomCursor';
-import { AmbientLight } from './components/AmbientLight/AmbientLight';
-import { ScrollProgress } from './components/ScrollProgress/ScrollProgress';
-import { Navbar } from './components/Navbar/Navbar';
-import { Hero } from './components/Hero/Hero';
-import { About } from './components/About/About';
-import { Skills } from './components/Skills/Skills';
-import { Projects } from './components/Projects/Projects';
-import { Education } from './components/Education/Education';
-import { CurrentFocus } from './components/CurrentFocus/CurrentFocus';
-import { Contact } from './components/Contact/Contact';
-import { Footer } from './components/Footer/Footer';
-import { TerminalPrompt } from './components/TerminalPrompt/TerminalPrompt';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { DataProvider } from './context/DataContext';
+
+// Public Portfolio (Unchanged public experience)
+import { PublicPortfolio } from './pages/PublicPortfolio';
+
+// Admin CMS System
+import { AdminLogin } from './pages/admin/AdminLogin';
+import { AdminLayout } from './components/Admin/AdminLayout';
+import { ProtectedRoute } from './components/Admin/ProtectedRoute';
+import { Overview } from './pages/admin/Overview';
+import { ProjectsManager } from './pages/admin/ProjectsManager';
+import { MediaLibrary } from './pages/admin/MediaLibrary';
+import { SkillsManager } from './pages/admin/SkillsManager';
+import { AboutManager } from './pages/admin/AboutManager';
+import { EducationManager } from './pages/admin/EducationManager';
+import { FocusManager } from './pages/admin/FocusManager';
+import { SocialLinksManager } from './pages/admin/SocialLinksManager';
+import { ContactManager } from './pages/admin/ContactManager';
+import { WebsiteSettings } from './pages/admin/WebsiteSettings';
 
 export const App: React.FC = () => {
-  // Initialize Lenis smooth scroll
-  useSmoothScroll();
-
   return (
-    <>
-      {/* Keyboard Accessibility Skip Link */}
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
+    <BrowserRouter>
+      <AuthProvider>
+        <DataProvider>
+          <Routes>
+            {/* Public Portfolio Route */}
+            <Route path="/" element={<PublicPortfolio />} />
 
-      {/* Persistent Hairline Scroll Progress Bar */}
-      <ScrollProgress />
+            {/* Admin Authentication */}
+            <Route path="/admin/login" element={<AdminLogin />} />
 
-      {/* Ambient Luxury Mouse Light Reflection */}
-      <AmbientLight />
+            {/* Protected Private CMS Dashboard */}
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Overview />} />
+              <Route path="projects" element={<ProjectsManager />} />
+              <Route path="media" element={<MediaLibrary />} />
+              <Route path="skills" element={<SkillsManager />} />
+              <Route path="about" element={<AboutManager />} />
+              <Route path="education" element={<EducationManager />} />
+              <Route path="focus" element={<FocusManager />} />
+              <Route path="social" element={<SocialLinksManager />} />
+              <Route path="contact" element={<ContactManager />} />
+              <Route path="settings" element={<WebsiteSettings />} />
+            </Route>
 
-      {/* Editorial Custom Precision Cursor with Contextual Badging */}
-      <CustomCursor />
-
-      {/* Signature 3D Spatial Canvas */}
-      <Scene3D />
-
-      {/* Global Minimal Navigation */}
-      <Navbar />
-
-      {/* Main Page Flow */}
-      <main id="main-content" role="main">
-        <Hero />
-        <div className="hairline-separator" />
-        <About />
-        <div className="hairline-separator" />
-        <Skills />
-        <div className="hairline-separator" />
-        <Projects />
-        <div className="hairline-separator" />
-        <Education />
-        <div className="hairline-separator" />
-        <CurrentFocus />
-        <div className="hairline-separator" />
-        <Contact />
-      </main>
-
-      {/* Editorial Footer */}
-      <Footer />
-
-      {/* Interactive Developer CLI Prompt */}
-      <TerminalPrompt />
-    </>
+            {/* Fallback to Public Site */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </DataProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 };
 

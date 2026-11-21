@@ -1,8 +1,10 @@
 import React from 'react';
-import { educationData } from '../../data/education';
+import { usePortfolioData } from '../../context/DataContext';
 import { GraduationCap, MapPin, BookOpen, Award } from 'lucide-react';
 
 export const Education: React.FC = () => {
+  const { educationRecord } = usePortfolioData();
+  const educationData = educationRecord;
   return (
     <section
       id="education"

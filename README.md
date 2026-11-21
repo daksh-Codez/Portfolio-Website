@@ -1,7 +1,7 @@
-# Daksh Goswami — Premium Editorial 3D Developer Portfolio
+# Daksh Goswami — Premium Editorial 3D Developer Portfolio & CMS
 
 > **Independently Curious. Constantly Building.**  
-> A bespoke, editorial luxury 3D developer portfolio crafted for **Daksh Goswami**, Computer Science Engineering undergraduate at Galgotias University.
+> A bespoke, editorial luxury 3D developer portfolio crafted for **Daksh Goswami**, Computer Science Engineering undergraduate at Galgotias University, equipped with a private administration dashboard (CMS) powered by Supabase.
 
 ---
 
@@ -14,127 +14,135 @@ This portfolio is art-directed to stand apart from generic developer templates, 
   - **Instrument Serif**: Editorial display italic accents and typographic statements.
   - **JetBrains Mono**: Technical metadata, code snippets, and section indexing.
 - **Palette & Lighting**:
-  - Deep black (`#070709`) and charcoal layers (`#121218`).
-  - Electric violet (`#8B5CF6`, `#A78BFA`) reserved strictly for intentional accents, subtle rim lighting, and active states.
-  - High-contrast soft white typography (`#F5F5F7`).
+  - Deep obsidian pitch black (`#040407`) and dark surface layers (`#08080C`, `#101016`).
+  - Electric cobalt/azure blue (`#3B82F6`, `#60A5FA`) reserved for intentional accents, rim lighting, and active states.
+  - High-contrast readable typography (`#F2EFF5`).
 - **Signature 3D Spatial Experience**:
   - Interactive Three.js sculpture combining a metallic twisted torus knot with an outer gyroscopic wireframe icosahedron cage and subtle orbiting particles.
-  - Dual rim lighting (violet key light, cold purple fill light, and specular highlights).
+  - Dual rim lighting (blue key light, cold fill light, and specular highlights that respond dynamically to cursor position).
   - Multi-section scroll storytelling: the sculpture moves, scales, and rotates as the visitor traverses through Hero, About, Skills, Work, and Contact.
-  - Smooth lerped cursor inertia on desktop; graceful performance optimization for mobile and `prefers-reduced-motion`.
+  - Subtle mouse parallax tilt and performance optimization that pauses rendering when the browser tab is hidden.
+- **Ambient Light Reflection**:
+  - Subtle radial luxury glow tracking the cursor with soft damping, disabled on touch and reduced-motion devices.
+- **Contextual Custom Cursor**:
+  - Precision center dot and smooth trailing ring that morphs into an editorial pill with contextual labels (`VIEW`, `OPEN`, `EXPLORE`, `CONNECT`, `COPY`).
 
 ---
 
-## ✦ Technical Architecture
+## ✦ Private Admin Dashboard (CMS)
+
+A dedicated, private Content Management System accessible at:
 
 ```
-daksh-portfolio/
-├── index.html                     # Semantic SEO, OG metadata, DG monogram favicon & Google Fonts
-├── vite.config.ts                 # Vite bundler configuration with manual vendor chunking
-├── tsconfig.json                  # Strict TypeScript configuration
-├── package.json                   # Dependencies (React 18, Three.js, Lenis, Lucide, Vite)
-├── src/
-│   ├── App.tsx                    # Root layout composition & landmarks
-│   ├── main.tsx                   # React 18 DOM mount point
-│   ├── types/                     # TypeScript declarations
-│   ├── data/                      # Centralized Configuration & Data Layer
-│   │   ├── personalInfo.ts        # Name, university, bio, editorial statements
-│   │   ├── skills.ts              # Categorized skills (C, C++, Python, Web, SQL, Tools)
-│   │   ├── projects.ts            # Detailed project data, code snippets & configurable URLs
-│   │   ├── education.ts           # Academic foundation & active focus trajectories
-│   │   └── socialLinks.ts         # GitHub, LinkedIn, and Email mailto links
-│   ├── styles/
-│   │   ├── tokens.css             # Colors, typography scale, spacing, transitions
-│   │   ├── typography.css         # Fluid clamp typography, serif styling
-│   │   └── globals.css            # Base styles, hairline borders, accessibility focus states
-│   ├── hooks/
-│   │   └── useSmoothScroll.ts     # Lenis smooth inertia scrolling with rAF sync
-│   └── components/
-│       ├── Scene3D/Scene3D.tsx    # Signature Three.js canvas & scroll choreography
-│       ├── CustomCursor/          # Precision cursor with hover state detection
-│       ├── ScrollProgress/        # Hairline violet scroll indicator
-│       ├── Navbar/Navbar.tsx      # Desktop navigation + responsive mobile drawer
-│       ├── Hero/Hero.tsx          # Editorial hero with status indicators and CTA
-│       ├── About/About.tsx        # Asymmetrical editorial layout & 3 guiding tenets
-│       ├── Skills/Skills.tsx      # Modular categorized capability matrix
-│       ├── Projects/Projects.tsx  # Alternating editorial showcase with code preview windows
-│       ├── Education/Education.tsx# Academic timeline & university details
-│       ├── CurrentFocus/          # Active learning and internship trajectory cards
-│       ├── Contact/Contact.tsx    # Direct email channel with copy interaction & socials
-│       ├── Footer/Footer.tsx      # Minimal footer with dynamic copyright year & back-to-top
-│       ├── TerminalPrompt/        # Interactive floating CLI prompt with custom commands
-│       └── Icons/Icons.tsx        # Crisp SVG icons for GitHub and LinkedIn
+/admin
 ```
+
+### Features:
+1. **Overview Dashboard**: Live statistics for total projects, published projects, drafts, technologies, and recent updates.
+2. **Projects Manager**: Full CRUD, reordering, draft/published toggling, syntax-highlighted code excerpt preview, and GitHub URL linkage.
+3. **Media Library**: Direct upload to persistent Supabase Storage (`portfolio-media` bucket) with public link copying and deletion guards.
+4. **Skills & Technologies**: Categorized technical capability management (Programming & Systems, Web Foundations, Database, Workflow).
+5. **About Me & Identity**: Full editorial statement and biographical narrative paragraph editing.
+6. **Education & Degree**: Academic credentials, status, and craft highlights.
+7. **Trajectory & Focus**: Sequential milestone management (01 to 05) and target internship objective.
+8. **Social Links**: Live links for GitHub, LinkedIn, and professional contact channels.
+9. **Website Settings**: Feature toggles (Three.js 3D canvas, Terminal CLI, Ambient Light) and connection diagnostics.
 
 ---
 
-## ✦ Getting Started
+## ✦ Supabase Backend Configuration Guide
+
+The portfolio uses **Supabase** for Authentication, PostgreSQL Database, Storage, and Row Level Security (RLS).
+
+### 1. Create a Supabase Project
+1. Go to [supabase.com](https://supabase.com) and sign in.
+2. Click **New Project** and name it `daksh-portfolio`.
+3. Choose a strong database password and select a region close to your target audience (e.g. `ap-south-1` Mumbai or `ap-southeast-1` Singapore).
+
+### 2. Apply Database Migration & Schema
+1. In your Supabase Dashboard, open the **SQL Editor** from the left navigation.
+2. Open the file `supabase/schema.sql` from this repository.
+3. Copy its entire contents, paste it into the Supabase SQL Editor, and click **Run**.
+4. This will automatically:
+   - Create all 9 database tables (`projects`, `skills`, `personal_info`, `education`, `trajectory_items`, `internship_milestone`, `social_links`, `media_files`, `website_settings`).
+   - Enable Row Level Security (RLS) policies ensuring public visitors only read published content.
+   - Create the `portfolio-media` public storage bucket for image uploads.
+   - Seed the database with all your existing portfolio data.
+
+### 3. Create the Administrator Account
+To ensure no public registration is possible, create your admin user directly in Supabase:
+1. In Supabase Dashboard, navigate to **Authentication -> Users**.
+2. Click **Add User -> Create User**.
+3. Enter your administrator email (e.g. `dakshgoswami4077@gmail.com`) and a strong password.
+4. Toggle **Auto Confirm User?** to `ON` so you can sign in immediately without email confirmation.
+5. Click **Create User**.
+
+### 4. Configure Environment Variables
+Copy `.env.example` to `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Open `.env` and fill in your Supabase credentials:
+
+```ini
+VITE_SUPABASE_URL=https://<your-project-ref>.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+> **Security Note**: Never expose the `service_role` secret key in client-side code. Only the `anon` public key is needed.
+
+---
+
+## ✦ Local Development & Build
 
 ### 1. Requirements
 - Node.js (v18+)
 - npm (v9+)
 
-### 2. Local Setup
+### 2. Run Locally
 ```bash
-# Navigate to the project directory
-cd daksh-portfolio
-
 # Install dependencies
 npm install
 
-# Start development server
+# Start Vite development server
 npm run dev
 ```
 
-### 3. Production Build & Preview
+Visit:
+- Public portfolio: `http://localhost:3000/`
+- Admin dashboard: `http://localhost:3000/admin`
+- Admin login: `http://localhost:3000/admin/login`
+
+### 3. Production Build
 ```bash
-# Compile TypeScript & create optimized production bundle
+# Compile TypeScript and bundle production assets
 npm run build
 
-# Preview production build locally
-npm run preview
+# Preview build locally
+npm run preview -- --port 3000
 ```
 
 ---
 
-## ✦ How to Customize & Update Data
+## ✦ Deployment (Vercel)
 
-All content is strictly centralized in `src/data/` so you can update links, projects, and personal information without touching component code:
+1. Push your repository to GitHub.
+2. In [Vercel](https://vercel.com), import your repository.
+3. Under **Environment Variables**, add:
+   - `VITE_SUPABASE_URL`: Your Supabase Project URL
+   - `VITE_SUPABASE_ANON_KEY`: Your Supabase Public Anon Key
+4. Deploy! Because client-side routing is used for `/admin`, ensure single-page app rewrites are enabled. A `vercel.json` rewrite is included below.
 
-### 1. Update Social Profiles & Email
-Open `src/data/socialLinks.ts`:
-- Replace the `url` property for LinkedIn with your profile link (e.g. `https://linkedin.com/in/your-profile`).
-- Update the email address in `handle` and `url`.
-
-### 2. Add or Edit Projects
-Open `src/data/projects.ts`:
-- Add new projects or edit existing ones.
-- When you publish repositories on GitHub, fill in `githubUrl: "https://github.com/dakshcodez/your-repo"` to automatically render the "Source Code" button. If left `undefined`, it displays an elegant local development indicator without broken links.
-
-### 3. Update Personal Details & Status
-Open `src/data/personalInfo.ts`:
-- Update your bio, current internship status, or locations.
-
----
-
-## ✦ Deployment
-
-### Deploy to Vercel
-1. Push this repository to GitHub:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit of Daksh Goswami editorial portfolio"
-   git branch -M main
-   git remote add origin https://github.com/dakshcodez/portfolio.git
-   git push -u origin main
-   ```
-2. Import the repository in [Vercel](https://vercel.com).
-3. The build settings (`npm run build`, output directory `dist`) are detected automatically.
-
-### Deploy to Netlify
-1. Connect your repository to [Netlify](https://netlify.com).
-2. Set Build Command to `npm run build` and Publish Directory to `dist`.
+### Vercel SPA Routing Configuration (`vercel.json`)
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
 
 ---
 
