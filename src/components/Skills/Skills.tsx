@@ -1,125 +1,210 @@
 import React, { useState } from 'react';
-import { Terminal, Database, Globe, Wrench, Layers, GitBranch, Cpu, Code2, Server, Laptop } from 'lucide-react';
+import {
+  Terminal,
+  Database,
+  Globe,
+  Wrench,
+  Layers,
+  GitBranch,
+  Cpu,
+  Code2,
+  Code,
+  Server,
+  Laptop,
+} from 'lucide-react';
 import { GithubIcon } from '../Icons/Icons';
+import { usePortfolioData } from '../../context/DataContext';
+import { SkillRecord } from '../../types/database';
 
-interface SkillItem {
-  name: string;
-  role: string;
-  details: string;
-  iconType: 'c' | 'cpp' | 'python' | 'html' | 'css' | 'js' | 'sql' | 'git' | 'github' | 'vscode';
-}
-
-const programmingSkills: SkillItem[] = [
-  {
-    name: 'C',
+const KNOWN_SKILL_META: Record<string, { role: string; details: string }> = {
+  c: {
     role: 'Procedural Systems',
     details: 'Structured memory allocation, pointers, struct records, and file I/O operations.',
-    iconType: 'c',
   },
-  {
-    name: 'C++',
+  'c++': {
     role: 'OOP & Algorithms',
     details: 'Object-oriented patterns, classes, STL collections, and algorithmic problem solving.',
-    iconType: 'cpp',
   },
-  {
-    name: 'Python',
+  cpp: {
+    role: 'OOP & Algorithms',
+    details: 'Object-oriented patterns, classes, STL collections, and algorithmic problem solving.',
+  },
+  python: {
     role: 'Scripting & AI Tools',
     details: 'Automation scripts, computational algorithms, and practical exploration of AI workflows.',
-    iconType: 'python',
   },
-];
-
-const webSkills: SkillItem[] = [
-  {
-    name: 'HTML',
+  html: {
     role: 'Semantic Markup',
     details: 'Accessible document structure and modern web standards.',
-    iconType: 'html',
   },
-  {
-    name: 'CSS',
+  css: {
     role: 'Styling & Layout',
     details: 'Modern layout architectures including Flexbox, CSS Grid, and responsive design.',
-    iconType: 'css',
   },
-  {
-    name: 'JavaScript',
+  javascript: {
     role: 'Client-side Logic',
     details: 'ES6+ syntax, DOM manipulation, asynchronous flow, and interactive interfaces.',
-    iconType: 'js',
   },
-];
-
-const databaseSkills: SkillItem[] = [
-  {
-    name: 'SQL',
+  js: {
+    role: 'Client-side Logic',
+    details: 'ES6+ syntax, DOM manipulation, asynchronous flow, and interactive interfaces.',
+  },
+  sql: {
     role: 'Relational Data',
     details: 'Relational schema design, structured queries, joins, and data indexing principles.',
-    iconType: 'sql',
   },
-];
-
-const toolSkills: SkillItem[] = [
-  {
-    name: 'Git',
+  git: {
     role: 'Version Control',
     details: 'Local repository management, branching workflows, and commit history tracking.',
-    iconType: 'git',
   },
-  {
-    name: 'GitHub',
+  github: {
     role: 'Collaboration Platform',
     details: 'Remote repository hosting, project documentation, and open-source practices.',
-    iconType: 'github',
   },
-  {
-    name: 'Visual Studio Code',
+  'visual studio code': {
     role: 'Development IDE',
     details: 'Primary workspace environment with C/C++ compilation suites and custom toolchains.',
-    iconType: 'vscode',
   },
-];
+  'vs code': {
+    role: 'Development IDE',
+    details: 'Primary workspace environment with C/C++ compilation suites and custom toolchains.',
+  },
+  vscode: {
+    role: 'Development IDE',
+    details: 'Primary workspace environment with C/C++ compilation suites and custom toolchains.',
+  },
+};
+
+const resolveRole = (skill: SkillRecord): string => {
+  const norm = skill.name.trim().toLowerCase();
+  if (KNOWN_SKILL_META[norm]?.role) {
+    return KNOWN_SKILL_META[norm].role;
+  }
+  const cat = (skill.category || '').toUpperCase();
+  if (cat.includes('PROGRAMMING') || cat.includes('SYSTEMS')) return 'Systems & Core Logic';
+  if (cat.includes('WEB')) return 'Web Architecture';
+  if (cat.includes('DATA')) return 'Data & Storage';
+  if (cat.includes('WORKFLOW') || cat.includes('TOOL')) return 'Workflow & Tooling';
+  return 'Technical Skill';
+};
+
+const resolveDetails = (skill: SkillRecord): string => {
+  const norm = skill.name.trim().toLowerCase();
+  if (KNOWN_SKILL_META[norm]?.details) {
+    return KNOWN_SKILL_META[norm].details;
+  }
+  return `Applied competency in ${skill.name} supporting technical implementations and project workflows.`;
+};
 
 export const Skills: React.FC = () => {
+  const { skillsList } = usePortfolioData();
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
-  const renderTechIcon = (type: SkillItem['iconType']) => {
-    switch (type) {
-      case 'c':
-        return (
-          <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '1.05rem', color: 'var(--accent-blue-light)' }}>
-            [C]
-          </span>
-        );
-      case 'cpp':
-        return (
-          <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.95rem', color: 'var(--accent-blue-light)' }}>
-            C++
-          </span>
-        );
-      case 'python':
-        return <Code2 size={20} style={{ color: 'var(--accent-blue-light)' }} />;
-      case 'html':
+  const publishedSkills = (skillsList || [])
+    .filter((s) => s.status === 'published')
+    .slice()
+    .sort((a, b) => (a.display_order ?? 0) - (b.display_order ?? 0));
+
+  const programmingSkills = publishedSkills.filter(
+    (s) => s.category === '01 / PROGRAMMING & SYSTEMS' || s.category.toUpperCase().includes('PROGRAMMING')
+  );
+  const webSkills = publishedSkills.filter(
+    (s) => s.category === '02 / WEB FOUNDATIONS' || s.category.toUpperCase().includes('WEB')
+  );
+  const databaseSkills = publishedSkills.filter(
+    (s) => s.category === '03 / DATABASE' || s.category.toUpperCase().includes('DATA')
+  );
+  const toolSkills = publishedSkills.filter(
+    (s) =>
+      s.category === '04 / DEVELOPMENT WORKFLOW' ||
+      s.category.toUpperCase().includes('WORKFLOW') ||
+      s.category.toUpperCase().includes('TOOL')
+  );
+  const otherSkills = publishedSkills.filter(
+    (s) =>
+      !programmingSkills.includes(s) &&
+      !webSkills.includes(s) &&
+      !databaseSkills.includes(s) &&
+      !toolSkills.includes(s)
+  );
+
+  const renderTechIcon = (skill: SkillRecord) => {
+    const norm = skill.name.trim().toLowerCase();
+    const iconKey = (skill.icon_name || '').trim().toLowerCase();
+
+    // 1. Explicit typography & styles for known 10 skills
+    if (norm === 'c') {
+      return (
+        <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '1.05rem', color: 'var(--accent-blue-light)' }}>
+          [C]
+        </span>
+      );
+    }
+    if (norm === 'c++' || norm === 'cpp') {
+      return (
+        <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.95rem', color: 'var(--accent-blue-light)' }}>
+          C++
+        </span>
+      );
+    }
+    if (norm === 'python') {
+      return <Code2 size={20} style={{ color: 'var(--accent-blue-light)' }} />;
+    }
+    if (norm === 'html') {
+      return <Globe size={18} style={{ color: '#38BDF8' }} />;
+    }
+    if (norm === 'css') {
+      return <Layers size={18} style={{ color: '#60A5FA' }} />;
+    }
+    if (norm === 'javascript' || norm === 'js') {
+      return (
+        <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.86rem', color: '#FBBF24' }}>
+          JS
+        </span>
+      );
+    }
+    if (norm === 'sql') {
+      return <Database size={19} style={{ color: 'var(--accent-blue-light)' }} />;
+    }
+    if (norm === 'git') {
+      return <GitBranch size={18} style={{ color: '#F97316' }} />;
+    }
+    if (norm === 'github') {
+      return <GithubIcon size={18} style={{ color: 'var(--text-primary)' }} />;
+    }
+    if (norm === 'visual studio code' || norm === 'vs code' || norm === 'vscode') {
+      return <Laptop size={18} style={{ color: '#38BDF8' }} />;
+    }
+
+    // 2. Dynamic icon matching by icon_name
+    switch (iconKey) {
+      case 'terminal':
+        return <Terminal size={18} style={{ color: 'var(--accent-blue-light)' }} />;
+      case 'database':
+        return <Database size={18} style={{ color: 'var(--accent-blue-light)' }} />;
+      case 'globe':
         return <Globe size={18} style={{ color: '#38BDF8' }} />;
-      case 'css':
+      case 'wrench':
+        return <Wrench size={18} style={{ color: '#F97316' }} />;
+      case 'layers':
         return <Layers size={18} style={{ color: '#60A5FA' }} />;
-      case 'js':
-        return (
-          <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, fontSize: '0.86rem', color: '#FBBF24' }}>
-            JS
-          </span>
-        );
-      case 'sql':
-        return <Database size={19} style={{ color: 'var(--accent-blue-light)' }} />;
-      case 'git':
+      case 'gitbranch':
         return <GitBranch size={18} style={{ color: '#F97316' }} />;
+      case 'cpu':
+        return <Cpu size={18} style={{ color: 'var(--accent-blue-light)' }} />;
+      case 'code2':
+        return <Code2 size={18} style={{ color: 'var(--accent-blue-light)' }} />;
+      case 'code':
+        return <Code size={18} style={{ color: '#FBBF24' }} />;
+      case 'server':
+        return <Server size={18} style={{ color: 'var(--accent-blue-light)' }} />;
+      case 'laptop':
+      case 'monitor':
+        return <Laptop size={18} style={{ color: '#38BDF8' }} />;
       case 'github':
         return <GithubIcon size={18} style={{ color: 'var(--text-primary)' }} />;
-      case 'vscode':
-        return <Laptop size={18} style={{ color: '#38BDF8' }} />;
       default:
-        return <Code2 size={18} />;
+        return <Code2 size={18} style={{ color: 'var(--accent-blue-light)' }} />;
     }
   };
 
@@ -247,7 +332,7 @@ export const Skills: React.FC = () => {
               </span>
             </div>
 
-            {/* 3 Prominent Technology Elements */}
+            {/* Prominent Technology Elements */}
             <div
               style={{
                 display: 'grid',
@@ -257,9 +342,11 @@ export const Skills: React.FC = () => {
             >
               {programmingSkills.map((skill) => {
                 const isHovered = hoveredSkill === skill.name;
+                const role = resolveRole(skill);
+                const details = resolveDetails(skill);
                 return (
                   <div
-                    key={skill.name}
+                    key={skill.id || skill.name}
                     onMouseEnter={() => setHoveredSkill(skill.name)}
                     onMouseLeave={() => setHoveredSkill(null)}
                     style={{
@@ -291,7 +378,7 @@ export const Skills: React.FC = () => {
                               justifyContent: 'center',
                             }}
                           >
-                            {renderTechIcon(skill.iconType)}
+                            {renderTechIcon(skill)}
                           </div>
                           <div>
                             <h4
@@ -314,7 +401,7 @@ export const Skills: React.FC = () => {
                                 color: 'var(--accent-blue-light)',
                               }}
                             >
-                              {skill.role}
+                              {role}
                             </span>
                           </div>
                         </div>
@@ -339,7 +426,7 @@ export const Skills: React.FC = () => {
                           margin: 0,
                         }}
                       >
-                        {skill.details}
+                        {details}
                       </p>
                     </div>
                   </div>
@@ -356,7 +443,7 @@ export const Skills: React.FC = () => {
               gap: '24px',
             }}
           >
-            {/* 02 / WEB FOUNDATIONS (Spans 5 cols on desktop) */}
+            {/* 02 / WEB FOUNDATIONS (Spans 4 cols on desktop) */}
             <div
               style={{
                 gridColumn: 'span 12',
@@ -401,66 +488,69 @@ export const Skills: React.FC = () => {
 
                 {/* Web items */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {webSkills.map((skill) => (
-                    <div
-                      key={skill.name}
-                      style={{
-                        padding: '14px 18px',
-                        backgroundColor: 'rgba(14, 14, 20, 0.65)',
-                        border: '1px solid var(--border-hairline)',
-                        borderRadius: '4px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: '12px',
-                        transition: 'border-color 0.2s ease, background-color 0.2s ease',
-                      }}
-                      className="tech-sub-plate"
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <div style={{ width: '28px', display: 'flex', justifyContent: 'center' }}>
-                          {renderTechIcon(skill.iconType)}
-                        </div>
-                        <div>
-                          <span
-                            style={{
-                              fontFamily: 'var(--font-body)',
-                              fontSize: '0.98rem',
-                              fontWeight: 600,
-                              color: 'var(--text-primary)',
-                              display: 'block',
-                              lineHeight: '1.2',
-                            }}
-                          >
-                            {skill.name}
-                          </span>
-                          <span
-                            style={{
-                              fontFamily: 'var(--font-body)',
-                              fontSize: '0.78rem',
-                              color: 'var(--text-secondary)',
-                            }}
-                          >
-                            {skill.role}
-                          </span>
-                        </div>
-                      </div>
-
-                      <span
+                  {webSkills.map((skill) => {
+                    const role = resolveRole(skill);
+                    return (
+                      <div
+                        key={skill.id || skill.name}
                         style={{
-                          width: '5px',
-                          height: '5px',
-                          borderRadius: '50%',
-                          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                          padding: '14px 18px',
+                          backgroundColor: 'rgba(14, 14, 20, 0.65)',
+                          border: '1px solid var(--border-hairline)',
+                          borderRadius: '4px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: '12px',
+                          transition: 'border-color 0.2s ease, background-color 0.2s ease',
                         }}
-                      />
-                    </div>
-                  ))}
+                        className="tech-sub-plate"
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <div style={{ width: '28px', display: 'flex', justifyContent: 'center' }}>
+                            {renderTechIcon(skill)}
+                          </div>
+                          <div>
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-body)',
+                                fontSize: '0.98rem',
+                                fontWeight: 600,
+                                color: 'var(--text-primary)',
+                                display: 'block',
+                                lineHeight: '1.2',
+                              }}
+                            >
+                              {skill.name}
+                            </span>
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-body)',
+                                fontSize: '0.78rem',
+                                color: 'var(--text-secondary)',
+                              }}
+                            >
+                              {role}
+                            </span>
+                          </div>
+                        </div>
+
+                        <span
+                          style={{
+                            width: '5px',
+                            height: '5px',
+                            borderRadius: '50%',
+                            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
 
-            {/* 03 / DATABASE (Spans 3 cols on desktop) */}
+            {/* 03 / DATABASE (Spans 4 cols on desktop) */}
             <div
               style={{
                 gridColumn: 'span 12',
@@ -503,62 +593,68 @@ export const Skills: React.FC = () => {
                   </h3>
                 </div>
 
-                {/* Database Item */}
+                {/* Database Items */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {databaseSkills.map((skill) => (
-                    <div
-                      key={skill.name}
-                      style={{
-                        padding: '18px 20px',
-                        backgroundColor: 'rgba(14, 14, 20, 0.65)',
-                        border: '1px solid var(--border-hairline)',
-                        borderRadius: '4px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '10px',
-                        transition: 'border-color 0.2s ease, background-color 0.2s ease',
-                      }}
-                      className="tech-sub-plate"
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                          <Database size={20} style={{ color: 'var(--accent-blue-light)' }} />
+                  {databaseSkills.map((skill) => {
+                    const role = resolveRole(skill);
+                    const details = resolveDetails(skill);
+                    return (
+                      <div
+                        key={skill.id || skill.name}
+                        style={{
+                          padding: '18px 20px',
+                          backgroundColor: 'rgba(14, 14, 20, 0.65)',
+                          border: '1px solid var(--border-hairline)',
+                          borderRadius: '4px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '10px',
+                          transition: 'border-color 0.2s ease, background-color 0.2s ease',
+                        }}
+                        className="tech-sub-plate"
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <div style={{ width: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                              {renderTechIcon(skill)}
+                            </div>
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-body)',
+                                fontSize: '1.15rem',
+                                fontWeight: 700,
+                                color: 'var(--text-primary)',
+                              }}
+                            >
+                              {skill.name}
+                            </span>
+                          </div>
                           <span
                             style={{
                               fontFamily: 'var(--font-body)',
-                              fontSize: '1.15rem',
-                              fontWeight: 700,
-                              color: 'var(--text-primary)',
+                              fontSize: '0.76rem',
+                              fontWeight: 600,
+                              color: 'var(--accent-blue-light)',
                             }}
                           >
-                            {skill.name}
+                            {role}
                           </span>
                         </div>
-                        <span
+
+                        <p
                           style={{
                             fontFamily: 'var(--font-body)',
-                            fontSize: '0.76rem',
-                            fontWeight: 600,
-                            color: 'var(--accent-blue-light)',
+                            fontSize: '0.86rem',
+                            color: 'var(--text-secondary)',
+                            lineHeight: '1.5',
+                            margin: 0,
                           }}
                         >
-                          {skill.role}
-                        </span>
+                          {details}
+                        </p>
                       </div>
-
-                      <p
-                        style={{
-                          fontFamily: 'var(--font-body)',
-                          fontSize: '0.86rem',
-                          color: 'var(--text-secondary)',
-                          lineHeight: '1.5',
-                          margin: 0,
-                        }}
-                      >
-                        {skill.details}
-                      </p>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -608,66 +704,164 @@ export const Skills: React.FC = () => {
 
                 {/* Tools Items */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {toolSkills.map((skill) => (
-                    <div
-                      key={skill.name}
-                      style={{
-                        padding: '14px 18px',
-                        backgroundColor: 'rgba(14, 14, 20, 0.65)',
-                        border: '1px solid var(--border-hairline)',
-                        borderRadius: '4px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: '12px',
-                        transition: 'border-color 0.2s ease, background-color 0.2s ease',
-                      }}
-                      className="tech-sub-plate"
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <div style={{ width: '28px', display: 'flex', justifyContent: 'center' }}>
-                          {renderTechIcon(skill.iconType)}
-                        </div>
-                        <div>
-                          <span
-                            style={{
-                              fontFamily: 'var(--font-body)',
-                              fontSize: '0.96rem',
-                              fontWeight: 600,
-                              color: 'var(--text-primary)',
-                              display: 'block',
-                              lineHeight: '1.2',
-                            }}
-                          >
-                            {skill.name}
-                          </span>
-                          <span
-                            style={{
-                              fontFamily: 'var(--font-body)',
-                              fontSize: '0.78rem',
-                              color: 'var(--text-secondary)',
-                            }}
-                          >
-                            {skill.role}
-                          </span>
-                        </div>
-                      </div>
-
-                      <span
+                  {toolSkills.map((skill) => {
+                    const role = resolveRole(skill);
+                    return (
+                      <div
+                        key={skill.id || skill.name}
                         style={{
-                          width: '5px',
-                          height: '5px',
-                          borderRadius: '50%',
-                          backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                          padding: '14px 18px',
+                          backgroundColor: 'rgba(14, 14, 20, 0.65)',
+                          border: '1px solid var(--border-hairline)',
+                          borderRadius: '4px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: '12px',
+                          transition: 'border-color 0.2s ease, background-color 0.2s ease',
                         }}
-                      />
-                    </div>
-                  ))}
+                        className="tech-sub-plate"
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <div style={{ width: '28px', display: 'flex', justifyContent: 'center' }}>
+                            {renderTechIcon(skill)}
+                          </div>
+                          <div>
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-body)',
+                                fontSize: '0.96rem',
+                                fontWeight: 600,
+                                color: 'var(--text-primary)',
+                                display: 'block',
+                                lineHeight: '1.2',
+                              }}
+                            >
+                              {skill.name}
+                            </span>
+                            <span
+                              style={{
+                                fontFamily: 'var(--font-body)',
+                                fontSize: '0.78rem',
+                                color: 'var(--text-secondary)',
+                              }}
+                            >
+                              {role}
+                            </span>
+                          </div>
+                        </div>
+
+                        <span
+                          style={{
+                            width: '5px',
+                            height: '5px',
+                            borderRadius: '50%',
+                            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
 
           </div>
+
+          {/* Optional: Additional Technologies Panel (for skills in custom/additional categories) */}
+          {otherSkills.length > 0 && (
+            <div
+              style={{
+                backgroundColor: 'rgba(10, 10, 15, 0.72)',
+                border: '1px solid var(--border-hairline)',
+                borderRadius: '6px',
+                padding: 'clamp(24px, 3vw, 32px)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '22px' }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.94rem',
+                    fontWeight: 700,
+                    color: 'var(--accent-blue-light)',
+                  }}
+                >
+                  +
+                </span>
+                <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: 'var(--text-muted)' }} />
+                <h3
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.04em',
+                    color: 'var(--text-primary)',
+                    textTransform: 'uppercase',
+                    margin: 0,
+                  }}
+                >
+                  Additional Technologies
+                </h3>
+              </div>
+
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                  gap: '12px',
+                }}
+              >
+                {otherSkills.map((skill) => (
+                  <div
+                    key={skill.id || skill.name}
+                    style={{
+                      padding: '14px 18px',
+                      backgroundColor: 'rgba(14, 14, 20, 0.65)',
+                      border: '1px solid var(--border-hairline)',
+                      borderRadius: '4px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '12px',
+                      transition: 'border-color 0.2s ease, background-color 0.2s ease',
+                    }}
+                    className="tech-sub-plate"
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <div style={{ width: '28px', display: 'flex', justifyContent: 'center' }}>
+                        {renderTechIcon(skill)}
+                      </div>
+                      <div>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '0.96rem',
+                            fontWeight: 600,
+                            color: 'var(--text-primary)',
+                            display: 'block',
+                            lineHeight: '1.2',
+                          }}
+                        >
+                          {skill.name}
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '0.78rem',
+                            color: 'var(--text-secondary)',
+                          }}
+                        >
+                          {resolveRole(skill)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
 

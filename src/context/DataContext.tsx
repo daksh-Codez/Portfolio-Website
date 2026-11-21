@@ -10,6 +10,7 @@ import { socialLinks as fallbackSocialLinks, SocialLink } from '../data/socialLi
 interface DataContextType {
   // Public data state
   projectsList: Project[];
+  skillsList: SkillRecord[];
   skillGroupsList: SkillGroup[];
   personalInfoData: PersonalInfo;
   educationRecord: typeof fallbackEducation;
@@ -47,10 +48,24 @@ interface DataContextType {
   deleteMediaFile: (id: string, storagePath: string) => Promise<{ error?: any }>;
 }
 
+export const defaultSkillsList: SkillRecord[] = [
+  { id: '1', name: 'C', category: '01 / PROGRAMMING & SYSTEMS', icon_name: 'Code2', display_order: 1, status: 'published' },
+  { id: '2', name: 'C++', category: '01 / PROGRAMMING & SYSTEMS', icon_name: 'Cpu', display_order: 2, status: 'published' },
+  { id: '3', name: 'Python', category: '01 / PROGRAMMING & SYSTEMS', icon_name: 'Terminal', display_order: 3, status: 'published' },
+  { id: '4', name: 'HTML', category: '02 / WEB FOUNDATIONS', icon_name: 'Globe', display_order: 4, status: 'published' },
+  { id: '5', name: 'CSS', category: '02 / WEB FOUNDATIONS', icon_name: 'Layers', display_order: 5, status: 'published' },
+  { id: '6', name: 'JavaScript', category: '02 / WEB FOUNDATIONS', icon_name: 'Code', display_order: 6, status: 'published' },
+  { id: '7', name: 'SQL', category: '03 / DATABASE', icon_name: 'Database', display_order: 7, status: 'published' },
+  { id: '8', name: 'Git', category: '04 / DEVELOPMENT WORKFLOW', icon_name: 'GitBranch', display_order: 8, status: 'published' },
+  { id: '9', name: 'GitHub', category: '04 / DEVELOPMENT WORKFLOW', icon_name: 'Github', display_order: 9, status: 'published' },
+  { id: '10', name: 'Visual Studio Code', category: '04 / DEVELOPMENT WORKFLOW', icon_name: 'Monitor', display_order: 10, status: 'published' },
+];
+
 const DataContext = createContext<DataContextType>({} as DataContextType);
 
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [projectsList, setProjectsList] = useState<Project[]>(fallbackProjects);
+  const [skillsList, setSkillsList] = useState<SkillRecord[]>(defaultSkillsList);
   const [skillGroupsList, setSkillGroupsList] = useState<SkillGroup[]>(fallbackSkillGroups);
   const [personalInfoData, setPersonalInfoData] = useState<PersonalInfo>(fallbackPersonalInfo);
   const [educationRecord, setEducationRecord] = useState(fallbackEducation);
@@ -192,6 +207,17 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }))
         );
       }
+
+      // 7. Fetch published skills
+      const { data: dbSkills } = await supabase
+        .from('skills')
+        .select('*')
+        .eq('status', 'published')
+        .order('display_order', { ascending: true });
+
+      if (dbSkills && dbSkills.length > 0) {
+        setSkillsList(dbSkills);
+      }
     } catch (err) {
       console.warn('Supabase fetch encountered an issue, preserving fallback portfolio data:', err);
     } finally {
@@ -286,20 +312,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const getAllAdminSkills = async (): Promise<SkillRecord[]> => {
     if (!isSupabaseConfigured) {
-      const flattened: SkillRecord[] = [];
-      let order = 1;
-      fallbackSkillGroups.forEach((g) => {
-        g.skills.forEach((s) => {
-          flattened.push({
-            id: s.name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
-            name: s.name,
-            category: g.category as any,
-            display_order: order++,
-            status: 'published',
-          });
-        });
-      });
-      return flattened;
+      return skillsList;
     }
 
     const { data, error } = await supabase
@@ -313,7 +326,22 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const saveSkill = async (skill: Partial<SkillRecord>) => {
     if (!isSupabaseConfigured) {
-      return { error: new Error('Supabase is not configured.') };
+      if (skill.id) {
+        setSkillsList((prev) =>
+          prev.map((s) => (s.id === skill.id ? ({ ...s, ...skill } as SkillRecord) : s))
+        );
+      } else {
+        const newRecord: SkillRecord = {
+          id: `skill-${Date.now()}`,
+          name: skill.name || '',
+          category: (skill.category as any) || '01 / PROGRAMMING & SYSTEMS',
+          icon_name: skill.icon_name || 'Code2',
+          display_order: skill.display_order || skillsList.length + 1,
+          status: skill.status || 'published',
+        };
+        setSkillsList((prev) => [...prev, newRecord]);
+      }
+      return { data: skill };
     }
 
     if (skill.id) {
@@ -337,7 +365,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const deleteSkill = async (id: string) => {
-    if (!isSupabaseConfigured) return { error: new Error('Supabase is not configured.') };
+    if (!isSupabaseConfigured) {
+      setSkillsList((prev) => prev.filter((s) => s.id !== id));
+      return { error: null };
+    }
     const { error } = await supabase.from('skills').delete().eq('id', id);
     await fetchPublicData();
     return { error };
@@ -601,6 +632,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     <DataContext.Provider
       value={{
         projectsList,
+        skillsList,
         skillGroupsList,
         personalInfoData,
         educationRecord,
