@@ -216,13 +216,13 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       // 7. Fetch published skills
-      const { data: dbSkills } = await supabase
+      const { data: dbSkills, error: skillsError } = await supabase
         .from('skills')
         .select('*')
         .eq('status', 'published')
         .order('display_order', { ascending: true });
 
-      if (dbSkills && dbSkills.length > 0) {
+      if (!skillsError && dbSkills) {
         setSkillsList(dbSkills);
       }
     } catch (err) {

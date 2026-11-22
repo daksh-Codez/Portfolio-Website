@@ -15,115 +15,193 @@ const CANONICAL_TECH_SHOWCASE: Record<string, TechMeta> = {
   c: {
     name: 'C',
     category: 'systems',
-    role: 'Procedural Architecture',
+    role: 'PROCEDURAL MEMORY',
     narrative:
-      'Manual memory allocation, pointer arithmetic, struct memory layout, and direct hardware-adjacent programming.',
-    specs: ['Pointers & Addresses', 'Stack vs. Heap', 'Struct Records', 'POSIX System Calls'],
+      'Structured memory allocation, raw pointer arithmetic, struct memory alignment, and low-level system call interfaces.',
+    specs: ['Pointers', 'Stack & Heap', 'POSIX APIs'],
   },
   'c++': {
     name: 'C++',
     category: 'systems',
-    role: 'Object-Oriented Systems',
+    role: 'OBJECT-ORIENTED',
     narrative:
-      'Object lifecycles, class hierarchies, Standard Template Library (STL) algorithms, and high-throughput computational logic.',
-    specs: ['STL Containers', 'Classes & Inheritance', 'Memory Control', 'Algorithmic Efficiency'],
+      'Abstract data types, STL algorithmic containers, object lifecycle management, and high-efficiency systems architecture.',
+    specs: ['STL Containers', 'Classes & OOP', 'Memory Semantics'],
   },
   cpp: {
     name: 'C++',
     category: 'systems',
-    role: 'Object-Oriented Systems',
+    role: 'OBJECT-ORIENTED',
     narrative:
-      'Object lifecycles, class hierarchies, Standard Template Library (STL) algorithms, and high-throughput computational logic.',
-    specs: ['STL Containers', 'Classes & Inheritance', 'Memory Control', 'Algorithmic Efficiency'],
+      'Abstract data types, STL algorithmic containers, object lifecycle management, and high-efficiency systems architecture.',
+    specs: ['STL Containers', 'Classes & OOP', 'Memory Semantics'],
   },
   python: {
     name: 'Python',
     category: 'systems',
-    role: 'Scripting & Automation',
+    role: 'SCRIPTING & COMPUTATION',
     narrative:
-      'Rapid automation pipelines, algorithmic scripting, data manipulation, and modern computational toolchains.',
-    specs: ['Automation Scripts', 'Data Structures', 'Algorithmic Logic', 'AI Tooling Workflows'],
+      'Rapid automation pipelines, file processing, computational algorithms, and exploration of modern AI tooling.',
+    specs: ['Automation', 'Algorithms', 'Data Logic', 'AI Workflows'],
   },
   html: {
     name: 'HTML',
     category: 'web',
-    role: 'Semantic Structure',
+    role: 'Semantic Markup',
     narrative:
-      'Accessible document architecture, semantic HTML5 elements, and modern DOM hierarchy standards.',
+      'Accessible document structures, semantic DOM elements, and modern web standards.',
     specs: ['Semantic Hierarchy', 'Document DOM', 'Accessibility (a11y)', 'Standards Compliance'],
   },
   css: {
     name: 'CSS',
     category: 'web',
-    role: 'Layout & Styling Systems',
+    role: 'Layout & Styling',
     narrative:
-      'Modern responsive layout geometry, CSS Grid, Flexbox architectures, custom properties, and fluid typography.',
+      'Responsive styling systems, CSS Grid geometry, Flexbox flows, and fluid typographic scales.',
     specs: ['CSS Grid & Flexbox', 'Fluid Typography', 'Custom Properties', 'Responsive Breakpoints'],
   },
   javascript: {
     name: 'JavaScript',
     category: 'web',
-    role: 'Client Runtime & Logic',
+    role: 'ES6+ & Client Logic',
     narrative:
-      'Modern ES6+ syntax, asynchronous event-driven flows, DOM manipulation, and responsive interactive web interfaces.',
-    specs: ['ES6+ Syntactic Patterns', 'Promises & Async/Await', 'Event Loop & DOM', 'Client State Flow'],
+      'Modern ES6+ syntax, asynchronous event loop, DOM manipulation, and dynamic state-driven interface patterns.',
+    specs: ['Promises & Async', 'Event Architecture', 'DOM Manipulation'],
   },
   js: {
     name: 'JavaScript',
     category: 'web',
-    role: 'Client Runtime & Logic',
+    role: 'ES6+ & Client Logic',
     narrative:
-      'Modern ES6+ syntax, asynchronous event-driven flows, DOM manipulation, and responsive interactive web interfaces.',
-    specs: ['ES6+ Syntactic Patterns', 'Promises & Async/Await', 'Event Loop & DOM', 'Client State Flow'],
+      'Modern ES6+ syntax, asynchronous event loop, DOM manipulation, and dynamic state-driven interface patterns.',
+    specs: ['Promises & Async', 'Event Architecture', 'DOM Manipulation'],
+  },
+  typescript: {
+    name: 'TypeScript',
+    category: 'web',
+    role: 'Typed Client Systems',
+    narrative:
+      'Static typing, interface contracts, generic abstractions, and scalable application architectures.',
+    specs: ['Static Typing', 'Generics & Enums', 'Type Inference', 'Compiler Tooling'],
+  },
+  ts: {
+    name: 'TypeScript',
+    category: 'web',
+    role: 'Typed Client Systems',
+    narrative:
+      'Static typing, interface contracts, generic abstractions, and scalable application architectures.',
+    specs: ['Static Typing', 'Generics & Enums', 'Type Inference', 'Compiler Tooling'],
+  },
+  react: {
+    name: 'React',
+    category: 'web',
+    role: 'Component Architecture',
+    narrative:
+      'Declarative component hierarchies, custom hooks, virtual DOM reconciliation, and unidirectional state flows.',
+    specs: ['Custom Hooks', 'Virtual DOM', 'State Management', 'Component Lifecycle'],
   },
   sql: {
     name: 'SQL',
     category: 'data',
-    role: 'Relational Data Architecture',
+    role: 'RELATIONAL QUERIES & SCHEMAS',
     narrative:
-      'Declarative querying, relational schema modeling, multi-table joins, and data integrity constraints.',
-    specs: ['Relational Schema Design', 'Multi-table Joins', 'Aggregation & Filtering', 'Primary & Foreign Keys'],
+      'Structured declarative queries, multi-table joins, relational schema design, indexing, and strict integrity constraints.',
+    specs: [
+      'PARADIGM: Relational Schema & Normalization',
+      'QUERYING: Joins, Aggregations & Subqueries',
+      'INTEGRITY: Primary Keys, Foreign Keys & Indexing',
+    ],
+  },
+  postgresql: {
+    name: 'PostgreSQL',
+    category: 'data',
+    role: 'ADVANCED RELATIONAL DATA',
+    narrative:
+      'ACID transactional durability, complex multi-table joins, optimized indexing, and robust constraint modeling.',
+    specs: [
+      'PARADIGM: ACID Transactions',
+      'QUERYING: Complex Joins & Views',
+      'INTEGRITY: Constraints & B-Tree Indexes',
+    ],
   },
   git: {
     name: 'Git',
     category: 'tools',
-    role: 'Distributed Versioning',
+    role: 'Version Control',
     narrative:
-      'Distributed repository management, branching models, commit history tracking, and merge conflict resolution.',
-    specs: ['Branch Workflows', 'Commit Atomic Records', 'Rebase & Merge', 'Diff Inspection'],
+      'Local repository tracking, branching architectures, atomic commit discipline, and clean history management.',
+    specs: ['Branching & History'],
   },
   github: {
     name: 'GitHub',
     category: 'tools',
-    role: 'Remote Collaboration',
+    role: 'Collaboration',
     narrative:
-      'Remote repository synchronization, code review processes, project documentation, and open-source practices.',
-    specs: ['Remote Repositories', 'Pull Request Reviews', 'Issue Tracking', 'Open-Source Hygiene'],
+      'Remote repository hosting, pull request review cycles, documentation, and open-source contribution practices.',
+    specs: ['Remote Repos & Review'],
   },
   'visual studio code': {
     name: 'Visual Studio Code',
     category: 'tools',
-    role: 'Primary Development Environment',
+    role: 'Primary IDE',
     narrative:
-      'Configured workspace toolchain with integrated C/C++ build suites, terminal sessions, and developer debugging tools.',
-    specs: ['Compiler Suites', 'Debug Tooling', 'Workspace Configurations', 'Extension Ecosystem'],
+      'Engineered workspace environment configured with C/C++ compilation suites, debugging tools, and custom toolchains.',
+    specs: ['Compilers & Toolchains'],
   },
   'vs code': {
     name: 'Visual Studio Code',
     category: 'tools',
-    role: 'Primary Development Environment',
+    role: 'Primary IDE',
     narrative:
-      'Configured workspace toolchain with integrated C/C++ build suites, terminal sessions, and developer debugging tools.',
-    specs: ['Compiler Suites', 'Debug Tooling', 'Workspace Configurations', 'Extension Ecosystem'],
+      'Engineered workspace environment configured with C/C++ compilation suites, debugging tools, and custom toolchains.',
+    specs: ['Compilers & Toolchains'],
   },
   vscode: {
     name: 'Visual Studio Code',
     category: 'tools',
-    role: 'Primary Development Environment',
+    role: 'Primary IDE',
     narrative:
-      'Configured workspace toolchain with integrated C/C++ build suites, terminal sessions, and developer debugging tools.',
-    specs: ['Compiler Suites', 'Debug Tooling', 'Workspace Configurations', 'Extension Ecosystem'],
+      'Engineered workspace environment configured with C/C++ compilation suites, debugging tools, and custom toolchains.',
+    specs: ['Compilers & Toolchains'],
   },
+};
+
+const getTechMeta = (name: string, categoryName?: string): TechMeta => {
+  const key = name.trim().toLowerCase();
+  if (CANONICAL_TECH_SHOWCASE[key]) {
+    return CANONICAL_TECH_SHOWCASE[key];
+  }
+
+  // Sensible adaptive fallback for newly added custom technologies
+  const catLower = (categoryName || '').toLowerCase();
+  let defaultRole = 'Engineering Competency';
+  let defaultSpecs = ['Core Concepts', 'Hands-on Practice', 'Production Workflows'];
+
+  if (catLower.includes('systems') || catLower.includes('programming')) {
+    defaultRole = 'LANGUAGE & RUNTIME';
+    defaultSpecs = ['Syntax & Paradigms', 'Data Structures', 'Algorithmic Logic'];
+  } else if (catLower.includes('web')) {
+    defaultRole = 'Web Architecture';
+    defaultSpecs = ['Modern Standards', 'Interface Design', 'Responsive Flow'];
+  } else if (catLower.includes('data') || catLower.includes('database')) {
+    defaultRole = 'DATA ARCHITECTURE';
+    defaultSpecs = [
+      'PARADIGM: Structured Storage',
+      'QUERYING: Data Retrieval',
+      'INTEGRITY: Schema Integrity',
+    ];
+  } else if (catLower.includes('workflow') || catLower.includes('tool')) {
+    defaultRole = 'Tooling & Workflow';
+    defaultSpecs = ['Development Tooling', 'Productivity', 'Workflow Automation'];
+  }
+
+  return {
+    name,
+    category: 'systems',
+    role: defaultRole,
+    narrative: `Applied practical engineering, clean design patterns, and workflows utilizing ${name}.`,
+    specs: defaultSpecs,
+  };
 };
 
 export const Skills: React.FC = () => {
@@ -157,33 +235,55 @@ export const Skills: React.FC = () => {
     setMousePos({ x, y });
   };
 
-  // Harmonize CMS skills with Canonical Showcase
+  // Published skills from Supabase via DataContext
   const publishedSkills = (skillsList || [])
     .filter((s) => s.status === 'published')
     .slice()
     .sort((a, b) => (a.display_order ?? 0) - (b.display_order ?? 0));
 
-  // Determine if there are extra CMS skills outside the core set
-  const coreCanonicalKeys = new Set([
-    'c',
-    'c++',
-    'cpp',
-    'python',
-    'html',
-    'css',
-    'javascript',
-    'js',
-    'sql',
-    'git',
-    'github',
-    'visual studio code',
-    'vs code',
-    'vscode',
-  ]);
+  // Dynamic categorization aligned with Supabase schema categories
+  const systemsSkills = publishedSkills.filter(
+    (s) =>
+      s.category === '01 / PROGRAMMING & SYSTEMS' ||
+      s.category?.toLowerCase().includes('systems') ||
+      s.category?.toLowerCase().includes('programming')
+  );
+
+  const webSkills = publishedSkills.filter(
+    (s) =>
+      s.category === '02 / WEB FOUNDATIONS' ||
+      s.category?.toLowerCase().includes('web')
+  );
+
+  const dbSkills = publishedSkills.filter(
+    (s) =>
+      s.category === '03 / DATABASE' ||
+      s.category?.toLowerCase().includes('database') ||
+      s.category?.toLowerCase().includes('data')
+  );
+
+  const toolSkills = publishedSkills.filter(
+    (s) =>
+      s.category === '04 / DEVELOPMENT WORKFLOW' ||
+      s.category?.toLowerCase().includes('workflow') ||
+      s.category?.toLowerCase().includes('tool')
+  );
 
   const additionalSkills = publishedSkills.filter(
-    (s) => !coreCanonicalKeys.has(s.name.trim().toLowerCase())
+    (s) =>
+      !systemsSkills.includes(s) &&
+      !webSkills.includes(s) &&
+      !dbSkills.includes(s) &&
+      !toolSkills.includes(s)
   );
+
+  // Groupings for Act 1
+  const monumentSkills = systemsSkills.slice(0, 2);
+  const offsetSkills = systemsSkills.slice(2);
+
+  // Groupings for Act 2 Web
+  const anchorWebSkill = webSkills.length > 0 ? webSkills[0] : null;
+  const subWebSkills = webSkills.length > 1 ? webSkills.slice(1) : [];
 
   return (
     <section
@@ -228,280 +328,260 @@ export const Skills: React.FC = () => {
           {/* ----------------------------------------------------------------------- */}
           {/* ACT 1: SYSTEMS FOUNDATIONS — Monumental Architectural Scale            */}
           {/* ----------------------------------------------------------------------- */}
-          <div className="fluid-act fluid-act-systems">
-            <div className="fluid-act-header">
-              <span className="fluid-act-eyebrow">PROGRAMMING &amp; CORE SYSTEMS</span>
-              <span className="fluid-act-divider" />
-            </div>
-
-            <div className="systems-sculpture-grid">
-              {/* Primary Dual Monument: C & C++ */}
-              <div className="systems-monument-pair">
-                {/* Technology: C */}
-                <div
-                  className={`tech-monument-block tech-c ${
-                    activeTech === 'c' ? 'is-focused' : ''
-                  }`}
-                  onMouseEnter={() => setActiveTech('c')}
-                  onMouseLeave={() => setActiveTech(null)}
-                >
-                  <div className="monument-title-line">
-                    <span className="monument-display-name">C</span>
-                    <span className="monument-role-flag">PROCEDURAL MEMORY</span>
-                  </div>
-                  <p className="monument-narrative">
-                    Structured memory allocation, raw pointer arithmetic, struct memory alignment, and low-level system call interfaces.
-                  </p>
-                  <div className="monument-specs-row">
-                    <span>Pointers</span>
-                    <span className="spec-dot" />
-                    <span>Stack &amp; Heap</span>
-                    <span className="spec-dot" />
-                    <span>POSIX APIs</span>
-                  </div>
-                </div>
-
-                {/* Vertical Subtle Dividing Hairline */}
-                <div className="monument-hairline-separator" aria-hidden="true" />
-
-                {/* Technology: C++ */}
-                <div
-                  className={`tech-monument-block tech-cpp ${
-                    activeTech === 'c++' ? 'is-focused' : ''
-                  }`}
-                  onMouseEnter={() => setActiveTech('c++')}
-                  onMouseLeave={() => setActiveTech(null)}
-                >
-                  <div className="monument-title-line">
-                    <span className="monument-display-name">C++</span>
-                    <span className="monument-role-flag">OBJECT-ORIENTED</span>
-                  </div>
-                  <p className="monument-narrative">
-                    Abstract data types, STL algorithmic containers, object lifecycle management, and high-efficiency systems architecture.
-                  </p>
-                  <div className="monument-specs-row">
-                    <span>STL Containers</span>
-                    <span className="spec-dot" />
-                    <span>Classes &amp; OOP</span>
-                    <span className="spec-dot" />
-                    <span>Memory Semantics</span>
-                  </div>
-                </div>
+          {systemsSkills.length > 0 && (
+            <div className="fluid-act fluid-act-systems">
+              <div className="fluid-act-header">
+                <span className="fluid-act-eyebrow">PROGRAMMING &amp; CORE SYSTEMS</span>
+                <span className="fluid-act-divider" />
               </div>
 
-              {/* Companion Anchor: Python (Asymmetric Offset) */}
               <div
-                className={`tech-offset-block tech-python ${
-                  activeTech === 'python' ? 'is-focused' : ''
-                }`}
-                onMouseEnter={() => setActiveTech('python')}
-                onMouseLeave={() => setActiveTech(null)}
+                className="systems-sculpture-grid"
+                style={offsetSkills.length === 0 ? { gridTemplateColumns: '1fr' } : undefined}
               >
-                <div className="offset-header-group">
-                  <div className="offset-name-row">
-                    <span className="offset-display-name">Python</span>
-                    <span className="offset-role-tag">SCRIPTING &amp; COMPUTATION</span>
+                {/* Monument Group: Primary Systems Anchor(s) */}
+                <div
+                  className="systems-monument-pair"
+                  style={monumentSkills.length === 1 ? { gridTemplateColumns: '1fr' } : undefined}
+                >
+                  {monumentSkills.map((skill, index) => {
+                    const meta = getTechMeta(skill.name, skill.category);
+                    const activeKey = `sys-${skill.id || skill.name}`;
+                    return (
+                      <React.Fragment key={skill.id || skill.name}>
+                        {index > 0 && <div className="monument-hairline-separator" aria-hidden="true" />}
+                        <div
+                          className={`tech-monument-block ${activeTech === activeKey ? 'is-focused' : ''}`}
+                          onMouseEnter={() => setActiveTech(activeKey)}
+                          onMouseLeave={() => setActiveTech(null)}
+                        >
+                          <div className="monument-title-line">
+                            <span className="monument-display-name">{skill.name}</span>
+                            <span className="monument-role-flag">{meta.role.toUpperCase()}</span>
+                          </div>
+                          <p className="monument-narrative">{meta.narrative}</p>
+                          {meta.specs && meta.specs.length > 0 && (
+                            <div className="monument-specs-row">
+                              {meta.specs.map((spec, sIdx) => (
+                                <React.Fragment key={spec}>
+                                  {sIdx > 0 && <span className="spec-dot" />}
+                                  <span>{spec}</span>
+                                </React.Fragment>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </React.Fragment>
+                    );
+                  })}
+                </div>
+
+                {/* Offset Column: Supplementary Systems Technologies */}
+                {offsetSkills.length > 0 && (
+                  <div className="systems-offset-column">
+                    {offsetSkills.map((skill) => {
+                      const meta = getTechMeta(skill.name, skill.category);
+                      const activeKey = `sys-${skill.id || skill.name}`;
+                      return (
+                        <div
+                          key={skill.id || skill.name}
+                          className={`tech-offset-block ${activeTech === activeKey ? 'is-focused' : ''}`}
+                          onMouseEnter={() => setActiveTech(activeKey)}
+                          onMouseLeave={() => setActiveTech(null)}
+                        >
+                          <div className="offset-header-group">
+                            <div className="offset-name-row">
+                              <span className="offset-display-name">{skill.name}</span>
+                              <span className="offset-role-tag">{meta.role.toUpperCase()}</span>
+                            </div>
+                            <p className="offset-narrative">{meta.narrative}</p>
+                          </div>
+                          {meta.specs && meta.specs.length > 0 && (
+                            <div className="offset-specs-tags">
+                              {meta.specs.map((tag) => (
+                                <span key={tag} className="micro-tag">
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
-                  <p className="offset-narrative">
-                    Rapid automation pipelines, file processing, computational algorithms, and exploration of modern AI tooling.
-                  </p>
-                </div>
-                <div className="offset-specs-tags">
-                  <span className="micro-tag">Automation</span>
-                  <span className="micro-tag">Algorithms</span>
-                  <span className="micro-tag">Data Logic</span>
-                  <span className="micro-tag">AI Workflows</span>
-                </div>
+                )}
               </div>
             </div>
-          </div>
+          )}
 
           {/* ----------------------------------------------------------------------- */}
           {/* ACT 2: TWO FLUID CURRENTS — Web Architecture & Relational Database     */}
           {/* ----------------------------------------------------------------------- */}
-          <div className="fluid-act fluid-act-dual">
-
-            {/* Stream A: Web Development Continuum (Asymmetrical Left Stream) */}
-            <div className="fluid-substream substream-web">
-              <div className="fluid-act-header">
-                <span className="fluid-act-eyebrow">WEB ARCHITECTURE</span>
-                <span className="fluid-act-divider" />
-              </div>
-
-              <div className="web-constellation">
-                {/* JavaScript: Anchor of Web Logic */}
-                <div
-                  className={`web-anchor-item ${
-                    activeTech === 'javascript' ? 'is-focused' : ''
-                  }`}
-                  onMouseEnter={() => setActiveTech('javascript')}
-                  onMouseLeave={() => setActiveTech(null)}
-                >
-                  <div className="web-title-row">
-                    <span className="web-primary-name">JavaScript</span>
-                    <span className="web-role-caption">ES6+ &amp; Client Logic</span>
+          {(webSkills.length > 0 || dbSkills.length > 0) && (
+            <div
+              className="fluid-act fluid-act-dual"
+              style={
+                webSkills.length === 0 || dbSkills.length === 0
+                  ? { gridTemplateColumns: '1fr' }
+                  : undefined
+              }
+            >
+              {/* Stream A: Web Development Continuum */}
+              {webSkills.length > 0 && (
+                <div className="fluid-substream substream-web">
+                  <div className="fluid-act-header">
+                    <span className="fluid-act-eyebrow">WEB ARCHITECTURE</span>
+                    <span className="fluid-act-divider" />
                   </div>
-                  <p className="web-narrative">
-                    Modern ES6+ syntax, asynchronous event loop, DOM manipulation, and dynamic state-driven interface patterns.
-                  </p>
-                  <div className="web-inline-traits">
-                    <span>Promises &amp; Async</span>
-                    <span className="spec-dot" />
-                    <span>Event Architecture</span>
-                    <span className="spec-dot" />
-                    <span>DOM Manipulation</span>
+
+                  <div className="web-constellation">
+                    {/* Anchor Web Skill */}
+                    {anchorWebSkill && (() => {
+                      const meta = getTechMeta(anchorWebSkill.name, anchorWebSkill.category);
+                      const activeKey = `web-${anchorWebSkill.id || anchorWebSkill.name}`;
+                      return (
+                        <div
+                          className={`web-anchor-item ${activeTech === activeKey ? 'is-focused' : ''}`}
+                          onMouseEnter={() => setActiveTech(activeKey)}
+                          onMouseLeave={() => setActiveTech(null)}
+                        >
+                          <div className="web-title-row">
+                            <span className="web-primary-name">{anchorWebSkill.name}</span>
+                            <span className="web-role-caption">{meta.role}</span>
+                          </div>
+                          <p className="web-narrative">{meta.narrative}</p>
+                          {meta.specs && meta.specs.length > 0 && (
+                            <div className="web-inline-traits">
+                              {meta.specs.map((spec, idx) => (
+                                <React.Fragment key={spec}>
+                                  {idx > 0 && <span className="spec-dot" />}
+                                  <span>{spec}</span>
+                                </React.Fragment>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()}
+
+                    {/* Subordinate Foundations Duo / Grid */}
+                    {subWebSkills.length > 0 && (
+                      <div
+                        className="web-foundations-duo"
+                        style={subWebSkills.length === 1 ? { gridTemplateColumns: '1fr' } : undefined}
+                      >
+                        {subWebSkills.map((skill) => {
+                          const meta = getTechMeta(skill.name, skill.category);
+                          const activeKey = `web-${skill.id || skill.name}`;
+                          return (
+                            <div
+                              key={skill.id || skill.name}
+                              className={`web-subitem ${activeTech === activeKey ? 'is-focused' : ''}`}
+                              onMouseEnter={() => setActiveTech(activeKey)}
+                              onMouseLeave={() => setActiveTech(null)}
+                            >
+                              <div className="subitem-title-row">
+                                <span className="subitem-name">{skill.name}</span>
+                                <span className="subitem-role">{meta.role}</span>
+                              </div>
+                              <p className="subitem-narrative">{meta.narrative}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
                 </div>
+              )}
 
-                {/* HTML & CSS: Harmonic Foundation Duo */}
-                <div className="web-foundations-duo">
-                  {/* HTML */}
-                  <div
-                    className={`web-subitem ${
-                      activeTech === 'html' ? 'is-focused' : ''
-                    }`}
-                    onMouseEnter={() => setActiveTech('html')}
-                    onMouseLeave={() => setActiveTech(null)}
-                  >
-                    <div className="subitem-title-row">
-                      <span className="subitem-name">HTML</span>
-                      <span className="subitem-role">Semantic Markup</span>
-                    </div>
-                    <p className="subitem-narrative">
-                      Accessible document structures, semantic DOM elements, and modern web standards.
-                    </p>
+              {/* Stream B: Relational Data Stature */}
+              {dbSkills.length > 0 && (
+                <div className="fluid-substream substream-db">
+                  <div className="fluid-act-header">
+                    <span className="fluid-act-eyebrow">RELATIONAL DATA</span>
+                    <span className="fluid-act-divider" />
                   </div>
 
-                  {/* CSS */}
-                  <div
-                    className={`web-subitem ${
-                      activeTech === 'css' ? 'is-focused' : ''
-                    }`}
-                    onMouseEnter={() => setActiveTech('css')}
-                    onMouseLeave={() => setActiveTech(null)}
-                  >
-                    <div className="subitem-title-row">
-                      <span className="subitem-name">CSS</span>
-                      <span className="subitem-role">Layout &amp; Styling</span>
-                    </div>
-                    <p className="subitem-narrative">
-                      Responsive styling systems, CSS Grid geometry, Flexbox flows, and fluid typographic scales.
-                    </p>
+                  <div className="database-sculpture-column" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                    {dbSkills.map((skill) => {
+                      const meta = getTechMeta(skill.name, skill.category);
+                      const activeKey = `db-${skill.id || skill.name}`;
+                      return (
+                        <div
+                          key={skill.id || skill.name}
+                          className={`database-sculpture ${activeTech === activeKey ? 'is-focused' : ''}`}
+                          onMouseEnter={() => setActiveTech(activeKey)}
+                          onMouseLeave={() => setActiveTech(null)}
+                        >
+                          <div className="db-headline-cluster">
+                            <span className="db-monument-name">{skill.name}</span>
+                            <div className="db-meta-badge">{meta.role.toUpperCase()}</div>
+                          </div>
+
+                          <p className="db-narrative">{meta.narrative}</p>
+
+                          {meta.specs && meta.specs.length > 0 && (
+                            <div className="db-telemetry-cluster">
+                              {meta.specs.map((spec, idx) => {
+                                const colonIdx = spec.indexOf(':');
+                                const keyLabel = colonIdx !== -1 ? spec.substring(0, colonIdx).trim() : `SPEC 0${idx + 1}`;
+                                const valLabel = colonIdx !== -1 ? spec.substring(colonIdx + 1).trim() : spec;
+                                return (
+                                  <div key={spec} className="db-telemetry-entry">
+                                    <span className="telemetry-key">{keyLabel}</span>
+                                    <span className="telemetry-val">{valLabel}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-              </div>
+              )}
             </div>
-
-            {/* Stream B: Database Stature (Asymmetrical Right Stream) */}
-            <div className="fluid-substream substream-db">
-              <div className="fluid-act-header">
-                <span className="fluid-act-eyebrow">RELATIONAL DATA</span>
-                <span className="fluid-act-divider" />
-              </div>
-
-              <div
-                className={`database-sculpture ${
-                  activeTech === 'sql' ? 'is-focused' : ''
-                }`}
-                onMouseEnter={() => setActiveTech('sql')}
-                onMouseLeave={() => setActiveTech(null)}
-              >
-                <div className="db-headline-cluster">
-                  <span className="db-monument-name">SQL</span>
-                  <div className="db-meta-badge">RELATIONAL QUERIES &amp; SCHEMAS</div>
-                </div>
-
-                <p className="db-narrative">
-                  Structured declarative queries, multi-table joins, relational schema design, indexing, and strict integrity constraints.
-                </p>
-
-                <div className="db-telemetry-cluster">
-                  <div className="db-telemetry-entry">
-                    <span className="telemetry-key">PARADIGM</span>
-                    <span className="telemetry-val">Relational Schema &amp; Normalization</span>
-                  </div>
-                  <div className="db-telemetry-entry">
-                    <span className="telemetry-key">QUERYING</span>
-                    <span className="telemetry-val">Joins, Aggregations &amp; Subqueries</span>
-                  </div>
-                  <div className="db-telemetry-entry">
-                    <span className="telemetry-key">INTEGRITY</span>
-                    <span className="telemetry-val">Primary Keys, Foreign Keys &amp; Indexing</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
+          )}
 
           {/* ----------------------------------------------------------------------- */}
           {/* ACT 3: DEVELOPER ENVIRONMENT & TOOLCHAIN RUNWAY                        */}
           {/* ----------------------------------------------------------------------- */}
-          <div className="fluid-act fluid-act-tools">
-            <div className="fluid-act-header">
-              <span className="fluid-act-eyebrow">DEVELOPER ENVIRONMENT &amp; TOOLING</span>
-              <span className="fluid-act-divider" />
-            </div>
-
-            <div className="tools-horizon-runway">
-              {/* Tool 1: Git */}
-              <div
-                className={`tool-station ${
-                  activeTech === 'git' ? 'is-focused' : ''
-                }`}
-                onMouseEnter={() => setActiveTech('git')}
-                onMouseLeave={() => setActiveTech(null)}
-              >
-                <div className="tool-title-row">
-                  <span className="tool-name">Git</span>
-                  <span className="tool-role-whisper">Version Control</span>
-                </div>
-                <p className="tool-narrative">
-                  Local repository tracking, branching architectures, atomic commit discipline, and clean history management.
-                </p>
-                <span className="tool-micro-metric">Branching &amp; History</span>
+          {toolSkills.length > 0 && (
+            <div className="fluid-act fluid-act-tools">
+              <div className="fluid-act-header">
+                <span className="fluid-act-eyebrow">DEVELOPER ENVIRONMENT &amp; TOOLING</span>
+                <span className="fluid-act-divider" />
               </div>
 
-              {/* Tool 2: GitHub */}
-              <div
-                className={`tool-station ${
-                  activeTech === 'github' ? 'is-focused' : ''
-                }`}
-                onMouseEnter={() => setActiveTech('github')}
-                onMouseLeave={() => setActiveTech(null)}
-              >
-                <div className="tool-title-row">
-                  <span className="tool-name">GitHub</span>
-                  <span className="tool-role-whisper">Collaboration</span>
-                </div>
-                <p className="tool-narrative">
-                  Remote repository hosting, pull request review cycles, documentation, and open-source contribution practices.
-                </p>
-                <span className="tool-micro-metric">Remote Repos &amp; Review</span>
-              </div>
-
-              {/* Tool 3: Visual Studio Code */}
-              <div
-                className={`tool-station ${
-                  activeTech === 'vs-code' ? 'is-focused' : ''
-                }`}
-                onMouseEnter={() => setActiveTech('vs-code')}
-                onMouseLeave={() => setActiveTech(null)}
-              >
-                <div className="tool-title-row">
-                  <span className="tool-name">Visual Studio Code</span>
-                  <span className="tool-role-whisper">Primary IDE</span>
-                </div>
-                <p className="tool-narrative">
-                  Engineered workspace environment configured with C/C++ compilation suites, debugging tools, and custom toolchains.
-                </p>
-                <span className="tool-micro-metric">Compilers &amp; Toolchains</span>
+              <div className="tools-horizon-runway">
+                {toolSkills.map((skill) => {
+                  const meta = getTechMeta(skill.name, skill.category);
+                  const activeKey = `tool-${skill.id || skill.name}`;
+                  return (
+                    <div
+                      key={skill.id || skill.name}
+                      className={`tool-station ${activeTech === activeKey ? 'is-focused' : ''}`}
+                      onMouseEnter={() => setActiveTech(activeKey)}
+                      onMouseLeave={() => setActiveTech(null)}
+                    >
+                      <div className="tool-title-row">
+                        <span className="tool-name">{skill.name}</span>
+                        <span className="tool-role-whisper">{meta.role}</span>
+                      </div>
+                      <p className="tool-narrative">{meta.narrative}</p>
+                      {meta.specs && meta.specs.length > 0 && (
+                        <span className="tool-micro-metric">{meta.specs[0]}</span>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
-          </div>
+          )}
 
           {/* ----------------------------------------------------------------------- */}
-          {/* SUPPLEMENTARY CMS SKILLS (Graceful integration if added in dashboard)    */}
+          {/* SUPPLEMENTARY CMS SKILLS (For custom or newly categorized items)        */}
           {/* ----------------------------------------------------------------------- */}
           {additionalSkills.length > 0 && (
             <div className="fluid-act fluid-act-additional">
@@ -517,6 +597,13 @@ export const Skills: React.FC = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* Empty State Fallback if all skills are unpublished/empty */}
+          {publishedSkills.length === 0 && (
+            <div className="skills-empty-state">
+              <p>Technical capabilities currently being updated.</p>
             </div>
           )}
 
@@ -668,7 +755,7 @@ export const Skills: React.FC = () => {
           }
         }
 
-        /* Dual Monument: C & C++ */
+        /* Dual Monument Pair */
         .systems-monument-pair {
           display: grid;
           grid-template-columns: 1fr;
@@ -766,7 +853,13 @@ export const Skills: React.FC = () => {
           opacity: 0.6;
         }
 
-        /* Companion Offset: Python */
+        /* Companion Offset Column */
+        .systems-offset-column {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+        }
+
         .tech-offset-block {
           position: relative;
           padding: 16px 20px;
@@ -780,7 +873,6 @@ export const Skills: React.FC = () => {
           display: flex;
           flex-direction: column;
           justifyContent: space-between;
-          height: 100%;
           transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                       border-color 0.35s ease,
                       background-color 0.35s ease;
@@ -923,7 +1015,7 @@ export const Skills: React.FC = () => {
 
         @media (min-width: 600px) {
           .web-foundations-duo {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
           }
         }
 
@@ -974,7 +1066,6 @@ export const Skills: React.FC = () => {
           display: flex;
           flex-direction: column;
           justifyContent: space-between;
-          height: 100%;
           transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -1056,7 +1147,7 @@ export const Skills: React.FC = () => {
 
         @media (min-width: 820px) {
           .tools-horizon-runway {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: clamp(24px, 3.5vw, 44px);
           }
         }
@@ -1142,6 +1233,14 @@ export const Skills: React.FC = () => {
           font-family: var(--font-mono);
           font-size: 0.7rem;
           color: var(--accent-purple-light);
+        }
+
+        .skills-empty-state {
+          padding: 48px 0;
+          text-align: center;
+          font-family: var(--font-mono);
+          font-size: 0.88rem;
+          color: var(--text-muted);
         }
 
         /* -------------------------------------------------------------------------
