@@ -1,10 +1,11 @@
 import React from 'react';
 import { usePortfolioData } from '../../context/DataContext';
-import { Terminal, Code2, Cpu } from 'lucide-react';
+import { SectionLabel } from '../SectionLabel/SectionLabel';
 
 export const About: React.FC = () => {
   const { personalInfoData } = usePortfolioData();
   const personalInfo = personalInfoData;
+
   return (
     <section
       id="about"
@@ -17,7 +18,7 @@ export const About: React.FC = () => {
     >
       <div className="editorial-container">
         {/* Section Label */}
-        <div className="section-label">01 / ABOUT</div>
+        <SectionLabel id="about" />
 
         {/* Asymmetrical Editorial Grid */}
         <div
@@ -25,7 +26,7 @@ export const About: React.FC = () => {
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',
             columnGap: 'clamp(20px, 4vw, 40px)',
-            rowGap: '48px',
+            rowGap: 'clamp(28px, 4vw, 48px)',
           }}
         >
           {/* Left Column: Expressive Headline */}
@@ -35,7 +36,7 @@ export const About: React.FC = () => {
             }}
             className="about-headline-col"
           >
-            <h2 className="section-hero-heading" style={{ maxWidth: '820px' }}>
+            <h2 className="section-hero-heading" style={{ maxWidth: '820px', margin: 0 }}>
               Curiosity is where{' '}
               <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--accent-violet-light)' }}>
                 everything begins.
@@ -50,7 +51,7 @@ export const About: React.FC = () => {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
               gap: 'clamp(32px, 5vw, 64px)',
-              marginTop: '16px',
+              marginTop: '8px',
             }}
           >
             {/* Primary Narrative */}
@@ -62,21 +63,22 @@ export const About: React.FC = () => {
                   lineHeight: '1.65',
                   color: 'var(--text-primary)',
                   fontWeight: 400,
+                  margin: 0,
                 }}
               >
                 {personalInfo.aboutEditorial.paragraphs[0]}
               </p>
-              <p className="body-editorial">
+              <p className="body-editorial" style={{ margin: 0 }}>
                 {personalInfo.aboutEditorial.paragraphs[1]}
               </p>
             </div>
 
             {/* Secondary Narrative & Details */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-              <p className="body-editorial">
+              <p className="body-editorial" style={{ margin: 0 }}>
                 {personalInfo.aboutEditorial.paragraphs[2]}
               </p>
-              <p className="body-editorial">
+              <p className="body-editorial" style={{ margin: 0 }}>
                 {personalInfo.aboutEditorial.paragraphs[3]}
               </p>
 
@@ -131,93 +133,8 @@ export const About: React.FC = () => {
               </div>
             </div>
           </div>
-
-          {/* Three Core Principles / Tenets */}
-          <div
-            style={{
-              gridColumn: 'span 12',
-              marginTop: 'clamp(32px, 6vw, 64px)',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '24px',
-            }}
-          >
-            {personalInfo.aboutEditorial.values.map((item) => (
-              <div
-                key={item.number}
-                style={{
-                  padding: '28px',
-                  backgroundColor: 'rgba(20, 20, 28, 0.7)',
-                  border: '1px solid var(--border-hairline)',
-                  borderLeft: '2px solid rgba(139, 92, 246, 0.6)',
-                  position: 'relative',
-                  transition: 'transform 0.25s ease, border-color 0.25s ease',
-                }}
-                className="about-principle-card"
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: '16px',
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.85rem',
-                      fontWeight: 700,
-                      color: 'var(--accent-violet-light)',
-                      letterSpacing: '0.04em',
-                    }}
-                  >
-                    // {item.number}
-                  </span>
-                  <span
-                    style={{
-                      width: '5px',
-                      height: '5px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--accent-violet)',
-                    }}
-                  />
-                </div>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '1.15rem',
-                    fontWeight: 600,
-                    color: 'var(--text-primary)',
-                    marginBottom: '10px',
-                    letterSpacing: '-0.01em',
-                  }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '0.88rem',
-                    lineHeight: '1.6',
-                    color: 'var(--text-secondary)',
-                  }}
-                >
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
-
-      <style>{`
-        .about-principle-card:hover {
-          transform: translateY(-3px);
-          border-left-color: var(--accent-violet) !important;
-          border-color: rgba(139, 92, 246, 0.2) !important;
-        }
-      `}</style>
     </section>
   );
 };

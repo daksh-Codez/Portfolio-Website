@@ -1,559 +1,1262 @@
-import React from 'react';
-import { TrajectoryType } from '../../data/education';
-import { usePortfolioData } from '../../context/DataContext';
-import {
-  Compass,
-  Layers,
-  Cpu,
-  Hammer,
-  GitBranch,
-  Sparkles,
-  ArrowRight
-} from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ArrowUpRight } from 'lucide-react';
+import { SectionLabel } from '../SectionLabel/SectionLabel';
+
+interface MilestoneItem {
+  number: string;
+  phase: string;
+  title: string;
+  description: string;
+}
+
+const CANONICAL_MILESTONES: MilestoneItem[] = [
+  {
+    number: '01',
+    phase: 'FOUNDATIONS',
+    title: 'Building the fundamentals.',
+    description:
+      'Deepening my understanding of C and C++, memory, data structures and programming logic.',
+  },
+  {
+    number: '02',
+    phase: 'PROBLEM SOLVING',
+    title: 'Thinking through code.',
+    description:
+      'Practising algorithmic challenges, exploring STL and improving problem-solving approaches.',
+  },
+  {
+    number: '03',
+    phase: 'ENGINEERING WORKFLOW',
+    title: 'Working with better processes.',
+    description:
+      'Developing consistent habits around Git, GitHub, version control and documentation.',
+  },
+  {
+    number: '04',
+    phase: 'EXPERIMENTATION',
+    title: 'Exploring AI in development.',
+    description:
+      'Experimenting with AI tools and practical workflows that support software creation.',
+  },
+];
 
 export const CurrentFocus: React.FC = () => {
-  const { trajectoryList, milestoneData } = usePortfolioData();
-  const trajectoryItems = trajectoryList;
-  const internshipMilestone = milestoneData;
-  const getIconForType = (type: TrajectoryType) => {
-    switch (type) {
-      case 'learning':
-        return <Layers size={16} />;
-      case 'practice':
-        return <Cpu size={16} />;
-      case 'building':
-        return <Hammer size={16} />;
-      case 'workflow':
-        return <GitBranch size={16} />;
-      case 'exploration':
-        return <Sparkles size={16} />;
-    }
-  };
+  const [activeMilestone, setActiveMilestone] = useState<number | null>(null);
+  const [isInView, setIsInView] = useState(false);
+  const [hasArrived, setHasArrived] = useState(false);
+  const [isNextMilestoneInView, setIsNextMilestoneInView] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const nextMilestoneRef = useRef<HTMLDivElement>(null);
 
-  const getTypeLabel = (type: TrajectoryType) => {
-    switch (type) {
-      case 'learning':
-        return 'CORE FOUNDATION';
-      case 'practice':
-        return 'PROBLEM SOLVING';
-      case 'building':
-        return 'PRACTICAL BUILDING';
-      case 'workflow':
-        return 'WORKFLOW & TOOLING';
-      case 'exploration':
-        return 'AI EXPLORATION';
-    }
-  };
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const milestoneEl = nextMilestoneRef.current;
+    if (!milestoneEl) return;
+    const milestoneObserver = new IntersectionObserver(
+      ([entry]) => {
+        setIsNextMilestoneInView(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          setHasArrived(true);
+        }
+      },
+      { threshold: 0.22, rootMargin: '0px 0px -40px 0px' }
+    );
+    milestoneObserver.observe(milestoneEl);
+    return () => milestoneObserver.disconnect();
+  }, []);
 
   return (
     <section
       id="focus"
-      style={{
-        paddingTop: 'clamp(80px, 12vw, 150px)',
-        paddingBottom: 'clamp(80px, 12vw, 150px)',
-        position: 'relative',
-        zIndex: 2,
-        backgroundColor: 'rgba(6, 6, 9, 0.45)',
-      }}
+      ref={sectionRef}
+      className={`trajectory-cinematic-section ${isInView ? 'in-view' : ''}`}
+      aria-label="Trajectory and Learning Journey"
     >
-      <div className="editorial-container">
-        {/* Section Label */}
-        <div className="section-label">05 / TRAJECTORY</div>
+      {/* Anchor alias so #trajectory also works */}
+      <span id="trajectory" className="trajectory-anchor-alias" aria-hidden="true" />
 
-        {/* Section Header */}
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'flex-end',
-            gap: '24px',
-            marginBottom: 'clamp(48px, 7vw, 76px)',
-          }}
+      {/* Atmospheric Background Layer: Grid & Orbital Rings */}
+      <div className="trajectory-atmosphere-layer" aria-hidden="true">
+        <svg
+          className="atmosphere-svg"
+          width="100%"
+          height="100%"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <div>
-            <h2 className="section-hero-heading">
-              Currently{' '}
-              <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--accent-violet-light)' }}>
-                exploring.
-              </span>
+          <defs>
+            {/* Fine Faint Background Grid */}
+            <pattern
+              id="trajectory-fine-grid"
+              width="54"
+              height="54"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 54 0 L 0 0 0 54"
+                fill="none"
+                stroke="rgba(255, 255, 255, 0.022)"
+                strokeWidth="1"
+              />
+            </pattern>
+
+            {/* Path Linear Gradient */}
+            <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(167, 139, 250, 0.15)" />
+              <stop offset="20%" stopColor="rgba(167, 139, 250, 0.85)" />
+              <stop offset="50%" stopColor="rgba(255, 255, 255, 0.95)" />
+              <stop offset="80%" stopColor="rgba(167, 139, 250, 0.85)" />
+              <stop offset="100%" stopColor="rgba(167, 139, 250, 0.2)" />
+            </linearGradient>
+
+            {/* Glowing Halo Gradient for Nodes */}
+            <radialGradient id="nodeHalo" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="rgba(167, 139, 250, 0.6)" />
+              <stop offset="40%" stopColor="rgba(139, 92, 246, 0.25)" />
+              <stop offset="100%" stopColor="rgba(139, 92, 246, 0)" />
+            </radialGradient>
+
+            {/* Filter for Path Soft Glow */}
+            <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3.5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+
+          {/* Grid overlay */}
+          <rect width="100%" height="100%" fill="url(#trajectory-fine-grid)" />
+
+          {/* Delicate Orbital Ellipses */}
+          <ellipse
+            cx="50%"
+            cy="46%"
+            rx="580"
+            ry="180"
+            fill="none"
+            stroke="rgba(255, 255, 255, 0.03)"
+            strokeDasharray="4 8"
+          />
+          <ellipse
+            cx="54%"
+            cy="42%"
+            rx="440"
+            ry="130"
+            fill="none"
+            stroke="rgba(139, 92, 246, 0.045)"
+            strokeDasharray="3 6"
+            transform="rotate(-5 600 200)"
+          />
+        </svg>
+
+        {/* Large, Low-Opacity Coding Symbol near Upper-Right */}
+        <div className="atmospheric-code-glyph" aria-hidden="true">
+          &lt; / &gt;
+        </div>
+      </div>
+
+      <div className="editorial-container trajectory-inner-container">
+        {/* ================================================================= */}
+        {/* SECTION INTRODUCTION (Upper Left)                                 */}
+        {/* ================================================================= */}
+        <div className="trajectory-header">
+          <SectionLabel id="trajectory" />
+
+          <div className="trajectory-header-flow">
+            <h2 className="trajectory-heading">
+              Learning in{' '}
+              <span className="serif-motion-accent">motion.</span>
             </h2>
-          </div>
-          <div style={{ maxWidth: '440px' }}>
-            <p className="body-editorial" style={{ fontSize: '1.05rem', color: 'var(--text-secondary)' }}>
-              What I'm learning, building, and working towards.
+            <p className="trajectory-lead">
+              What I'm developing now, and where I'm heading next.
             </p>
           </div>
         </div>
 
-        {/* Editorial Development Timeline */}
-        <div className="trajectory-timeline">
-          {trajectoryItems.map((item, idx) => {
-            const isLast = idx === trajectoryItems.length - 1;
+        {/* ================================================================= */}
+        {/* THE LEARNING JOURNEY — Organic Curved Illuminated Path            */}
+        {/* ================================================================= */}
+        <div
+          className={`learning-journey-stage ${
+            activeMilestone !== null ? 'has-active' : ''
+          } ${isNextMilestoneInView ? 'timeline-receding' : ''}`}
+        >
+          {/* DESKTOP CURVED SVG CANVAS */}
+          <div className="journey-desktop-canvas" aria-hidden="true">
+            <svg
+              className="journey-curve-svg"
+              viewBox="0 0 1200 440"
+              preserveAspectRatio="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Glowing Ambient Path Behind */}
+              <path
+                d="M 40,300 C 100,290 130,270 160,265 C 270,245 330,145 450,145 C 570,145 630,290 750,290 C 870,290 930,135 1040,135 C 1090,135 1130,150 1160,155"
+                fill="none"
+                stroke="rgba(139, 92, 246, 0.28)"
+                strokeWidth="6"
+                filter="url(#softGlow)"
+              />
 
-            return (
-              <div key={item.number} className={`timeline-item type-${item.type}`}>
-                {/* Left Rail: Node & Connecting Line */}
-                <div className="timeline-rail">
-                  <div className="timeline-node" aria-hidden="true">
-                    {getIconForType(item.type)}
+              {/* Core Precision Illuminated Path (Animates in on scroll) */}
+              <path
+                className="animated-journey-path"
+                d="M 40,300 C 100,290 130,270 160,265 C 270,245 330,145 450,145 C 570,145 630,290 750,290 C 870,290 930,135 1040,135 C 1090,135 1130,150 1160,155"
+                fill="none"
+                stroke="url(#curveGradient)"
+                strokeWidth="1.5"
+                pathLength="1"
+              />
+
+              {/* Vertical Guide Hairlines connecting nodes to text */}
+              {/* M1: Node (160, 265) -> text above ends at 245 */}
+              <line
+                x1="160"
+                y1="265"
+                x2="160"
+                y2="242"
+                stroke="rgba(167, 139, 250, 0.25)"
+                strokeWidth="1"
+                strokeDasharray="2 2"
+              />
+
+              {/* M2: Node (450, 145) -> text below starts at 170 */}
+              <line
+                x1="450"
+                y1="145"
+                x2="450"
+                y2="172"
+                stroke="rgba(167, 139, 250, 0.25)"
+                strokeWidth="1"
+                strokeDasharray="2 2"
+              />
+
+              {/* M3: Node (750, 290) -> text above ends at 268 */}
+              <line
+                x1="750"
+                y1="290"
+                x2="750"
+                y2="265"
+                stroke="rgba(167, 139, 250, 0.25)"
+                strokeWidth="1"
+                strokeDasharray="2 2"
+              />
+
+              {/* M4: Node (1040, 135) -> text below starts at 162 */}
+              <line
+                x1="1040"
+                y1="135"
+                x2="1040"
+                y2="162"
+                stroke="rgba(167, 139, 250, 0.25)"
+                strokeWidth="1"
+                strokeDasharray="2 2"
+              />
+
+              {/* Milestone 1 Node: (160, 265) */}
+              <g className="milestone-svg-node" transform="translate(160, 265)">
+                <circle cx="0" cy="0" r="16" fill="url(#nodeHalo)" className="breathing-halo" />
+                <circle cx="0" cy="0" r="5" fill="#040407" stroke="rgba(167, 139, 250, 0.85)" strokeWidth="1.5" />
+                <circle cx="0" cy="0" r="2.2" fill="#FFFFFF" />
+              </g>
+
+              {/* Milestone 2 Node: (450, 145) */}
+              <g className="milestone-svg-node" transform="translate(450, 145)">
+                <circle cx="0" cy="0" r="16" fill="url(#nodeHalo)" className="breathing-halo" />
+                <circle cx="0" cy="0" r="5" fill="#040407" stroke="rgba(167, 139, 250, 0.85)" strokeWidth="1.5" />
+                <circle cx="0" cy="0" r="2.2" fill="#FFFFFF" />
+              </g>
+
+              {/* Milestone 3 Node: (750, 290) */}
+              <g className="milestone-svg-node" transform="translate(750, 290)">
+                <circle cx="0" cy="0" r="16" fill="url(#nodeHalo)" className="breathing-halo" />
+                <circle cx="0" cy="0" r="5" fill="#040407" stroke="rgba(167, 139, 250, 0.85)" strokeWidth="1.5" />
+                <circle cx="0" cy="0" r="2.2" fill="#FFFFFF" />
+              </g>
+
+              {/* Milestone 4 Node: (1040, 135) */}
+              <g className="milestone-svg-node" transform="translate(1040, 135)">
+                <circle cx="0" cy="0" r="16" fill="url(#nodeHalo)" className="breathing-halo" />
+                <circle cx="0" cy="0" r="5" fill="#040407" stroke="rgba(167, 139, 250, 0.85)" strokeWidth="1.5" />
+                <circle cx="0" cy="0" r="2.2" fill="#FFFFFF" />
+              </g>
+            </svg>
+          </div>
+
+          {/* MILESTONE TYPOGRAPHY ITEMS (Unboxed, Pure Typography) */}
+          <div className="milestones-typography-container">
+            {CANONICAL_MILESTONES.map((item, idx) => {
+              const isEven = idx % 2 === 1; // 0, 2 above curve; 1, 3 below curve
+              return (
+                <div
+                  key={item.number}
+                  className={`milestone-block milestone-idx-${idx} ${
+                    isEven ? 'position-below' : 'position-above'
+                  } ${activeMilestone === idx ? 'is-active' : ''}`}
+                  onMouseEnter={() => setActiveMilestone(idx)}
+                  onMouseLeave={() => setActiveMilestone(null)}
+                >
+                  {/* Mobile Only: Node marker */}
+                  <div className="mobile-node-marker" aria-hidden="true">
+                    <span className="mobile-node-halo" />
+                    <span className="mobile-node-core" />
                   </div>
-                  {/* Stem connects down to next node */}
-                  <div className="timeline-stem" />
-                </div>
 
-                {/* Right Content Area */}
-                <div className="timeline-content">
-                  {/* Category Header Bar */}
-                  <div className="timeline-meta-bar">
-                    <div className="timeline-identity">
-                      <span className="timeline-number">{item.number}</span>
-                      <span className="timeline-slash">/</span>
-                      <span className="timeline-phase">{item.phase}</span>
-                    </div>
-                    <span className={`timeline-badge badge-${item.type}`}>
-                      {getTypeLabel(item.type)}
+                  <div className="milestone-meta-row">
+                    <span className="milestone-eyebrow">
+                      MILESTONE {item.number} / {item.phase}
                     </span>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="timeline-title">{item.title}</h3>
+                  <h3 className="milestone-title">{item.title}</h3>
 
-                  {/* Concise natural description */}
-                  <p className="timeline-description">{item.description}</p>
-
-                  {/* Detail Focus Tags */}
-                  <div className="timeline-tags">
-                    {item.tags.map((tag) => (
-                      <span key={tag} className="timeline-tag-pill">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="milestone-description">{item.description}</p>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+        </div>
 
-          {/* Connected Milestone: Internship Objective */}
-          <div className="timeline-item milestone-timeline-item">
-            {/* Left Rail with Destination Node */}
-            <div className="timeline-rail">
-              <div className="timeline-node milestone-node" aria-hidden="true">
-                <Compass size={17} />
-              </div>
-            </div>
+        {/* ================================================================= */}
+        {/* SUBTLE HORIZONTAL SEPARATOR                                       */}
+        {/* ================================================================= */}
+        <div className="trajectory-divider-line" aria-hidden="true" />
 
-            {/* Right Milestone Content */}
-            <div className="milestone-box">
-              <div className="milestone-top-row">
-                <span className="milestone-eyebrow">
-                  {internshipMilestone.eyebrow}
-                </span>
-                <span className="milestone-badge">
-                  {internshipMilestone.badge}
-                </span>
-              </div>
+        {/* ================================================================= */}
+        {/* THE NEXT MILESTONE (Concluding Composition)                       */}
+        {/* ================================================================= */}
+        <div
+          ref={nextMilestoneRef}
+          className={`next-milestone-stage ${hasArrived ? 'is-arrived' : ''}`}
+        >
+          {/* Left Column: Heading, Narrative & CTA */}
+          <div className="next-milestone-content">
+            <span className="next-milestone-eyebrow">THE NEXT MILESTONE</span>
 
-              <h3 className="milestone-title">
-                {internshipMilestone.title}
-              </h3>
+            <h3 className="next-milestone-heading">
+              <span className="milestone-reveal-word word-1">An</span>{' '}
+              <span className="milestone-reveal-word word-2">industry</span>{' '}
+              <span className="milestone-reveal-word word-3 milestone-internship-accent">
+                internship.
+              </span>
+            </h3>
 
-              <p className="milestone-description">
-                {internshipMilestone.description}
-              </p>
+            <p className="next-milestone-description">
+              Ready to take what I'm learning beyond personal projects, contribute to
+              real-world engineering work and learn from experienced teams.
+            </p>
 
-              <div className="milestone-footer">
-                <a href="#contact" className="milestone-cta">
-                  <span>Open for discussions & opportunities</span>
-                  <ArrowRight size={14} className="milestone-arrow" />
-                </a>
-              </div>
+            <a
+              href="https://www.linkedin.com/in/daksh-goswami-3008d"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="next-milestone-cta-link"
+              aria-label="Open to conversations and opportunities - visit Daksh Goswami's LinkedIn profile (opens in a new tab)"
+            >
+              <span className="cta-link-text">Open to conversations and opportunities</span>
+              <ArrowUpRight size={16} className="cta-arrow-icon" aria-hidden="true" />
+            </a>
+          </div>
+
+          {/* Right Column: Cinematic Planetary Horizon with Human Silhouette */}
+          <div className="next-milestone-visual-wrap" aria-hidden="true">
+            {/* Atmospheric Ambient Aura */}
+            <div className="horizon-ambient-aura" />
+
+            <div className="next-milestone-visual">
+              <svg
+                className="planetary-horizon-svg"
+                viewBox="0 0 440 240"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  {/* Horizon Glow Blur Filter */}
+                  <filter id="horizonGlow" x="-20%" y="-40%" width="140%" height="180%">
+                    <feGaussianBlur stdDeviation="6" result="blur1" />
+                    <feGaussianBlur stdDeviation="2" result="blur2" />
+                    <feMerge>
+                      <feMergeNode in="blur1" />
+                      <feMergeNode in="blur2" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+
+                  {/* Horizon Gradient Stroke */}
+                  <linearGradient id="horizonRimGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="rgba(167, 139, 250, 0)" />
+                    <stop offset="25%" stopColor="rgba(167, 139, 250, 0.45)" />
+                    <stop offset="50%" stopColor="rgba(255, 255, 255, 1)" />
+                    <stop offset="75%" stopColor="rgba(167, 139, 250, 0.45)" />
+                    <stop offset="100%" stopColor="rgba(167, 139, 250, 0)" />
+                  </linearGradient>
+
+                  {/* Horizon Traveling Light Glint Gradient */}
+                  <linearGradient id="horizonGlintGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="rgba(255, 255, 255, 0)" />
+                    <stop offset="35%" stopColor="rgba(255, 255, 255, 0)" />
+                    <stop offset="50%" stopColor="rgba(255, 255, 255, 0.98)" />
+                    <stop offset="65%" stopColor="rgba(167, 139, 250, 0.85)" />
+                    <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
+                  </linearGradient>
+
+                  {/* Atmospheric Haze Gradient */}
+                  <radialGradient id="skyHaze" cx="50%" cy="100%" r="80%">
+                    <stop offset="0%" stopColor="rgba(139, 92, 246, 0.24)" />
+                    <stop offset="50%" stopColor="rgba(109, 40, 217, 0.08)" />
+                    <stop offset="100%" stopColor="rgba(4, 4, 7, 0)" />
+                  </radialGradient>
+
+                  {/* Planet Body Dark Fill */}
+                  <linearGradient id="planetBody" x1="50%" y1="0%" x2="50%" y2="100%">
+                    <stop offset="0%" stopColor="#07070c" />
+                    <stop offset="100%" stopColor="#030305" />
+                  </linearGradient>
+
+                  {/* Tiny Specular Glow for Human Footing */}
+                  <radialGradient id="footSpec" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="#FFFFFF" />
+                    <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
+                  </radialGradient>
+                </defs>
+
+                {/* Deep Sky Stardust Particles */}
+                <g className="space-stardust">
+                  <circle cx="68" cy="48" r="0.9" fill="#FFFFFF" opacity="0.4" />
+                  <circle cx="120" cy="85" r="1.2" fill="#A78BFA" opacity="0.6" />
+                  <circle cx="178" cy="35" r="0.8" fill="#FFFFFF" opacity="0.5" />
+                  <circle cx="270" cy="62" r="1.1" fill="#FFFFFF" opacity="0.7" />
+                  <circle cx="340" cy="40" r="0.8" fill="#A78BFA" opacity="0.45" />
+                  <circle cx="388" cy="92" r="1.3" fill="#FFFFFF" opacity="0.55" />
+                  <circle cx="82" cy="120" r="0.7" fill="#FFFFFF" opacity="0.35" />
+                  <circle cx="310" cy="115" r="0.9" fill="#A78BFA" opacity="0.4" />
+                </g>
+
+                {/* Faint Distant Constellation Line */}
+                <line
+                  x1="120"
+                  y1="85"
+                  x2="178"
+                  y2="35"
+                  stroke="rgba(255, 255, 255, 0.08)"
+                  strokeWidth="0.6"
+                  strokeDasharray="2 3"
+                />
+                <line
+                  x1="178"
+                  y1="35"
+                  x2="270"
+                  y2="62"
+                  stroke="rgba(255, 255, 255, 0.08)"
+                  strokeWidth="0.6"
+                  strokeDasharray="2 3"
+                />
+
+                {/* Atmospheric Glow above the Curve */}
+                <ellipse
+                  className="horizon-haze-ellipse"
+                  cx="220"
+                  cy="172"
+                  rx="180"
+                  ry="55"
+                  fill="url(#skyHaze)"
+                />
+
+                {/* Dark Planet Body */}
+                <path
+                  d="M -10,240 C 95,168 345,168 450,240 L 450,240 L -10,240 Z"
+                  fill="url(#planetBody)"
+                />
+
+                {/* Glowing Rim Curve of the Planetary Horizon */}
+                <path
+                  className="horizon-rim-base"
+                  d="M -10,240 C 95,168 345,168 450,240"
+                  fill="none"
+                  stroke="url(#horizonRimGrad)"
+                  strokeWidth="1.8"
+                  filter="url(#horizonGlow)"
+                />
+
+                {/* Subtle Traveling Light Glint along the Horizon */}
+                <path
+                  className="horizon-rim-glint"
+                  d="M -10,240 C 95,168 345,168 450,240"
+                  fill="none"
+                  stroke="url(#horizonGlintGrad)"
+                  strokeWidth="2.2"
+                  filter="url(#horizonGlow)"
+                />
+
+                {/* Tiny Specular Glow at apex where human stands */}
+                <ellipse cx="220" cy="168" rx="7" ry="1.8" fill="url(#footSpec)" className="horizon-foot-spec" />
+
+                {/* Tiny Human Silhouette standing at the apex (x=220, y=168) */}
+                <g className="horizon-silhouette" transform="translate(0, 0)">
+                  {/* Head */}
+                  <circle cx="220" cy="148" r="2.2" fill="#F8FAFC" />
+
+                  {/* Torso & Shoulders */}
+                  <path
+                    d="M 218.8,150.8 L 221.2,150.8 L 221.6,158.8 L 218.4,158.8 Z"
+                    fill="#F8FAFC"
+                  />
+
+                  {/* Left Arm relaxed, Right Arm slightly forward */}
+                  <line x1="218.6" y1="151.6" x2="217.6" y2="157" stroke="#F8FAFC" strokeWidth="0.8" strokeLinecap="round" />
+                  <line x1="221.4" y1="151.6" x2="223.2" y2="155.5" stroke="#F8FAFC" strokeWidth="0.8" strokeLinecap="round" />
+
+                  {/* Legs standing firmly on the illuminated curve */}
+                  <line x1="219.2" y1="158.8" x2="218.7" y2="167.8" stroke="#F8FAFC" strokeWidth="1.1" strokeLinecap="round" />
+                  <line x1="220.8" y1="158.8" x2="221.3" y2="167.8" stroke="#F8FAFC" strokeWidth="1.1" strokeLinecap="round" />
+                </g>
+
+                {/* Subdued Telemetry Coordinates */}
+                <text
+                  x="220"
+                  y="218"
+                  textAnchor="middle"
+                  fill="rgba(167, 139, 250, 0.4)"
+                  fontSize="8.5"
+                  fontFamily="var(--font-mono)"
+                  letterSpacing="0.18em"
+                >
+                  DESTINATION: PRODUCTION SYSTEMS
+                </text>
+              </svg>
             </div>
           </div>
         </div>
       </div>
 
+      {/* ================================================================= */}
+      {/* SCOPED COMPONENT STYLES                                           */}
+      {/* ================================================================= */}
       <style>{`
-        /* Timeline Container */
-        .trajectory-timeline {
+        /* -----------------------------------------------------------------
+         * SECTION BASE & ATMOSPHERE
+         * --------------------------------------------------------------- */
+        .trajectory-cinematic-section {
           position: relative;
-          display: flex;
-          flex-direction: column;
-          max-width: 920px;
-          margin: 0 auto;
-        }
-
-        /* Timeline Entry Row */
-        .timeline-item {
-          display: flex;
-          position: relative;
-          padding-bottom: clamp(36px, 5vw, 56px);
-        }
-
-        .timeline-item:last-child {
-          padding-bottom: 0;
-        }
-
-        /* Left Rail (Node + Line) */
-        .timeline-rail {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 48px;
-          min-width: 48px;
-          margin-right: clamp(20px, 3.5vw, 36px);
-          position: relative;
-        }
-
-        /* Timeline Node Icon */
-        .timeline-node {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          background: rgba(8, 9, 14, 0.95);
-          border: 1px solid rgba(139, 92, 246, 0.35);
-          color: #C4B5FD;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 0 0 4px rgba(4, 4, 7, 0.9), 0 4px 12px rgba(0, 0, 0, 0.5);
           z-index: 2;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          padding-top: clamp(80px, 12vw, 150px);
+          padding-bottom: clamp(80px, 12vw, 150px);
+          background-color: var(--bg-primary);
+          overflow: hidden;
         }
 
-        .timeline-item:hover .timeline-node {
-          border-color: #A78BFA;
-          color: #FFFFFF;
-          background: rgba(18, 14, 28, 0.95);
-          transform: scale(1.08);
-          box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 0 4px rgba(4, 4, 7, 0.95);
-        }
-
-        /* Continuous Connecting Line Stem */
-        .timeline-stem {
+        .trajectory-anchor-alias {
           position: absolute;
-          top: 38px;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
+          top: 0;
+          left: 0;
+          height: 1px;
           width: 1px;
-          background: linear-gradient(
-            to bottom,
-            rgba(139, 92, 246, 0.35) 0%,
-            rgba(139, 92, 246, 0.2) 60%,
-            rgba(139, 92, 246, 0.1) 100%
-          );
+          pointer-events: none;
         }
 
-        .timeline-item:hover .timeline-stem {
-          background: linear-gradient(
-            to bottom,
-            rgba(139, 92, 246, 0.6) 0%,
-            rgba(139, 92, 246, 0.35) 100%
-          );
+        .trajectory-atmosphere-layer {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
         }
 
-        /* Content Area */
-        .timeline-content {
-          flex: 1;
-          padding: 24px 28px;
-          background: rgba(9, 10, 15, 0.55);
-          border: 1px solid var(--border-hairline);
-          border-radius: 6px;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          backdrop-filter: blur(8px);
+        .atmosphere-svg {
+          width: 100%;
+          height: 100%;
+          display: block;
         }
 
-        .timeline-item:hover .timeline-content {
-          background: rgba(13, 14, 21, 0.75);
-          border-color: rgba(139, 92, 246, 0.28);
-          transform: translateX(4px);
-          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Meta Bar (Number, Phase, Badge) */
-        .timeline-meta-bar {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          margin-bottom: 12px;
-        }
-
-        .timeline-identity {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-family: var(--font-body);
-        }
-
-        .timeline-number {
-          font-family: var(--font-body);
-          font-size: 0.92rem;
-          font-weight: 700;
-          color: var(--accent-violet-light);
-          letter-spacing: 0.04em;
-        }
-
-        .timeline-slash {
-          color: var(--text-muted);
-          font-size: 0.85rem;
-        }
-
-        .timeline-phase {
-          font-size: 0.78rem;
-          font-weight: 600;
-          color: var(--text-secondary);
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
-        }
-
-        /* Type Badges */
-        .timeline-badge {
-          font-family: var(--font-body);
-          font-size: 0.7rem;
-          font-weight: 600;
-          letter-spacing: 0.04em;
-          text-transform: uppercase;
-          padding: 3px 10px;
-          border-radius: 12px;
-          border: 1px solid transparent;
-        }
-
-        .badge-learning {
-          background: rgba(139, 92, 246, 0.1);
-          color: #C4B5FD;
-          border-color: rgba(139, 92, 246, 0.25);
-        }
-
-        .badge-practice {
-          background: rgba(56, 189, 248, 0.1);
-          color: #7DD3FC;
-          border-color: rgba(56, 189, 248, 0.25);
-        }
-
-        .badge-building {
-          background: rgba(96, 165, 250, 0.12);
-          color: #BFDBFE;
-          border-color: rgba(96, 165, 250, 0.35);
-        }
-
-        .badge-workflow {
-          background: rgba(148, 163, 184, 0.1);
-          color: #CBD5E1;
-          border-color: rgba(148, 163, 184, 0.22);
-        }
-
-        .badge-exploration {
-          background: rgba(168, 85, 247, 0.12);
-          color: #D8B4FE;
-          border-color: rgba(168, 85, 247, 0.3);
-        }
-
-        /* Title */
-        .timeline-title {
-          font-family: var(--font-body);
-          font-size: clamp(1.2rem, 1.8vw, 1.45rem);
-          font-weight: 600;
-          letter-spacing: -0.015em;
-          color: var(--text-primary);
-          margin-bottom: 10px;
-          line-height: 1.3;
-          transition: color 0.25s ease;
-        }
-
-        .timeline-item:hover .timeline-title {
-          color: #FFFFFF;
-        }
-
-        /* Description */
-        .timeline-description {
-          font-family: var(--font-body);
-          font-size: 0.95rem;
-          line-height: 1.68;
-          color: var(--text-secondary);
-          margin-bottom: 18px;
-          max-width: 720px;
-        }
-
-        /* Tags */
-        .timeline-tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-        }
-
-        .timeline-tag-pill {
+        .atmospheric-code-glyph {
+          position: absolute;
+          top: 60px;
+          right: clamp(20px, 6vw, 80px);
           font-family: var(--font-mono);
-          font-size: 0.74rem;
-          color: rgba(226, 232, 240, 0.75);
-          padding: 3px 9px;
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid var(--border-hairline);
-          border-radius: 3px;
-          transition: all 0.2s ease;
+          font-size: clamp(4.5rem, 8.5vw, 8rem);
+          font-weight: 200;
+          color: var(--accent-purple-light);
+          opacity: 0.038;
+          letter-spacing: -0.04em;
+          pointer-events: none;
+          user-select: none;
         }
 
-        .timeline-item:hover .timeline-tag-pill {
-          background: rgba(255, 255, 255, 0.05);
-          border-color: rgba(255, 255, 255, 0.12);
-          color: rgba(226, 232, 240, 0.95);
-        }
-
-        /* =========================================
-           Milestone Box (Natural Timeline Conclusion)
-           ========================================= */
-        .milestone-timeline-item {
-          padding-bottom: 0;
-        }
-
-        .milestone-node {
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(8, 9, 14, 0.95)) !important;
-          border-color: rgba(139, 92, 246, 0.6) !important;
-          color: #C4B5FD !important;
-          box-shadow: 0 0 16px rgba(139, 92, 246, 0.35), 0 0 0 4px rgba(4, 4, 7, 0.9) !important;
-        }
-
-        .milestone-box {
-          flex: 1;
-          padding: clamp(24px, 4vw, 36px);
-          background: linear-gradient(135deg, rgba(139, 92, 246, 0.07) 0%, rgba(9, 10, 15, 0.85) 100%);
-          border: 1px solid rgba(139, 92, 246, 0.28);
-          border-radius: 6px;
-          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+        .trajectory-inner-container {
           position: relative;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          backdrop-filter: blur(12px);
+          z-index: 1;
         }
 
-        .milestone-box:hover {
-          border-color: rgba(139, 92, 246, 0.5);
-          transform: translateY(-2px);
-          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(139, 92, 246, 0.15);
+        /* -----------------------------------------------------------------
+         * SECTION HEADER
+         * --------------------------------------------------------------- */
+        .trajectory-header {
+          margin-bottom: clamp(48px, 7vw, 76px);
         }
 
-        .milestone-top-row {
+        .trajectory-header-flow {
           display: flex;
-          align-items: center;
-          justify-content: space-between;
           flex-wrap: wrap;
-          gap: 12px;
-          margin-bottom: 12px;
+          justify-content: space-between;
+          align-items: baseline;
+          gap: 24px;
+        }
+
+        .trajectory-heading {
+          font-family: var(--font-body);
+          font-size: clamp(2.3rem, 4.6vw, 3.8rem);
+          line-height: 1.1;
+          font-weight: 500;
+          letter-spacing: -0.025em;
+          color: var(--text-primary);
+          margin: 0;
+        }
+
+        .serif-motion-accent {
+          font-family: var(--font-serif);
+          font-style: italic;
+          font-weight: 400;
+          color: var(--accent-purple-light);
+          opacity: 0.88;
+        }
+
+        .trajectory-lead {
+          font-family: var(--font-body);
+          font-size: clamp(1rem, 1.18vw, 1.12rem);
+          color: var(--text-secondary);
+          line-height: 1.65;
+          max-width: 440px;
+          margin: 0;
+        }
+
+        /* -----------------------------------------------------------------
+         * LEARNING JOURNEY STAGE (Curved Path + 4 Milestones)
+         * ---------------------------------------------------------------- */
+        .learning-journey-stage {
+          position: relative;
+          min-height: clamp(440px, 48vw, 500px);
+          margin-bottom: clamp(60px, 8vw, 96px);
+        }
+
+        .journey-desktop-canvas {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+        }
+
+        .journey-curve-svg {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+
+        /* Animate SVG Path Stroke on Scroll Entry */
+        .animated-journey-path {
+          stroke-dasharray: 1;
+          stroke-dashoffset: 1;
+          transition: stroke-dashoffset 1.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .trajectory-cinematic-section.in-view .animated-journey-path {
+          stroke-dashoffset: 0;
+        }
+
+        /* Node Breathing Glow Animation */
+        .breathing-halo {
+          animation: breathingHalo 3.6s ease-in-out infinite;
+        }
+
+        @keyframes breathingHalo {
+          0%, 100% {
+            r: 14;
+            opacity: 0.55;
+          }
+          50% {
+            r: 20;
+            opacity: 0.9;
+          }
+        }
+
+        /* -----------------------------------------------------------------
+         * MILESTONES TYPOGRAPHY CONTAINER (DESKTOP)
+         * ---------------------------------------------------------------- */
+        .milestones-typography-container {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          min-height: clamp(440px, 48vw, 500px);
+        }
+
+        /* Desktop Positioning: Staggered and Alternating */
+        .milestone-block {
+          position: absolute;
+          width: clamp(210px, 22vw, 255px);
+          cursor: default;
+          transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Milestone 1: Node at (160/1200) = 13.3%, y=265 (60%). Text positioned ABOVE. */
+        .milestone-idx-0 {
+          left: calc(13.33% - 110px);
+          bottom: calc(100% - 240px);
+        }
+
+        /* Milestone 2: Node at (450/1200) = 37.5%, y=145 (33%). Text positioned BELOW. */
+        .milestone-idx-1 {
+          left: calc(37.5% - 110px);
+          top: 172px;
+        }
+
+        /* Milestone 3: Node at (750/1200) = 62.5%, y=290 (66%). Text positioned ABOVE. */
+        .milestone-idx-2 {
+          left: calc(62.5% - 110px);
+          bottom: calc(100% - 265px);
+        }
+
+        /* Milestone 4: Node at (1040/1200) = 86.6%, y=135 (31%). Text positioned BELOW. */
+        .milestone-idx-3 {
+          left: calc(86.67% - 130px);
+          top: 162px;
+        }
+
+        .mobile-node-marker {
+          display: none;
+        }
+
+        .milestone-meta-row {
+          margin-bottom: 8px;
         }
 
         .milestone-eyebrow {
-          font-family: var(--font-serif);
-          font-style: italic;
-          font-size: 1.15rem;
-          color: var(--accent-violet-light);
-        }
-
-        .milestone-badge {
-          font-family: var(--font-body);
+          font-family: var(--font-mono);
           font-size: 0.72rem;
           font-weight: 600;
-          letter-spacing: 0.04em;
+          color: var(--accent-purple-light);
+          letter-spacing: 0.1em;
           text-transform: uppercase;
-          padding: 4px 12px;
-          background: rgba(139, 92, 246, 0.15);
-          color: #C4B5FD;
-          border: 1px solid rgba(139, 92, 246, 0.4);
-          border-radius: 12px;
         }
 
         .milestone-title {
           font-family: var(--font-body);
-          font-size: clamp(1.4rem, 2.2vw, 1.85rem);
-          font-weight: 600;
-          letter-spacing: -0.02em;
+          font-size: clamp(1.15rem, 1.4vw, 1.35rem);
+          font-weight: 700;
           color: var(--text-primary);
-          margin-bottom: 12px;
           line-height: 1.25;
+          letter-spacing: -0.02em;
+          margin: 0 0 8px 0;
+          transition: color 0.3s ease, text-shadow 0.3s ease;
         }
 
         .milestone-description {
           font-family: var(--font-body);
-          font-size: 0.96rem;
-          line-height: 1.7;
+          font-size: 0.88rem;
           color: var(--text-secondary);
-          margin-bottom: 22px;
-          max-width: 640px;
+          line-height: 1.6;
+          margin: 0;
+          transition: color 0.3s ease;
         }
 
-        .milestone-footer {
-          display: flex;
+        /* Interactive Focus state: Dim non-active, illuminate active */
+        .learning-journey-stage.has-active .milestone-block:not(.is-active) {
+          opacity: 0.35;
+        }
+
+        .milestone-block.is-active .milestone-title {
+          color: #FFFFFF;
+          text-shadow: 0 0 20px rgba(167, 139, 250, 0.45);
+        }
+
+        .milestone-block.is-active .milestone-description {
+          color: var(--text-primary);
+        }
+
+        /* -----------------------------------------------------------------
+         * PRECEDING TIMELINE TRANSITION (The Arrival Focus)
+         * --------------------------------------------------------------- */
+        .learning-journey-stage {
+          position: relative;
+          min-height: 440px;
+          margin-bottom: clamp(60px, 8vw, 100px);
+          transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                      filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .learning-journey-stage.timeline-receding {
+          opacity: 0.42;
+          filter: blur(0.4px);
+        }
+
+        .learning-journey-stage.timeline-receding:hover {
+          opacity: 0.85;
+          filter: none;
+        }
+
+        /* -----------------------------------------------------------------
+         * SUBTLE HORIZONTAL SEPARATOR
+         * --------------------------------------------------------------- */
+        .trajectory-divider-line {
+          width: 100%;
+          height: 1px;
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.08) 20%,
+            rgba(167, 139, 250, 0.25) 50%,
+            rgba(255, 255, 255, 0.08) 80%,
+            transparent 100%
+          );
+          margin-bottom: clamp(48px, 6vw, 72px);
+          transition: opacity 1.2s ease;
+        }
+
+        /* -----------------------------------------------------------------
+         * THE NEXT MILESTONE CONCLUDING COMPOSITION (CINEMATIC ARRIVAL)
+         * --------------------------------------------------------------- */
+        .next-milestone-stage {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: clamp(36px, 6vw, 64px);
           align-items: center;
+          position: relative;
         }
 
-        .milestone-cta {
+        @media (min-width: 900px) {
+          .next-milestone-stage {
+            grid-template-columns: 1.15fr 0.85fr;
+          }
+        }
+
+        .next-milestone-content {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          position: relative;
+          z-index: 2;
+        }
+
+        /* 1. Eyebrow Reveal */
+        .next-milestone-eyebrow {
+          font-family: var(--font-mono);
+          font-size: 0.74rem;
+          font-weight: 600;
+          color: var(--accent-purple-light);
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          opacity: 0;
+          transform: translateY(14px);
+          transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.08s,
+                      transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.08s;
+        }
+
+        .next-milestone-stage.is-arrived .next-milestone-eyebrow {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* 2. Headline & Words Staggered Reveal */
+        .next-milestone-heading {
+          font-family: var(--font-body);
+          font-size: clamp(2.1rem, 4vw, 3.4rem);
+          font-weight: 700;
+          color: var(--text-primary);
+          line-height: 1.12;
+          letter-spacing: -0.03em;
+          margin: 0;
+          overflow: hidden;
+        }
+
+        .milestone-reveal-word {
+          display: inline-block;
+          opacity: 0;
+          transform: translateY(28px);
+          will-change: transform, opacity;
+        }
+
+        .milestone-reveal-word.word-1 {
+          transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.18s,
+                      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.18s;
+        }
+
+        .milestone-reveal-word.word-2 {
+          transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.30s,
+                      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.30s;
+        }
+
+        .milestone-reveal-word.word-3 {
+          transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.44s,
+                      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.44s;
+        }
+
+        .next-milestone-stage.is-arrived .milestone-reveal-word {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .milestone-internship-accent {
+          background: linear-gradient(135deg, #FFFFFF 0%, #D8B4FE 45%, #A78BFA 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.42));
+        }
+
+        /* 3. Description Narrative Reveal */
+        .next-milestone-description {
+          font-family: var(--font-body);
+          font-size: clamp(1rem, 1.2vw, 1.12rem);
+          color: var(--text-secondary);
+          line-height: 1.68;
+          max-width: 540px;
+          margin: 0;
+          opacity: 0;
+          transform: translateY(18px);
+          transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.58s,
+                      transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.58s;
+        }
+
+        .next-milestone-stage.is-arrived .next-milestone-description {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* 4. Interactive Capsule CTA Link Reveal & Interactions */
+        .next-milestone-cta-link {
           display: inline-flex;
           align-items: center;
-          gap: 8px;
+          justify-content: center;
+          gap: 12px;
+          margin-top: 10px;
+          padding: 13px 26px;
+          border-radius: 9999px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(139, 92, 246, 0.1) 100%);
+          border: 1px solid rgba(167, 139, 250, 0.32);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 0 14px rgba(139, 92, 246, 0.08);
           font-family: var(--font-body);
-          font-size: 0.86rem;
+          font-size: 0.94rem;
           font-weight: 600;
-          color: var(--accent-violet-light);
+          color: #F8FAFC;
           text-decoration: none;
-          padding: 8px 16px;
-          background: rgba(139, 92, 246, 0.08);
-          border: 1px solid rgba(139, 92, 246, 0.25);
-          border-radius: 4px;
-          transition: all 0.25s ease;
+          width: fit-content;
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          opacity: 0;
+          transform: translateY(18px);
+          transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.74s,
+                      transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.74s,
+                      background 0.25s ease,
+                      border-color 0.25s ease,
+                      box-shadow 0.25s ease,
+                      color 0.25s ease;
         }
 
-        .milestone-cta:hover {
-          background: rgba(139, 92, 246, 0.2);
-          border-color: rgba(139, 92, 246, 0.55);
+        .next-milestone-stage.is-arrived .next-milestone-cta-link {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .next-milestone-cta-link::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 9999px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(167, 139, 250, 0.22) 100%);
+          opacity: 0;
+          transition: opacity 0.25s ease;
+        }
+
+        .next-milestone-cta-link:hover {
           color: #FFFFFF;
-          transform: translateX(3px);
+          transform: translateY(-2px);
+          border-color: rgba(167, 139, 250, 0.65);
+          box-shadow: 0 6px 28px rgba(139, 92, 246, 0.3), 0 0 20px rgba(167, 139, 250, 0.22);
         }
 
-        .milestone-arrow {
-          transition: transform 0.2s ease;
+        .next-milestone-cta-link:hover::before {
+          opacity: 1;
         }
 
-        .milestone-cta:hover .milestone-arrow {
-          transform: translateX(3px);
+        .cta-link-text {
+          position: relative;
+          z-index: 1;
         }
 
-        /* =========================================
-           Mobile Responsiveness
-           ========================================= */
-        @media (max-width: 640px) {
-          .timeline-rail {
-            width: 32px;
-            min-width: 32px;
-            margin-right: 14px;
+        .cta-arrow-icon {
+          position: relative;
+          z-index: 1;
+          color: var(--accent-purple-light);
+          flex-shrink: 0;
+          transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+        }
+
+        .next-milestone-cta-link:hover .cta-arrow-icon {
+          color: #FFFFFF;
+          transform: translate(2px, -2px);
+        }
+
+        .next-milestone-cta-link:active {
+          transform: translateY(0);
+        }
+
+        .next-milestone-cta-link:focus-visible {
+          outline: 2px solid var(--accent-purple-light);
+          outline-offset: 4px;
+        }
+
+        /* -----------------------------------------------------------------
+         * PLANETARY HORIZON VISUAL & CELESTIAL ATMOSPHERE
+         * --------------------------------------------------------------- */
+        .next-milestone-visual-wrap {
+          position: relative;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          opacity: 0;
+          transform: translateY(22px) scale(0.97);
+          filter: blur(4px);
+          transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.25s,
+                      transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.25s,
+                      filter 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+        }
+
+        .next-milestone-stage.is-arrived .next-milestone-visual-wrap {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          filter: blur(0);
+        }
+
+        .horizon-ambient-aura {
+          position: absolute;
+          width: 110%;
+          height: 110%;
+          top: -5%;
+          left: -5%;
+          background: radial-gradient(ellipse at 50% 68%, rgba(139, 92, 246, 0.16) 0%, rgba(109, 40, 217, 0.05) 50%, transparent 75%);
+          pointer-events: none;
+          border-radius: 50%;
+          opacity: 0;
+          transform: scale(0.85);
+          transition: opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s,
+                      transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+        }
+
+        .next-milestone-stage.is-arrived .horizon-ambient-aura {
+          opacity: 1;
+          transform: scale(1);
+        }
+
+        .next-milestone-visual {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          z-index: 1;
+        }
+
+        .planetary-horizon-svg {
+          width: 100%;
+          max-width: 440px;
+          height: auto;
+          display: block;
+          overflow: visible;
+        }
+
+        /* Horizon Rim Subtle Light Movement */
+        .horizon-rim-glint {
+          stroke-dasharray: 90 380;
+          animation: horizonGlintRun 7.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+          opacity: 0.85;
+        }
+
+        @keyframes horizonGlintRun {
+          0% {
+            stroke-dashoffset: 470;
+          }
+          100% {
+            stroke-dashoffset: -470;
+          }
+        }
+
+        /* Atmospheric Haze Breathing */
+        .horizon-haze-ellipse {
+          transform-origin: 220px 172px;
+          animation: horizonHazeBreathe 6.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes horizonHazeBreathe {
+          0% {
+            opacity: 0.6;
+            transform: scaleY(0.96);
+          }
+          100% {
+            opacity: 0.95;
+            transform: scaleY(1.06);
+          }
+        }
+
+        /* Footing Specular Pulse */
+        .horizon-foot-spec {
+          animation: footPulse 3.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes footPulse {
+          0% {
+            opacity: 0.55;
+            transform: scale(0.9);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1.15);
+          }
+        }
+
+        /* Human Silhouette Entrance */
+        .horizon-silhouette {
+          opacity: 0;
+          transform: translateY(5px);
+          transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s,
+                      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s;
+        }
+
+        .next-milestone-stage.is-arrived .horizon-silhouette {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* Stardust Pulse */
+        .space-stardust {
+          animation: stardustTwinkle 5s ease-in-out infinite alternate;
+        }
+
+        @keyframes stardustTwinkle {
+          0% {
+            opacity: 0.5;
+          }
+          50% {
+            opacity: 0.85;
+          }
+          100% {
+            opacity: 0.6;
+          }
+        }
+
+        /* -----------------------------------------------------------------
+         * RESPONSIVE BEHAVIOR (MOBILE & TABLET)
+         * --------------------------------------------------------------- */
+        @media (max-width: 859px) {
+          .journey-desktop-canvas {
+            display: none;
           }
 
-          .timeline-node {
-            width: 30px;
-            height: 30px;
+          .learning-journey-stage {
+            min-height: auto;
+            margin-bottom: 48px;
           }
 
-          .timeline-node svg {
-            width: 13px;
-            height: 13px;
-          }
-
-          .timeline-stem {
-            top: 30px;
-          }
-
-          .timeline-content {
-            padding: 16px 18px;
-          }
-
-          .timeline-meta-bar {
+          .milestones-typography-container {
+            position: relative;
+            min-height: auto;
+            display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 6px;
+            gap: 36px;
+            padding-left: 36px;
+            border-left: 1px solid rgba(167, 139, 250, 0.25);
+            margin-left: 14px;
           }
 
-          .milestone-box {
-            padding: 20px 18px;
+          .milestone-block {
+            position: relative !important;
+            left: auto !important;
+            right: auto !important;
+            top: auto !important;
+            bottom: auto !important;
+            width: 100% !important;
+          }
+
+          .mobile-node-marker {
+            display: block;
+            position: absolute;
+            left: -43px;
+            top: 2px;
+            width: 14px;
+            height: 14px;
+          }
+
+          .mobile-node-halo {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.4) 0%, transparent 70%);
+            animation: breathingHalo 3.6s ease-in-out infinite;
+          }
+
+          .mobile-node-core {
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            box-shadow: 0 0 8px #A78BFA;
+          }
+
+          .atmospheric-code-glyph {
+            display: none;
+          }
+
+          .next-milestone-cta-link {
+            width: 100%;
+            font-size: 0.88rem;
+            padding: 12px 20px;
+          }
+        }
+
+        /* Respect Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+          .animated-journey-path,
+          .breathing-halo,
+          .mobile-node-halo,
+          .horizon-rim-glint,
+          .horizon-haze-ellipse,
+          .horizon-foot-spec,
+          .space-stardust {
+            animation: none !important;
+            transition: none !important;
+            stroke-dashoffset: 0 !important;
+          }
+
+          .learning-journey-stage,
+          .learning-journey-stage.timeline-receding {
+            opacity: 1 !important;
+            filter: none !important;
+            transition: none !important;
+          }
+
+          .next-milestone-eyebrow,
+          .milestone-reveal-word,
+          .next-milestone-description,
+          .next-milestone-cta-link,
+          .next-milestone-visual-wrap,
+          .horizon-ambient-aura,
+          .horizon-silhouette {
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+            transition: none !important;
           }
         }
       `}</style>

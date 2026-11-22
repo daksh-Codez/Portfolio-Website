@@ -11,25 +11,33 @@ export const socialLinks: SocialLink[] = [
   {
     id: "github",
     label: "GitHub",
-    handle: "dakshcodez", // GitHub profile username or placeholder
-    url: "https://github.com/dakshcodez",
+    handle: "@daksh-Codez",
+    url: "https://github.com/daksh-Codez",
     isConfigured: true,
     platform: "github"
   },
   {
     id: "linkedin",
     label: "LinkedIn",
-    handle: "daksh-goswami",
-    url: null, // Configurable placeholder; renders gracefully with copy/tooltip
-    isConfigured: false,
+    handle: "@Daksh Goswami",
+    url: "https://linkedin.com/in/daksh-goswami",
+    isConfigured: true,
     platform: "linkedin"
+  },
+  {
+    id: "codolio",
+    label: "Codolio",
+    handle: "@dakshCodez",
+    url: "https://codolio.com/profile/dakshCodez",
+    isConfigured: true,
+    platform: "codolio"
   },
   {
     id: "email",
     label: "Email",
-    handle: "dakshgoswami@outlook.com", // Configurable placeholder
-    url: "mailto:dakshgoswami@outlook.com",
-    isConfigured: false, // will update or toggle easily
+    handle: "dakshgoswami4077@gmail.com",
+    url: "mailto:dakshgoswami4077@gmail.com",
+    isConfigured: true,
     platform: "email"
   }
 ];

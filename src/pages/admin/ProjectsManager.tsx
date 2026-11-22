@@ -346,7 +346,21 @@ export const ProjectsManager: React.FC = () => {
                     {(editingProject.start_line || 1) + (editingProject.code_excerpt || '').split('\n').length - 1}
                   </span>
                 </div>
-                <div style={{ padding: '16px 0', fontFamily: 'var(--font-mono)', fontSize: '0.82rem', overflowX: 'auto' }}>
+                <div
+                  className="code-scroll-pane"
+                  style={{
+                    padding: '16px 0',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.82rem',
+                    lineHeight: '1.68',
+                    height: '380px',
+                    maxHeight: '380px',
+                    overflowX: 'auto',
+                    overflowY: 'auto',
+                    backgroundColor: 'rgba(6, 6, 10, 0.98)',
+                    position: 'relative',
+                  }}
+                >
                   <table style={{ borderCollapse: 'collapse', width: '100%' }}>
                     <tbody>
                       {(editingProject.code_excerpt || '').split('\n').map((line, lIdx) => (
@@ -361,11 +375,15 @@ export const ProjectsManager: React.FC = () => {
                               userSelect: 'none',
                               fontSize: '0.76rem',
                               borderRight: '1px solid rgba(255, 255, 255, 0.06)',
+                              position: 'sticky',
+                              left: 0,
+                              backgroundColor: 'rgba(6, 6, 10, 0.98)',
+                              zIndex: 2,
                             }}
                           >
                             {(editingProject.start_line || 1) + lIdx}
                           </td>
-                          <td style={{ paddingLeft: '16px', whiteSpace: 'pre', color: '#CBD5E1' }}>
+                          <td style={{ paddingLeft: '16px', paddingRight: '20px', whiteSpace: 'pre', color: '#CBD5E1' }}>
                             {highlightLine(line)}
                           </td>
                         </tr>
@@ -794,6 +812,24 @@ export const ProjectsManager: React.FC = () => {
         .form-input:focus {
           border-color: #8B5CF6;
           box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+        }
+        .code-scroll-pane {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(139, 92, 246, 0.35) rgba(8, 8, 14, 0.6);
+        }
+        .code-scroll-pane::-webkit-scrollbar {
+          width: 6px;
+          height: 6px;
+        }
+        .code-scroll-pane::-webkit-scrollbar-track {
+          background: rgba(8, 8, 14, 0.6);
+        }
+        .code-scroll-pane::-webkit-scrollbar-thumb {
+          background: rgba(139, 92, 246, 0.3);
+          border-radius: 3px;
+        }
+        .code-scroll-pane::-webkit-scrollbar-thumb:hover {
+          background: rgba(139, 92, 246, 0.6);
         }
       `}</style>
     </div>

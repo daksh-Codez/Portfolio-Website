@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { personalInfo } from '../../data/personalInfo';
+import { getSectionNumber } from '../../config/sections';
 
 const navItems = [
   { label: 'Home', href: '#home', id: 'home' },
   { label: 'About', href: '#about', id: 'about' },
   { label: 'Skills', href: '#skills', id: 'skills' },
   { label: 'Work', href: '#work', id: 'work' },
+  { label: 'Problem Solving', href: '#problem-solving', id: 'problem-solving' },
   { label: 'Education', href: '#education', id: 'education' },
   { label: 'Contact', href: '#contact', id: 'contact' },
 ];
@@ -62,75 +64,23 @@ export const Navbar: React.FC = () => {
           padding: isScrolled ? '16px 0' : '28px 0',
         }}
       >
-        <div className="editorial-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          {/* Left: Custom DG Monogram Wordmark */}
-          <a
-            href="#home"
-            onClick={(e) => scrollToSection(e, '#home')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              textDecoration: 'none',
-            }}
-            aria-label="Daksh Goswami — Return to top"
-          >
-            <div
-              style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '6px',
-                border: '1px solid rgba(139, 92, 246, 0.45)',
-                background: 'linear-gradient(135deg, rgba(32, 32, 42, 0.95), rgba(24, 24, 32, 0.95))',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.84rem',
-                fontWeight: 700,
-                color: 'var(--text-primary)',
-                letterSpacing: '0.04em',
-                transition: 'border-color 0.3s ease, transform 0.3s ease',
-              }}
-              className="monogram-badge"
-            >
-              <span style={{ color: 'var(--accent-violet-light)' }}>D</span>G
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '0.94rem',
-                  fontWeight: 600,
-                  letterSpacing: '0.02em',
-                  color: 'var(--text-primary)',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {personalInfo.name}
-              </span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '0.74rem',
-                  fontWeight: 500,
-                  color: 'var(--text-secondary)',
-                  letterSpacing: '0.02em',
-                }}
-              >
-                CSE / PORTFOLIO
-              </span>
-            </div>
-          </a>
-
-          {/* Right: Desktop Navigation links */}
+        <div
+          className="editorial-container navbar-inner"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            width: '100%',
+          }}
+        >
+          {/* Desktop Navigation links */}
           <nav
             role="navigation"
             aria-label="Main Navigation"
             style={{
               display: 'none',
               alignItems: 'center',
-              gap: '32px',
+              gap: 'clamp(14px, 2.2vw, 32px)',
             }}
             className="desktop-nav"
           >
@@ -268,7 +218,7 @@ export const Navbar: React.FC = () => {
                     color: 'var(--text-muted)',
                   }}
                 >
-                  0{idx + 1}
+                  {item.id === 'home' ? '00' : getSectionNumber(item.id)}
                 </span>
                 <span>{item.label}</span>
               </a>
@@ -283,6 +233,9 @@ export const Navbar: React.FC = () => {
       {/* Global CSS for desktop/mobile nav queries */}
       <style>{`
         @media (min-width: 820px) {
+          .navbar-inner {
+            justify-content: center !important;
+          }
           .desktop-nav {
             display: flex !important;
           }

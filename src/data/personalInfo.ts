@@ -32,7 +32,7 @@ export const personalInfo: PersonalInfo = {
   email: "dakshgoswami4077@gmail.com",
   tagline: "INDEPENDENTLY CURIOUS. CONSTANTLY BUILDING.",
   heroHeadline: "Computer Science student exploring the art of building software.",
-  heroBio: "I'm a Computer Science Engineering student passionate about programming, software development, and creating useful digital products. I enjoy learning, experimenting, and turning ideas into functional projects.",
+  heroBio: "I am interested in competitive programming and software development. I'm skilled in C, C++, and Python, and always learning, building projects, and improving my problem-solving skills.",
   aboutEditorial: {
     lead: "Curiosity is where everything begins.",
     paragraphs: [

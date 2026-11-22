@@ -474,7 +474,7 @@ VALUES (
     'Computer Science Student · Focused on Systems & Software Craft',
     'Curiosity is where everything begins.',
     'Delhi, India',
-    'I am a Computer Science Engineering student focused on programming fundamentals, low-level systems, software craftsmanship, and real-world digital applications.',
+    'I am interested in competitive programming and software development. I''m skilled in C, C++, and Python, and always learning, building projects, and improving my problem-solving skills.',
     ARRAY[
         'I am a Computer Science Engineering student with an active focus on procedural programming, low-level architecture, and the foundational principles of software development.',
         'My journey is driven by practical curiosity — exploring how instructions translate into execution, how structured algorithms solve complex challenges, and how clean code builds reliable systems.',

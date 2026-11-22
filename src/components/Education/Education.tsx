@@ -1,6 +1,7 @@
 import React from 'react';
 import { usePortfolioData } from '../../context/DataContext';
 import { GraduationCap, MapPin, BookOpen, Award } from 'lucide-react';
+import { SectionLabel } from '../SectionLabel/SectionLabel';
 
 export const Education: React.FC = () => {
   const { educationRecord } = usePortfolioData();
@@ -17,7 +18,7 @@ export const Education: React.FC = () => {
     >
       <div className="editorial-container">
         {/* Section Label */}
-        <div className="section-label">04 / EDUCATION</div>
+        <SectionLabel id="education" />
 
         <div
           style={{

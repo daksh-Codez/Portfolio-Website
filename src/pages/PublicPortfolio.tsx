@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSmoothScroll } from '../hooks/useSmoothScroll';
 import { Scene3D } from '../components/Scene3D/Scene3D';
-import { CustomCursor } from '../components/CustomCursor/CustomCursor';
 import { AmbientLight } from '../components/AmbientLight/AmbientLight';
 import { ScrollProgress } from '../components/ScrollProgress/ScrollProgress';
 import { Navbar } from '../components/Navbar/Navbar';
 import { Hero } from '../components/Hero/Hero';
 import { About } from '../components/About/About';
 import { Skills } from '../components/Skills/Skills';
+import { ProblemSolving } from '../components/ProblemSolving/ProblemSolving';
 import { Projects } from '../components/Projects/Projects';
 import { Education } from '../components/Education/Education';
 import { CurrentFocus } from '../components/CurrentFocus/CurrentFocus';
@@ -32,9 +32,6 @@ export const PublicPortfolio: React.FC = () => {
       {/* Ambient Luxury Mouse Light Reflection */}
       <AmbientLight />
 
-      {/* Editorial Custom Precision Cursor with Contextual Badging */}
-      <CustomCursor />
-
       {/* Signature 3D Spatial Canvas */}
       <Scene3D />
 
@@ -50,6 +47,8 @@ export const PublicPortfolio: React.FC = () => {
         <Skills />
         <div className="hairline-separator" />
         <Projects />
+        <div className="hairline-separator" />
+        <ProblemSolving />
         <div className="hairline-separator" />
         <Education />
         <div className="hairline-separator" />

@@ -123,7 +123,14 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
           location: dbPersonal.location || prev.location,
           email: dbPersonal.email !== undefined ? dbPersonal.email : prev.email,
           heroHeadline: dbPersonal.headline || prev.heroHeadline,
-          heroBio: dbPersonal.bio || prev.heroBio,
+          heroBio:
+            dbPersonal.bio &&
+            dbPersonal.bio !==
+              'I am a Computer Science Engineering student focused on programming fundamentals, low-level systems, software craftsmanship, and real-world digital applications.' &&
+            dbPersonal.bio !==
+              "I'm Daksh Goswami, a CSE student interested in competitive programming and software development. I'm skilled in C, C++, and Python, and always learning, building projects, and improving my problem-solving skills."
+              ? dbPersonal.bio
+              : prev.heroBio,
           aboutEditorial: {
             ...prev.aboutEditorial,
             lead: dbPersonal.headline || prev.aboutEditorial.lead,
