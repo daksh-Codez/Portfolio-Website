@@ -106,10 +106,10 @@ export const ContactManager: React.FC = () => {
                 value={info.availability_status || ''}
                 onChange={(e) => setInfo({ ...info, availability_status: e.target.value })}
                 className="form-input"
-                placeholder="Open to Internship Opportunities"
+                placeholder=""
               />
               <span style={{ fontSize: '0.74rem', color: '#797585', marginTop: '4px', display: 'block' }}>
-                Shown on the green pulsating badge in the Hero section.
+                Availability status.
               </span>
             </div>
           </div>

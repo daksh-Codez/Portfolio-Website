@@ -24,8 +24,6 @@ This portfolio is art-directed to stand apart from generic developer templates, 
   - Subtle mouse parallax tilt and performance optimization that pauses rendering when the browser tab is hidden.
 - **Ambient Light Reflection**:
   - Subtle radial luxury glow tracking the cursor with soft damping, disabled on touch and reduced-motion devices.
-- **Contextual Custom Cursor**:
-  - Precision center dot and smooth trailing ring that morphs into an editorial pill with contextual labels (`VIEW`, `OPEN`, `EXPLORE`, `CONNECT`, `COPY`).
 
 ---
 

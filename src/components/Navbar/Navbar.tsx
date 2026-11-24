@@ -224,9 +224,6 @@ export const Navbar: React.FC = () => {
               </a>
             ))}
           </div>
-          <div style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid var(--border-hairline)' }}>
-            <p className="mono-meta">{personalInfo.status}</p>
-          </div>
         </div>
       )}
 

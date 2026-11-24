@@ -122,7 +122,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
           tagline: dbPersonal.tagline || prev.tagline,
           location: dbPersonal.location || prev.location,
           email: dbPersonal.email !== undefined ? dbPersonal.email : prev.email,
-          heroHeadline: dbPersonal.headline || prev.heroHeadline,
+          heroHeadline:
+            dbPersonal.headline && dbPersonal.headline.trim() !== '.' && dbPersonal.headline.trim().length > 3
+              ? dbPersonal.headline
+              : prev.heroHeadline,
           heroBio:
             dbPersonal.bio &&
             dbPersonal.bio !==
@@ -133,7 +136,10 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
               : prev.heroBio,
           aboutEditorial: {
             ...prev.aboutEditorial,
-            lead: dbPersonal.headline || prev.aboutEditorial.lead,
+            lead:
+              dbPersonal.headline && dbPersonal.headline.trim() !== '.' && dbPersonal.headline.trim().length > 3
+                ? dbPersonal.headline
+                : prev.aboutEditorial.lead,
             paragraphs: dbPersonal.about_paragraphs && dbPersonal.about_paragraphs.length > 0
               ? dbPersonal.about_paragraphs
               : prev.aboutEditorial.paragraphs,
@@ -393,7 +399,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         bio: fallbackPersonalInfo.heroBio,
         about_paragraphs: fallbackPersonalInfo.aboutEditorial.paragraphs,
         email: 'dakshgoswami4077@gmail.com',
-        availability_status: 'Open to Internship Opportunities',
+        availability_status: '',
       };
     }
 

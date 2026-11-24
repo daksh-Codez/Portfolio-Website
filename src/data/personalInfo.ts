@@ -24,7 +24,7 @@ export const personalInfo: PersonalInfo = {
   wordmark: "DAKSH GOSWAMI",
   monogram: "DG",
   role: "Aspiring Software Developer",
-  status: "OPEN TO INTERNSHIP OPPORTUNITIES",
+  status: "",
   university: "Galgotias University",
   degree: "Computer Science Engineering",
   location: "Delhi, India",

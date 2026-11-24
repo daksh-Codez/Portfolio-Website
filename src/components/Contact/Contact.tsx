@@ -69,6 +69,8 @@ export const Contact: React.FC = () => {
           className="contact-atmosphere-svg"
           width="100%"
           height="100%"
+          viewBox="0 0 1200 600"
+          preserveAspectRatio="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
@@ -97,8 +99,8 @@ export const Contact: React.FC = () => {
 
           {/* Delicate Faint Orbital Curves (transparent, non-blocking) */}
           <ellipse
-            cx="46%"
-            cy="52%"
+            cx="552"
+            cy="312"
             rx="580"
             ry="190"
             fill="none"
@@ -106,8 +108,8 @@ export const Contact: React.FC = () => {
             strokeDasharray="4 8"
           />
           <ellipse
-            cx="52%"
-            cy="46%"
+            cx="624"
+            cy="276"
             rx="440"
             ry="140"
             fill="none"
@@ -117,9 +119,9 @@ export const Contact: React.FC = () => {
           />
 
           {/* Soft Planetary Horizon Arc (transparent fill, subtle illuminated edge) */}
-          <ellipse cx="50%" cy="96%" rx="520" ry="80" fill="url(#contactHaze)" />
+          <ellipse cx="600" cy="576" rx="520" ry="80" fill="url(#contactHaze)" />
           <path
-            d="M -30,100% C 320,84% 880,84% 1230,100%"
+            d="M -30,600 C 320,504 880,504 1230,600"
             fill="none"
             stroke="url(#contactRimGrad)"
             strokeWidth="1.5"
@@ -622,9 +624,8 @@ export const Contact: React.FC = () => {
          * ------------------------------------------------------------------- */
         @media (max-width: 900px) {
           .email-focal-text {
-            white-space: normal;
-            word-break: break-all;
-            font-size: clamp(1.3rem, 5vw, 1.85rem);
+            white-space: nowrap;
+            font-size: clamp(1.02rem, 4.4vw, 1.85rem);
           }
         }
 

@@ -27,14 +27,11 @@ export const Hero: React.FC = () => {
       }}
     >
       <div className="editorial-container">
-        {/* Top Meta Status Row */}
+        {/* Top Tagline Row */}
         <div
           style={{
             display: 'flex',
-            flexWrap: 'wrap',
             alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '16px',
             marginBottom: 'clamp(28px, 4.5vw, 48px)',
           }}
         >
@@ -62,32 +59,6 @@ export const Hero: React.FC = () => {
               {personalInfo.tagline}
             </span>
           </div>
-
-          {/* Living Availability Indicator */}
-          <button
-            type="button"
-            onClick={() => scrollTo('#contact')}
-            className="hero-status-pill"
-            aria-label="Open to internship opportunities - Connect via contact section"
-          >
-            {/* Ambient Border Sweep Shimmer */}
-            <span className="hero-status-border-glow" aria-hidden="true" />
-
-            {/* Pulsing Availability Signal Indicator */}
-            <span className="hero-status-pulse-wrapper" aria-hidden="true">
-              <span className="hero-status-pulse-halo" />
-              <span className="hero-status-pulse-ring" />
-              <span className="hero-status-pulse-core" />
-            </span>
-
-            {/* Exact Preserved Text */}
-            <span className="hero-status-text">
-              {personalInfo.status || 'OPEN TO INTERNSHIP OPPORTUNITIES'}
-            </span>
-
-            {/* Smooth Directional Arrow */}
-            <ArrowUpRight size={13} className="hero-status-arrow" aria-hidden="true" />
-          </button>
         </div>
 
         {/* Editorial Giant Typography */}
@@ -108,8 +79,15 @@ export const Hero: React.FC = () => {
             }}
           >
             <p className="editorial-lead">
-              {personalInfo.heroHeadline.split('exploring the art')[0]}
-              <span className="hero-serif-accent">exploring the art</span> of building software.
+              {personalInfo.heroHeadline.includes('exploring the art') ? (
+                <>
+                  {personalInfo.heroHeadline.split('exploring the art')[0].replace(/^\.\s*/, '')}
+                  <span className="hero-serif-accent">exploring the art</span>
+                  {personalInfo.heroHeadline.split('exploring the art')[1] || ' of building software.'}
+                </>
+              ) : (
+                personalInfo.heroHeadline
+              )}
             </p>
           </div>
 
@@ -258,185 +236,6 @@ export const Hero: React.FC = () => {
       </div>
 
       <style>{`
-        /* -------------------------------------------------------------
-         * LIVING AVAILABILITY INDICATOR (Hero Section)
-         * ----------------------------------------------------------- */
-        .hero-status-pill {
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          padding: 8px 18px 8px 14px;
-          border-radius: 9999px;
-          background: rgba(13, 12, 22, 0.45);
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
-          border: 1px solid rgba(167, 139, 250, 0.22);
-          box-shadow: 0 2px 14px rgba(0, 0, 0, 0.25), 0 0 16px rgba(139, 92, 246, 0.08);
-          cursor: pointer;
-          text-decoration: none;
-          overflow: hidden;
-          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                      background 0.3s ease,
-                      border-color 0.3s ease,
-                      box-shadow 0.3s ease;
-          user-select: none;
-        }
-
-        /* Delicate Continuous Orbital Light Sweep Along Border */
-        .hero-status-border-glow {
-          position: absolute;
-          inset: -1px;
-          border-radius: 9999px;
-          padding: 1px;
-          background: linear-gradient(
-            90deg,
-            transparent 0%,
-            rgba(139, 92, 246, 0.1) 20%,
-            rgba(167, 139, 250, 0.65) 50%,
-            rgba(56, 189, 248, 0.5) 70%,
-            transparent 100%
-          );
-          background-size: 200% 100%;
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          pointer-events: none;
-          animation: heroBorderSweep 7s linear infinite;
-        }
-
-        @keyframes heroBorderSweep {
-          0% {
-            background-position: -100% 0%;
-          }
-          100% {
-            background-position: 100% 0%;
-          }
-        }
-
-        /* Pulsing Availability Signal Indicator */
-        .hero-status-pulse-wrapper {
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 16px;
-          height: 16px;
-          flex-shrink: 0;
-        }
-
-        .hero-status-pulse-halo {
-          position: absolute;
-          inset: -4px;
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%);
-          pointer-events: none;
-        }
-
-        .hero-status-pulse-ring {
-          position: absolute;
-          inset: 0;
-          border-radius: 50%;
-          border: 1px solid rgba(52, 211, 153, 0.6);
-          background: rgba(16, 185, 129, 0.2);
-          animation: heroStatusWave 2.8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-        }
-
-        @keyframes heroStatusWave {
-          0% {
-            transform: scale(0.65);
-            opacity: 0.95;
-          }
-          65% {
-            transform: scale(1.8);
-            opacity: 0;
-          }
-          100% {
-            transform: scale(1.8);
-            opacity: 0;
-          }
-        }
-
-        .hero-status-pulse-core {
-          position: relative;
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background-color: #10B981;
-          box-shadow: 0 0 8px rgba(16, 185, 129, 0.8), 0 0 16px rgba(16, 185, 129, 0.4);
-          z-index: 1;
-        }
-
-        /* Typography */
-        .hero-status-text {
-          position: relative;
-          z-index: 1;
-          font-family: var(--font-body);
-          font-size: 0.77rem;
-          font-weight: 600;
-          letter-spacing: 0.05em;
-          color: #DDD6FE;
-          text-transform: uppercase;
-          white-space: nowrap;
-          transition: color 0.3s ease;
-        }
-
-        /* Subtle Directional Arrow */
-        .hero-status-arrow {
-          position: relative;
-          z-index: 1;
-          color: var(--accent-purple-light);
-          opacity: 0.75;
-          flex-shrink: 0;
-          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                      opacity 0.3s ease,
-                      color 0.3s ease;
-        }
-
-        /* Interactive Hover State */
-        .hero-status-pill:hover {
-          background: rgba(139, 92, 246, 0.14);
-          border-color: rgba(167, 139, 250, 0.55);
-          transform: translateY(-1px) scale(1.018);
-          box-shadow: 0 6px 26px rgba(139, 92, 246, 0.28), 0 0 20px rgba(167, 139, 250, 0.18);
-        }
-
-        .hero-status-pill:hover .hero-status-text {
-          color: #FFFFFF;
-        }
-
-        .hero-status-pill:hover .hero-status-arrow {
-          transform: translate(2px, -2px);
-          opacity: 1;
-          color: #FFFFFF;
-        }
-
-        /* Active Pressed State */
-        .hero-status-pill:active {
-          transform: translateY(0) scale(0.985);
-          background: rgba(139, 92, 246, 0.22);
-          box-shadow: 0 2px 10px rgba(139, 92, 246, 0.25);
-        }
-
-        /* Visible Focus Ring */
-        .hero-status-pill:focus-visible {
-          outline: 2px solid var(--accent-purple-light);
-          outline-offset: 3px;
-        }
-
-        @media (max-width: 640px) {
-          .hero-status-pill {
-            padding: 7px 14px 7px 12px;
-            gap: 8px;
-          }
-          .hero-status-text {
-            font-size: 0.72rem;
-            letter-spacing: 0.03em;
-            white-space: normal;
-            line-height: 1.35;
-          }
-        }
-
         @keyframes pulse {
           0%, 100% { opacity: 1; transform: scale(1); }
           50% { opacity: 0.5; transform: scale(1.25); }
@@ -564,10 +363,6 @@ export const Hero: React.FC = () => {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .hero-status-pill,
-          .hero-status-border-glow,
-          .hero-status-pulse-ring,
-          .hero-status-arrow,
           .hero-btn-primary,
           .hero-btn-secondary,
           .hero-btn-arrow-down,
