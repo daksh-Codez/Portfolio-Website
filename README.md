@@ -1,4 +1,4 @@
-# Daksh Goswami — Premium Editorial 3D Developer Portfolio & CMS
+# A Personalized Portfolio Website
 
 > **Independently Curious. Constantly Building.**  
 > A bespoke, editorial luxury 3D developer portfolio crafted for **Daksh Goswami**, Computer Science Engineering undergraduate at Galgotias University, equipped with a private administration dashboard (CMS) powered by Supabase.
