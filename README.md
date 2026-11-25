@@ -1,10 +1,5 @@
 # A Personalized Portfolio Website
 
-> **Independently Curious. Constantly Building.**  
-> A bespoke, editorial luxury 3D developer portfolio crafted for **Daksh Goswami**, Computer Science Engineering undergraduate at Galgotias University, equipped with a private administration dashboard (CMS) powered by Supabase.
-
----
-
 ## ✦ Art Direction & Design Philosophy
 
 This portfolio is art-directed to stand apart from generic developer templates, AI boilerplate, and SaaS landing pages. It embraces an **Editorial Luxury** aesthetic:
